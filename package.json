@@ -17,12 +17,12 @@
   "author": "vigour.io <dev@vigour.io>",
   "license": "ISC",
   "dependencies": {
-    "brisky-events": "vigour-io/brisky-events",
-    "brisky-props": "vigour-io/brisky-props",
-    "brisky-class": "vigour-io/brisky-class",
-    "brisky-style": "vigour-io/brisky-style",
-    "brisky-focus": "vigour-io/brisky-focus",
-    "brisky-core": "vigour-io/brisky-core"
+    "brisky-class": "0.0.1",
+    "brisky-core": "0.0.1",
+    "brisky-events": "0.0.1",
+    "brisky-focus": "0.0.1",
+    "brisky-props": "0.0.1",
+    "brisky-style": "0.0.1"
   },
   "bugs": {
     "url": "https://github.com/vigour-io/brisky/issues"
