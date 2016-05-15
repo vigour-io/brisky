@@ -1,0 +1,20 @@
+.benchmark {
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  width: 100%;
+  padding:5px;
+  background-color: var(--fg2);
+  border-bottom: 1px solid var(--white);
+  & * {
+    padding: 10px;
+    margin: 5px;
+    font-size: 11px;
+    border: 1px solid var(--white);
+    display: inline-block;
+  }
+}
+
+.app.shiftdown {
+  margin-top: 70px;
+}

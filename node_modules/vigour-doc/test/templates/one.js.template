@@ -1,0 +1,6 @@
+'use strict'
+
+<%= comment %>
+module.exports = exports = function (text, amount, isCool, things) {
+
+}

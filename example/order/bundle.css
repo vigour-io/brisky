@@ -1,0 +1,141 @@
+@font-face {
+    font-family: 'Droid-Sans-Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Droid Sans Mono'), local('DroidSansMono'), url(https://fonts.gstatic.com/s/droidsansmono/v7/ns-m2xQYezAtqh7ai59hJaH0X__W3S3MJL29bc5CWfs.woff) format('woff')
+}
+/*@import url('https://fonts.googleapis.com/css?family=Droid+Sans+Mono');*/
+div:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.8)
+}
+body {
+    background-color: rgb(38, 50, 56);
+    font-family: 'Droid-Sans-Mono';
+    color: white
+}
+.big {
+    font-size: 10vw
+}
+.focus {
+    border: 4px solid grey !important
+}
+.app {
+    text-transform: uppercase
+}
+.app * {
+    text-transform: none
+}
+.holder {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(128, 203, 196);
+    padding: 30px
+}
+.holder .title {
+    border-bottom: 1px solid white;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: left
+}
+.basic-item {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    vertical-align: middle;
+    display: inline-block;
+    cursor: default;
+    margin: 5px;
+    padding: 5px;
+    min-width: 20px;
+    max-width: 90%;
+    font-size: 8px;
+    border: 1px solid white
+}
+.basic-item .texts {
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px
+}
+.complex-item {
+    vertical-align: middle;
+    min-width: 150px;
+    margin: 5px;
+    padding: 5px;
+    display: inline-block;
+    border: 1px solid  white;
+    font-size: 11px;
+    padding: 15px
+}
+.complex-item .header {
+    font-weight: bold
+}
+.complex-item .nested {
+    margin-top: 7.5px;
+    margin-bottom: 7.5px
+}
+.complex-item .nested * {
+    padding: 5px;
+    border: 1px solid white
+}
+.complex-item .img {
+    padding: 10px;
+    height: 100px;
+    background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+    background-size: cover
+}
+.complex-item .title {
+    text-align: center;
+    font-size: 22px;
+    border-bottom: 1px solid white;
+    padding: 15px;
+    text-transform: uppercase;
+    margin-bottom: 15px
+}
+.complex-item .subtitle {
+    font-size: 14px;
+    border-bottom: 1px solid white;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    margin-top: 20px
+}
+.symbol {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 15px
+}
+.symbol:before,
+.symbol:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border: 1px solid white;
+    border-radius: 10px 10px 0 10px;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg)
+}
+.symbol:after {
+    left: auto;
+    right: 0;
+    border-radius: 10px 10px 10px 0;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg)
+}
+.whitefilter {
+    filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
+    -webkit-filter: grayscale(100%) brightness(2);
+            filter: grayscale(100%) brightness(2);
+    border-radius: 50%
+}
+.fill {
+    width: calc(100% - 45px)
+}

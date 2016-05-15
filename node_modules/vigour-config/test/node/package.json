@@ -1,0 +1,26 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "description": "Manage settings from different sources and factors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vjs": "git+ssh://git@github.com/vigour-io/vjs#develop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vigour-io/config"
+  },
+  "vigour": {
+    "vigoursetting": true,
+    "fromEnvironment": {
+      "val": "default",
+      "_env": "CONFIG_PARAM"
+    },
+    "configFiles": ["./extra_config"]
+  }
+}

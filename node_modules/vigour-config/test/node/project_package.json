@@ -1,0 +1,53 @@
+{
+  "name": "best-app",
+  "vigour": {
+    "app": "best-app",
+    "domain": "vigour.io",
+    "somesetting": {
+      "$val": true,
+      "#develop": false,
+      "nested": {
+        "$val": true,
+        "#develop": false
+      }
+    },
+    "services": {
+      "super-service": {
+        "$val": "{service}.{app}.{domain}",
+        "#develop": {
+          "$val": "{branch}-{service}.{app}.{domain}",
+          "special": true
+        },
+        "#master": {
+          "regions": {
+            "$val": "{region}-{service}.{app}.{domain}",
+            "NL": 10,
+            "DE": 50,
+            "AT": {
+              "$val": 5,
+              "specialAT": true
+            }
+          },
+          "regionalInstances": "{region}-{service}.{app}.{domain}"
+        },
+        "#demo": {
+          "instances": {
+            "ramon": "replex-{service}.{app}.{domain}",
+            "krys": {
+              "$val": "kriskross-{service}.{app}.{domain}",
+              "special": true
+            }
+          }
+        }
+      },
+      "nasty-service": {
+        "#master": {
+          "$val": "crack-{service}.{app}.{domain}",
+          "parameters": {
+            "flagX": "valueY"
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,16 +4,41 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test | tap-difflet",
+    "watch": "nodemon test | tap-difflet",
+    "cover": "istanbul cover --report none --print detail test/index.js",
+    "docs": "node_modules/vigour-doc/bin/vdoc",
+    "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0)"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vigour-io/brisky.git"
   },
-  "author": "",
+  "author": "vigour.io <dev@vigour.io>",
   "license": "ISC",
+  "dependencies": {
+    "brisky-events": "vigour-io/brisky-events",
+    "brisky-props": "vigour-io/brisky-props",
+    "brisky-class": "vigour-io/brisky-class",
+    "brisky-style": "vigour-io/brisky-style",
+    "brisky-focus": "vigour-io/brisky-focus",
+    "brisky-core": "vigour-io/brisky-core"
+  },
   "bugs": {
     "url": "https://github.com/vigour-io/brisky/issues"
   },
-  "homepage": "https://github.com/vigour-io/brisky#readme"
+  "homepage": "https://github.com/vigour-io/brisky#readme",
+  "keywords": [
+    "reactive",
+    "state",
+    "element",
+    "DOM"
+  ],
+  "contributors": [
+    "Jim de Beer <jim@vigour.io>",
+    "Youri Daamen <youri@vigour.io>"
+  ],
+  "devDependencies": {
+    "vigour-doc": "^1.1.5"
+  }
 }

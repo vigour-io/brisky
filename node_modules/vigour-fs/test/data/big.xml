@@ -1,0 +1,13 @@
+<somelist>
+  <item id='1'>one</item>
+  <item id='2'>two</item>
+  
+  <thing name='foo'>
+    <part>one</part>
+    <part>two</part>
+    <part>three</part>
+  </thing>
+  <thing name='bar'>some text, just a string</thing>
+  <thing name='baz' id='qux'>42</thing>
+
+</somelist>

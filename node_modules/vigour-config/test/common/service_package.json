@@ -1,0 +1,26 @@
+{
+  "name": "super-service",
+  "vigour": {
+    "one": {},
+    "two": {
+      "_description": "Saves the world"
+    },
+    "service": "super-service",
+    "category": "services",
+    "userdecay": {
+      "val": 5,
+      "description": "minutes unused userdata is kept in memory",
+      "parse": "toInt"
+    },
+    "port": {
+      "val": 10001,
+      "description": "port to listen for websocket connections",
+      "parse": "toInt",
+      "dowhap": "{port}"
+    },
+    "special": {
+      "val": false,
+      "description": "marks this instance as special!"
+    }
+  }
+}

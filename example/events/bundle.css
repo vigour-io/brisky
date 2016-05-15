@@ -1,0 +1,3182 @@
+@font-face {
+  font-family: 'Droid-Sans-Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans Mono'), local('DroidSansMono'), url(https://fonts.gstatic.com/s/droidsansmono/v7/ns-m2xQYezAtqh7ai59hJaH0X__W3S3MJL29bc5CWfs.woff) format('woff');
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.holder .title {
+  border-bottom: 1px solid white;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.basic-item .texts {
+  font-size: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/**/
+body {
+  background-color: rgb(38, 50, 56);
+  font-family: 'Droid-Sans-Mono';
+  color: white;
+}
+.big {
+  font-size: 10vw;
+}
+.app {
+  text-transform: uppercase;
+}
+.app * {
+  text-transform: none;
+}
+.holder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(128, 203, 196);
+  padding: 30px;
+}
+.holder .title {
+  border-bottom: 1px solid white;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+.basic-item {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  cursor: default;
+  margin: 5px;
+  padding: 5px;
+  min-width: 20px;
+  font-size: 8px;
+  border: 1px solid white;
+}
+.basic-item .texts {
+  font-size: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.complex-item {
+  vertical-align: middle;
+  min-width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid  white;
+  font-size: 11px;
+  padding: 15px;
+}
+.complex-item .header {
+  font-weight: bold;
+}
+.complex-item .nested {
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+.complex-item .nested * {
+  padding: 5px;
+  border: 1px solid white;
+}
+.complex-item .img {
+  padding: 10px;
+  height: 100px;
+  background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
+  background-size: cover;
+}
+.complex-item .title {
+  font-size: 22px;
+  border-bottom: 1px solid white;
+  padding: 15px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.complex-item .subtitle {
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.symbol {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 15px;
+}
+.symbol:before,
+.symbol:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  border-radius: 10px 10px 0 10px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.symbol:after {
+  left: auto;
+  right: 0;
+  border-radius: 10px 10px 10px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL2ZvbnRzL3N0eWxlLmNzcyIsIi4uL3N0eWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLCtCQUErQjtFQUMvQixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLHlLQUF5SztDQUMxSztBQ0xELElBQUk7QUFXSjtFQUNFLGtDQUE0QjtFQUM1QiwrQkFBK0I7RUFDL0IsYUFBb0I7Q0FDckI7QUFFRDtFQUNFLGdCQUFnQjtDQUNqQjtBQUVEO0VBQ0UsMEJBQTBCO0NBSTNCO0FBSEM7RUFDRSxxQkFBcUI7Q0FDdEI7QUFHSDtFQUNFLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsb0JBQW9CO0VBQ3BCLHFDQUE2QjtFQUM3QixjQUFjO0NBQ2Y7QUFFRDtFQUNFLDBCQUFrQjtLQUFsQix1QkFBa0I7TUFBbEIsc0JBQWtCO1VBQWxCLGtCQUFrQjtFQUNsQixzQkFBc0I7RUFDdEIsZ0JBQWdCO0VBQ2hCLFlBQVk7RUFDWixhQUFhO0VBQ2IsZ0JBQWdCO0VBQ2hCLGVBQWU7RUFDZix3QkFBK0I7Q0FDaEM7QUFFRDtFQUNFLHVCQUF1QjtFQUN2QixpQkFBaUI7RUFDakIsWUFBWTtFQUNaLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIseUJBQWdDO0VBQ2hDLGdCQUFnQjtFQUNoQixjQUFjO0NBaUNmO0FBaENDO0VBQ0Usa0JBQWtCO0NBQ25CO0FBQ0Q7RUFDRSxrQkFBa0I7RUFDbEIscUJBQXFCO0NBQ3RCO0FBQ0Q7RUFDRSxhQUFhO0VBQ2Isd0JBQStCO0NBQ2hDO0FBQ0Q7RUFDRSxjQUFjO0VBQ2QsY0FBYztFQUNkLHVGQUF1RjtFQUN2Rix1QkFBdUI7Q0FDeEI7QUFDRDtFQUNFLGdCQUFnQjtFQUNoQiwrQkFBK0I7RUFDL0IsY0FBYztFQUNkLDBCQUEwQjtFQUMxQixvQkFBb0I7Q0FDckI7QUFDRDtFQUNFLGdCQUFnQjtFQUNoQiwrQkFBK0I7RUFDL0IscUJBQXFCO0VBQ3JCLDBCQUEwQjtFQUMxQixvQkFBb0I7RUFDcEIsaUJBQWlCO0NB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ZXNDb250ZW50IjpbIkBmb250LWZhY2Uge1xuICBmb250LWZhbWlseTogJ0Ryb2lkLVNhbnMtTW9ubyc7XG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcbiAgZm9udC13ZWlnaHQ6IDQwMDtcbiAgc3JjOiBsb2NhbCgnRHJvaWQgU2FucyBNb25vJyksIGxvY2FsKCdEcm9pZFNhbnNNb25vJyksIHVybChodHRwczovL2ZvbnRzLmdzdGF0aWMuY29tL3MvZHJvaWRzYW5zbW9uby92Ny9ucy1tMnhRWWV6QXRxaDdhaTU5aEphSDBYX19XM1MzTUpMMjliYzVDV2ZzLndvZmYpIGZvcm1hdCgnd29mZicpO1xufVxuIiwiLyoqL1xuXG5cbjpyb290IHtcbiAgLS1iZzogcmdiKDM4LCA1MCwgNTYpO1xuICAtLXdoaXRlOiB3aGl0ZTtcbiAgLS1mZzogcmdiKDg0LCAyMDYsIDE3Nyk7XG4gIC0td2hpdGVhOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuOCk7XG4gIC0tZmcyOiByZ2IoMTI4LCAyMDMsIDE5Nik7XG59XG5cbmJvZHkge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1iZyk7XG4gIGZvbnQtZmFtaWx5OiAnRHJvaWQtU2Fucy1Nb25vJztcbiAgY29sb3I6IHZhcigtLXdoaXRlKTtcbn1cblxuLmJpZyB7XG4gIGZvbnQtc2l6ZTogMTB2dztcbn1cblxuLmFwcCB7XG4gIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG4gICYgKiB7XG4gICAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG4gIH1cbn1cblxuLmhvbGRlciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luLXRvcDogMTBweDtcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tZmcyKTtcbiAgcGFkZGluZzogMzBweDtcbn1cblxuLmJhc2ljLWl0ZW0ge1xuICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG4gIG1hcmdpbjogNXB4O1xuICBwYWRkaW5nOiA1cHg7XG4gIG1pbi13aWR0aDogMjBweDtcbiAgZm9udC1zaXplOiA4cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLXdoaXRlKTtcbn1cblxuLmNvbXBsZXgtaXRlbSB7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gIG1pbi13aWR0aDogMTUwcHg7XG4gIG1hcmdpbjogNXB4O1xuICBwYWRkaW5nOiA1cHg7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgYm9yZGVyOiAxcHggc29saWQgIHZhcigtLXdoaXRlKTtcbiAgZm9udC1zaXplOiAxMXB4O1xuICBwYWRkaW5nOiAxNXB4O1xuICAmIC5oZWFkZXIge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICB9XG4gICYgLm5lc3RlZCB7XG4gICAgbWFyZ2luLXRvcDogNy41cHg7XG4gICAgbWFyZ2luLWJvdHRvbTogNy41cHg7XG4gIH1cbiAgJiAubmVzdGVkICoge1xuICAgIHBhZGRpbmc6IDVweDtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS13aGl0ZSk7XG4gIH1cbiAgJiAuaW1nIHtcbiAgICBwYWRkaW5nOiAxMHB4O1xuICAgIGhlaWdodDogMTAwcHg7XG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKCdodHRwOi8vMjUubWVkaWEudHVtYmxyLmNvbS90dW1ibHJfbWQ4cmc2SWprcDFycG05M3JvMV8yNTAuanBnJyk7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgfVxuICAmIC50aXRsZSB7XG4gICAgZm9udC1zaXplOiAyMnB4O1xuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCB3aGl0ZTtcbiAgICBwYWRkaW5nOiAxNXB4O1xuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG4gICAgbWFyZ2luLWJvdHRvbTogMTVweDtcbiAgfVxuICAmIC5zdWJ0aXRsZSB7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCB3aGl0ZTtcbiAgICBwYWRkaW5nLWJvdHRvbTogMjBweDtcbiAgICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlO1xuICAgIG1hcmdpbi1ib3R0b206IDE1cHg7XG4gICAgbWFyZ2luLXRvcDogMjBweDtcbiAgfVxufVxuXG4uc3ltYm9sIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHdpZHRoOiA0MHB4O1xuICBtYXJnaW4tdG9wOiAxNXB4O1xuICBtYXJnaW4tYm90dG9tOiAxNXB4O1xuICBoZWlnaHQ6IDE1cHg7XG59XG5cbi5zeW1ib2w6YmVmb3JlLFxuLnN5bWJvbDphZnRlciB7XG4gIGNvbnRlbnQ6IFwiXCI7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAwO1xuICBsZWZ0OiAwO1xuICB3aWR0aDogMTVweDtcbiAgaGVpZ2h0OiAxNXB4O1xuICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS13aGl0ZSk7XG4gIGJvcmRlci1yYWRpdXM6IDEwcHggMTBweCAwIDEwcHg7XG4gIHRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG59XG5cbi5zeW1ib2w6YWZ0ZXIge1xuICBsZWZ0OiBhdXRvO1xuICByaWdodDogMDtcbiAgYm9yZGVyLXJhZGl1czogMTBweCAxMHB4IDEwcHggMDtcbiAgdHJhbnNmb3JtOiByb3RhdGUoNDVkZWcpO1xufVxuIl19 */

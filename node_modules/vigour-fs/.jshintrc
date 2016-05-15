@@ -1,0 +1,11 @@
+{
+"asi": true,
+"bitwise": true,
+"boss": true,
+"debug": true,
+"expr": true,
+"laxbreak": true,
+"laxcomma": true,
+"node": true,
+"maxlen":80
+}
