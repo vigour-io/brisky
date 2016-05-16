@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "",
   "main": "index.js",
+  "description": "Brisky is a lightning fast js library for building state driven user interfaces.",
   "scripts": {
     "test": "node test | tap-difflet && standard",
     "watch": "nodemon test | tap-difflet",
