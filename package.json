@@ -1,9 +1,8 @@
 {
   "name": "brisky",
-  "version": "1.0.3",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.4",
   "description": "Brisky is a lightning fast js library for building state driven user interfaces.",
+  "main": "index.js",
   "scripts": {
     "test": "node test | tap-difflet && standard",
     "watch": "nodemon test | tap-difflet",
