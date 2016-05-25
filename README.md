@@ -36,5 +36,5 @@ const state = {
   }
 }
 
-document.appendChild(render(element, state))
+document.appendchild(render(element, state))
 ```
