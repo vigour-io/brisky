@@ -24,7 +24,10 @@
     "brisky-events": "^1.1.0",
     "brisky-focus": "^1.1.1",
     "brisky-props": "^1.1.1",
-    "brisky-style": "^1.1.1"
+    "brisky-style": "^1.1.1",
+    "case-parser": "0.0.3",
+    "ua-cases": "0.0.2",
+    "vigour-ua": "^1.0.3"
   },
   "bugs": {
     "url": "https://github.com/vigour-io/brisky/issues"
