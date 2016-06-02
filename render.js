@@ -8,7 +8,7 @@ const uacases = require('ua-cases')
 const cases = uacases(ua)
 
 module.exports = function render (elem, state, cb) {
-  elem = parser(elem, cases)
+  // elem = parser(elem, cases)
   addClasses(elem)
   return brender(elem, state, cb)
 }
