@@ -26,7 +26,7 @@
     "brisky-props": "^1.1.1",
     "brisky-style": "^1.1.1",
     "case-parser": "0.0.3",
-    "ua-cases": "0.0.2",
+    "ua-cases": "^1.0.0",
     "vigour-ua": "^1.0.3"
   },
   "bugs": {
