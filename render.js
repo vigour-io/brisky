@@ -21,5 +21,8 @@ function addClasses (elem) {
       classes[i.slice(1)] = true
     }
   }
+  if (ua.webview === 'cordova') {
+    classes.cordova = true
+  }
   elem.class = classes
 }
