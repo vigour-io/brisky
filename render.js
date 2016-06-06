@@ -21,8 +21,17 @@ function addClasses (elem) {
       classes[i.slice(1)] = true
     }
   }
-  if (ua.webview === 'cordova') {
+  if (ua.webview || dirtyHax()) {
     classes.cordova = true
   }
   elem.class = classes
+}
+
+function dirtyHax () {
+  return typeof window !== 'undefined' &&
+    (
+      window.location.host === 'adm-packer-production-ios' ||
+      window.location.host === 'adm-packer-production-android' ||
+      window.forceCordovaHack
+    )
 }
