@@ -30,6 +30,7 @@ function addClasses (elem) {
 function dirtyHax () {
   return typeof window !== 'undefined' &&
     (
+      window.location.host === 'adm-production.dev.vigour.io' ||
       window.location.host === 'adm-packer-production-ios' ||
       window.location.host === 'adm-packer-production-android' ||
       window.forceCordovaHack
