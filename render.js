@@ -6,6 +6,9 @@ const ua = require('vigour-ua/navigator')
 const parser = require('case-parser')
 const uacases = require('ua-cases')
 const cases = uacases(ua)
+cases.$staging = process.env.NODE_ENV === 'staging'
+cases.$production = process.env.NODE_ENV === 'production'
+cases.$develop = process.env.NODE_ENV === 'develop'
 
 module.exports = function render (elem, state, cb) {
   elem = parser(elem, cases)

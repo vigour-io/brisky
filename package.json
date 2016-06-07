@@ -27,6 +27,7 @@
     "brisky-style": "^1.1.1",
     "case-parser": "0.0.3",
     "ua-cases": "^1.0.0",
+    "envify": "^3.4.0",
     "vigour-ua": "^1.0.3"
   },
   "bugs": {
@@ -41,6 +42,7 @@
   ],
   "browserify": {
     "transform": [
+      "envify",
       [
         "babelify",
         {
