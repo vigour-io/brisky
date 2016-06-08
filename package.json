@@ -1,6 +1,6 @@
 {
   "name": "brisky",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Brisky is a lightning fast js library for building state driven user interfaces.",
   "main": "index.js",
   "scripts": {
