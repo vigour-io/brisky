@@ -1,6 +1,5 @@
 'use strict'
 require('./')
-
 const brender = require('brisky-core/render')
 const ua = require('vigour-ua/navigator')
 const parser = require('case-parser')
