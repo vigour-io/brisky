@@ -3,6 +3,7 @@ language: node_js
 node_js:
   - '5.4'
   - '4.4'
+  - '6.2'
 script: npm run travis
 notifications:
   email: false
