@@ -6,7 +6,7 @@ const parser = require('case-parser')
 const uacases = require('ua-cases')
 const cases = uacases(ua)
 
-module.exports = function render (elem, state, casesArg, cb) {
+module.exports = function render (elem, state, casesArg, cb, id, attach) {
   if (typeof casesArg === 'function') {
     cb = casesArg
   }
@@ -19,7 +19,7 @@ module.exports = function render (elem, state, casesArg, cb) {
 
   elem = parser(elem, cases)
   addClasses(elem)
-  return brender(elem, state, cb)
+  return brender(elem, state, cb, id, attach)
 }
 
 function addClasses (elem) {
