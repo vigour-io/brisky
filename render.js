@@ -30,6 +30,7 @@ function addClasses (elem) {
       classes[i.slice(1)] = true
     }
   }
+  // @todo this should not be needed, remove asap
   if (ua.webview === 'cordova') {
     classes.cordova = true
   }
