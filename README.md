@@ -7,7 +7,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/vigour-io/brisky/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/brisky?branch=master)
 
 <!-- VDOC END -->
-Brisky is a lightning fast js library for building state driven user interfaces.
+Brisky is a lightning fast universal js library for building state driven user interfaces.
 
 It consist of multiple sub-modules, each module adding specific funcitonality
 - [brisky-events](https://github.com/vigour-io/brisky-events)
