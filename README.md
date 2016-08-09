@@ -15,7 +15,7 @@ Find and create examples on [our example repo](https://github.com/vigour-io/bris
 ```js
 const render = require('brisky/render')
 
-const elem = {
+const element = {
   $: 'person',
   foo: {
     text: {
@@ -31,7 +31,7 @@ const elem = {
 
 const state = {
   person: {
-    name: "John"
+    name: "John",
     age: 24
   }
 }
