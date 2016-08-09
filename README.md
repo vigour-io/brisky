@@ -11,6 +11,7 @@ Brisky is a lightning fast universal js library for building state driven user i
 
 It consist of multiple sub-modules, each module adding specific funcitonality
 - [brisky-events](https://github.com/vigour-io/brisky-events)
+- [brisky-class](https://github.com/vigour-io/brisky-class)
 - [brisky-style](https://github.com/vigour-io/brisky-style)
 - [brisky-props](https://github.com/vigour-io/brisky-props)
 - [brisky-focus](https://github.com/vigour-io/brisky-focus)
