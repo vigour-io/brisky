@@ -9,6 +9,13 @@
 <!-- VDOC END -->
 Brisky is a lightning fast js library for building state driven user interfaces.
 
+It consist of multiple sub-modules, each module adding specific funcitonality
+- [brisky-events](https://github.com/vigour-io/brisky-events)
+- [brisky-style](https://github.com/vigour-io/brisky-style)
+- [brisky-props](https://github.com/vigour-io/brisky-props)
+- [brisky-focus](https://github.com/vigour-io/brisky-focus)
+- [brisky-core](https://github.com/vigour-io/brisky-core)
+
 ## examples
 Find and create examples on [our example repo](https://github.com/vigour-io/brisky-examples). A simple introduction:
 
