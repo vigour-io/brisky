@@ -11,6 +11,5 @@ module.exports.prototype.inject(
   require('brisky-props'),
   require('brisky-scroll'),
   require('brisky-class'),
-  require('brisky-focus'),
   require('brisky-style')
 )
