@@ -10,6 +10,6 @@ module.exports.prototype.inject(
   require('brisky-events/lib/key'),
   require('brisky-props'),
   require('brisky-class'),
-  require('brisky-focus'),
+  // require('brisky-focus'),
   require('brisky-style')
 )
