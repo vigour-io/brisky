@@ -23,11 +23,11 @@
     "brisky-class": "^1.3.0",
     "brisky-core": "^1.6.0",
     "brisky-events": "^1.3.0",
-    "brisky-focus": "^1.2.0",
     "brisky-props": "^1.1.2",
     "brisky-style": "^1.2.1",
     "case-parser": "^1.0.0",
     "ua-cases": "^1.1.2",
+    "brisky-scroll": "https://github.com/vigour-io/brisky-scroll",
     "vigour-ua": "^2.0.0"
   },
   "bugs": {
