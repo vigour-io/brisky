@@ -17,14 +17,37 @@ It consist of multiple sub-modules, each module adding specific funcitonality
 - [brisky-focus](https://github.com/vigour-io/brisky-focus)
 - [brisky-core](https://github.com/vigour-io/brisky-core)
 
+Find and create functional examples in [our example repo](https://github.com/vigour-io/brisky-examples).
+
 ## Examples
-Find and create examples on [our example repo](https://github.com/vigour-io/brisky-examples). A simple introduction:
 
 #### Simple
 
-Here we are setting the state `object`, containing `hello` and `world`. In the element we subscribe to that `state` object, taking the `hello` and `world` and displaying them.
+First, let's start by displaying two DOM elements with respectively `hello` and `world` as their content.
 
-Notice that the object can be named anything, as long as you camelCase it, just like a normal JavaScript object. In this example `container1` and `container2` is used.
+Notice that the object containing the content can be named anything, as long as you camelCase it, just like a normal JavaScript object. In this example `container1` and `container2` is used.
+
+```js
+const render = require('brisky/render')
+const s = require('vigour-state/s')
+
+const state = s({})
+
+const element = {
+  container1: {
+    text: 'Hello'
+  },
+  container2: {
+    text: 'World!'
+  }
+}
+
+document.body.appendChild(render(element, state))
+```
+
+#### Connected
+
+Here we are setting the state `object`, containing `hello` and `world`. In the element we subscribe to our states `object`, taking the `hello` and `world` and displaying them.
 
 ```js
 const render = require('brisky/render')
@@ -80,6 +103,37 @@ const element = {
       id: 'canvas',
       width: '150',
       height: '150'
+    }
+  }
+}
+
+document.body.appendChild(render(element, state))
+```
+
+#### The `props` field
+
+Extending from the example above, we have props. These allow you to set and manipulate the different DOM attributes in a tag.
+
+```js
+const render = require('brisky/render')
+const s = require('vigour-state/s')
+
+const state = s({
+  canvas: {
+    width: 150,
+    height: 150
+  }
+})
+
+const element = {
+  canvas: {
+    $: 'canvas',
+    tag: 'canvas',
+    text: 'I am a canvas',
+    props: {
+      id: 'canvas',
+      width: { $: 'width' },
+      height: { $: 'height' }
     }
   }
 }
@@ -182,7 +236,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
-To extend from this, you can subscribe to test multiple things in the state. A normal use-case could be when you subscribe to something specific, like we do here:
+To extend from this, you can subscribe to test multiple things in the state. A normal use-case could be when you subscribe to something specific, like we do here with `defconWarningLevel`:
 
 ```js
 const render = require('brisky/render')
@@ -190,7 +244,7 @@ const s = require('vigour-state/s')
 
 const state = s({
   username: 'Donald',
-  otherSecretChangingContent: 'Lorem ipsum'
+  defconWarningLevel: '3'
 })
 
 const element = {
@@ -205,7 +259,7 @@ const element = {
         return false
       },
       $: {
-        $root: { otherSecretChangingContent: true }
+        $root: { defconWarningLevel: true }
       }
     },
     contentInsideBobsPalace: {
