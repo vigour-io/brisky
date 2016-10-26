@@ -221,7 +221,7 @@ document.body.appendChild(render(element, state))
 
 Good practice entails not rendering something that isn't needed for the user. Brisky facilitates this by giving you the `test` field.
 
-Here we only render `donaldsSecretPalace` if the username is `Donald`
+Here we only render `donaldsSecretBunker` if the username is `Donald`
 
 ```js
 const render = require('brisky/render')
@@ -232,16 +232,16 @@ const state = s({
 })
 
 const element = {
-  donaldsSecretPalace: {
-    $: '$test',
-    $test: state => {
-      const username = state.root.username.compute()
-      if (username === 'Donald') {
-        return true
-      }
-      return false
-    },
-    contentInsideBobsPalace: {
+  $: '$test',
+  $test: state => {
+    const username = state.root.username.compute()
+    if (username === 'Donald') {
+      return true
+    }
+    return false
+  },
+  donaldsSecretBunker: {
+    contentInsideBobsBunker: {
       text: 'Secret message for Donald'
     }
   }
@@ -250,7 +250,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
-To extend from this, you can subscribe to test multiple things in the state. A normal use-case could be when you subscribe to something specific, like we do here with `defconWarningLevel`:
+To extend from this, you can subscribe to test multiple things in the state. A normal use-case could be when you subscribe to something specific, like we do here with `username`:
 
 ```js
 const render = require('brisky/render')
@@ -262,7 +262,7 @@ const state = s({
 })
 
 const element = {
-  donaldsSecretPalace: {
+  donaldsSecretBunker: {
     $: 'username.$test',
     $test: {
       val: state => {
@@ -276,8 +276,44 @@ const element = {
         $root: { defconWarningLevel: true }
       }
     },
-    contentInsideBobsPalace: {
+    contentInsideBobsBunker: {
       text: 'Secret message for Donald'
+    }
+  }
+}
+
+document.body.appendChild(render(element, state))
+```
+
+-
+
+#### The `transform`
+
+Using transform, you are able to take something from state, and manipulate your element based on it. In this example we have a counter that displays amount of todos left, counting the amount of todos in our state.
+
+```js
+const render = require('brisky/render')
+const s = require('vigour-state/s')
+
+const state = s({
+  todos: [
+    { text: 'Finish todo' },
+    { text: 'Rule the world' },
+  ]
+})
+
+const element = {
+  $: 'todos',
+  counter: {
+    text: {
+      $: true,
+      $transform: state => {
+        var count = 0
+        state.each(item => {
+          count++
+        })
+        return `${count} items left`
+      }
     }
   }
 }
@@ -289,7 +325,7 @@ document.body.appendChild(render(element, state))
 
 #### The `switch`
 
-A switcher simply switches out the content, based on the value it is subscribing to.
+The switch simply switches content based on the value it is subscribing to.
 
 ```js
 const render = require('brisky/render')
