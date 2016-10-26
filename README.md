@@ -81,7 +81,7 @@ document.body.appendChild(render(element, state))
 
 Notice the `$:` notation. In the above example, we subscribe to `object`. This means that whenever `object` changes, our two DOM-elements are updated with the new content.
 
-Also notice the nested nature of subscriptions. In our `element` we subscribe to `object`. The two containers inside are then scoped from within `object`, allowing them to grab `hello` and `world`.
+Also notice the nested nature of subscriptions. The two containers inside are scoped from within `object`, allowing them to grab `hello` and `world` directly.
 
 -
 
