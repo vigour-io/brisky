@@ -85,7 +85,7 @@ Also notice the nested nature of subscriptions. The two containers inside are sc
 
 -
 
-#### The `tag`
+#### `tag`
 
 The tag field allows you to render normal DOM elements. By default, every object you render to the DOM is a `div`. You change this by defining a `tag` type, e.g. `tag: 'section'`.
 
@@ -120,7 +120,7 @@ document.body.appendChild(render(element, state))
 
 -
 
-#### The `props`
+#### `props`
 
 Extending from the example above, we have props. These allow you to set and manipulate the different attributes in a tag.
 
@@ -217,9 +217,11 @@ document.body.appendChild(render(element, state))
 
 -
 
-#### The `transform`
+#### `$transform`
 
 Using transform, you are able to take something from state, and manipulate your element based on it. In this example we have a counter that displays amount of todos left, counting the amount of todos in our state.
+
+This is inherited from [vigour-observable](https://github.com/vigour-io/brisky-observable).
 
 ```js
 const render = require('brisky/render')
@@ -253,7 +255,7 @@ document.body.appendChild(render(element, state))
 
 -
 
-#### The `test`
+#### `test`
 
 Good practice entails not rendering something that isn't needed for the user. Brisky facilitates this by giving you the `test` field.
 
@@ -323,7 +325,7 @@ document.body.appendChild(render(element, state))
 
 -
 
-#### The `switch`
+#### `switch`
 
 The switch simply switches content based on the value it is subscribing to.
 
@@ -357,7 +359,7 @@ document.body.appendChild(render(element, state))
 
 -
 
-#### The `fragment`
+#### `fragment`
 
 ```js
 const render = require('brisky/render')
