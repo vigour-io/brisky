@@ -49,7 +49,7 @@ Notice that the object containing the content can be named anything, as long as 
 
 #### State driven
 
-Here we are setting the state `object`, containing `hello` and `world`. In the element we subscribe to our states `object`, taking the `hello` and `world` and displaying them.
+Here we are setting the state `object`, containing `hello` and `world`.
 
 ```js
 const render = require('brisky/render')
@@ -87,7 +87,7 @@ Also notice the nested nature of subscriptions. In our `element` we subscribe to
 
 #### The `tag`
 
-The tag field allows you to render normal DOM elements on your page. By default, every object you render to the DOM is a `div`. You change this by defining a `tag` type, e.g. `tag: 'section'`.
+The tag field allows you to render normal DOM elements. By default, every object you render to the DOM is a `div`. You change this by defining a `tag` type, e.g. `tag: 'section'`.
 
 ```js
 const render = require('brisky/render')
