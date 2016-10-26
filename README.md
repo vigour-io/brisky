@@ -23,9 +23,7 @@ Find and create functional examples in [our example repo](https://github.com/vig
 
 #### Simple
 
-First, let's start by displaying two DOM elements with respectively `hello` and `world` as their content.
-
-Notice that the object containing the content can be named anything, as long as you camelCase it, just like a normal JavaScript object. In this example `container1` and `container2` is used.
+First, let's start by displaying two DOM elements with `hello` and `world` as their content:
 
 ```js
 const render = require('brisky/render')
@@ -45,7 +43,11 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
-#### Connected
+Notice that the object containing the content can be named anything, as long as you camelCase it, just like a normal JavaScript object. In this example `container1` and `container2` is used.
+
+-
+
+#### State driven
 
 Here we are setting the state `object`, containing `hello` and `world`. In the element we subscribe to our states `object`, taking the `hello` and `world` and displaying them.
 
@@ -77,9 +79,15 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
-#### The `tag` field
+Notice the `$:` notation. In the above example, we subscribe to `object`. This means that whenever `object` changes, our two DOM-elements are updated with the new content.
 
-The tag allows you to render normal DOM elements on your page. By default, every object you render to the DOM is a `div`. You change this by defining a `tag` type, e.g. `tag: 'section'`.
+Also notice the nested nature of subscriptions. In our `element` we subscribe to `object`. The two containers inside are then scoped from within `object`, allowing them to grab `hello` and `world`.
+
+-
+
+#### The `tag`
+
+The tag field allows you to render normal DOM elements on your page. By default, every object you render to the DOM is a `div`. You change this by defining a `tag` type, e.g. `tag: 'section'`.
 
 ```js
 const render = require('brisky/render')
@@ -110,9 +118,11 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
-#### The `props` field
+-
 
-Extending from the example above, we have props. These allow you to set and manipulate the different DOM attributes in a tag.
+#### The `props`
+
+Extending from the example above, we have props. These allow you to set and manipulate the different attributes in a tag.
 
 ```js
 const render = require('brisky/render')
@@ -141,10 +151,11 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
+-
 
 #### Modifying state
 
-In this example we have an input field that overwrites state when enter is pressed.
+In this example we have an input field that overwrites state when enter is pressed. We are using [brisky-events](https://github.com/vigour-io/brisky-events) to make this happen.
 
 ```js
 const render = require('brisky/render')
@@ -170,6 +181,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
+-
 
 #### Using normal JavaScript inside Brisky
 
@@ -203,7 +215,9 @@ function formatTime (value) {
 document.body.appendChild(render(element, state))
 ```
 
-#### The `test` field
+-
+
+#### The `test`
 
 Good practice entails not rendering something that isn't needed for the user. Brisky facilitates this by giving you the `test` field.
 
@@ -271,7 +285,9 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
-#### The `switch` field
+-
+
+#### The `switch`
 
 A switcher simply switches out the content, based on the value it is subscribing to.
 
@@ -303,7 +319,9 @@ const profile = {
 document.body.appendChild(render(element, state))
 ```
 
-#### The `fragment` field
+-
+
+#### The `fragment`
 
 ```js
 const render = require('brisky/render')
