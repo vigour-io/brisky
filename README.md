@@ -217,6 +217,42 @@ document.body.appendChild(render(element, state))
 
 -
 
+#### The `transform`
+
+Using transform, you are able to take something from state, and manipulate your element based on it. In this example we have a counter that displays amount of todos left, counting the amount of todos in our state.
+
+```js
+const render = require('brisky/render')
+const s = require('vigour-state/s')
+
+const state = s({
+  todos: [
+    { text: 'Finish todo' },
+    { text: 'Rule the world' },
+  ]
+})
+
+const element = {
+  $: 'todos',
+  counter: {
+    text: {
+      $: true,
+      $transform: state => {
+        var count = 0
+        state.each(item => {
+          count++
+        })
+        return `${count} items left`
+      }
+    }
+  }
+}
+
+document.body.appendChild(render(element, state))
+```
+
+-
+
 #### The `test`
 
 Good practice entails not rendering something that isn't needed for the user. Brisky facilitates this by giving you the `test` field.
@@ -278,42 +314,6 @@ const element = {
     },
     contentInsideBobsBunker: {
       text: 'Secret message for Donald'
-    }
-  }
-}
-
-document.body.appendChild(render(element, state))
-```
-
--
-
-#### The `transform`
-
-Using transform, you are able to take something from state, and manipulate your element based on it. In this example we have a counter that displays amount of todos left, counting the amount of todos in our state.
-
-```js
-const render = require('brisky/render')
-const s = require('vigour-state/s')
-
-const state = s({
-  todos: [
-    { text: 'Finish todo' },
-    { text: 'Rule the world' },
-  ]
-})
-
-const element = {
-  $: 'todos',
-  counter: {
-    text: {
-      $: true,
-      $transform: state => {
-        var count = 0
-        state.each(item => {
-          count++
-        })
-        return `${count} items left`
-      }
     }
   }
 }
