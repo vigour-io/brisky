@@ -45,7 +45,7 @@ document.body.appendChild(render(element, state))
 
 Notice that the object containing the content can be named anything, as long as you camelCase it, just like a normal JavaScript object. In this example `container1` and `container2` is used.
 
--
+---
 
 #### State driven
 
@@ -83,7 +83,7 @@ Notice the `$:` notation. In the above example, we subscribe to `object`. This m
 
 Also notice the nested nature of subscriptions. The two containers inside are scoped from within `object`, allowing them to grab `hello` and `world` directly.
 
--
+---
 
 #### `tag`
 
@@ -118,7 +118,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
--
+---
 
 #### `props`
 
@@ -151,7 +151,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
--
+---
 
 #### Modifying state
 
@@ -181,7 +181,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
--
+---
 
 #### Using normal JavaScript inside Brisky
 
@@ -215,7 +215,7 @@ function formatTime (value) {
 document.body.appendChild(render(element, state))
 ```
 
--
+---
 
 #### `$transform`
 
@@ -253,7 +253,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
--
+---
 
 #### `test`
 
@@ -323,7 +323,7 @@ const element = {
 document.body.appendChild(render(element, state))
 ```
 
--
+---
 
 #### `switch`
 
@@ -357,7 +357,7 @@ const profile = {
 document.body.appendChild(render(element, state))
 ```
 
--
+---
 
 #### `fragment`
 
