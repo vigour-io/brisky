@@ -327,7 +327,7 @@ document.body.appendChild(render(element, state))
 
 #### `switch`
 
-The switch simply switches content based on the value it is subscribing to.
+The switch simply switches content based on the value it is subscribing to. You can use the switch to change content within a component or on an application level, switching out whole pages.
 
 ```js
 const render = require('brisky/render')
