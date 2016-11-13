@@ -363,6 +363,8 @@ document.body.appendChild(render(element, state))
 
 The fragment resembles the behavior of [DocumentFragment](https://developer.mozilla.org/en/docs/Web/API/DocumentFragment). For an comparative example of document fragment implementation, see [JavaScript DocumentFragment](https://davidwalsh.name/documentfragment).
 
+> Using DocumentFragments is faster than repeated single DOM node injection and allows developers to perform DOM node operations (like adding events) on new elements instead of mass-injection via innerHTML.  Keep DocumentFragment close by when performing lots of DOM operations -- it could speed up your app considerably!
+
 ```js
 const render = require('brisky/render')
 const s = require('vigour-state/s')
