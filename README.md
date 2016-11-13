@@ -361,6 +361,8 @@ document.body.appendChild(render(element, state))
 
 #### `fragment`
 
+The fragment resembles the behavior of [DocumentFragment](https://developer.mozilla.org/en/docs/Web/API/DocumentFragment). For an comparative example of document fragment implementation, see [JavaScript DocumentFragment](https://davidwalsh.name/documentfragment).
+
 ```js
 const render = require('brisky/render')
 const s = require('vigour-state/s')
