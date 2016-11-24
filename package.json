@@ -18,9 +18,9 @@
   "dependencies": {
     "bubleify": "0.5.1",
     "brisky-class": "^1.3.0",
-    "brisky-core": "^1.8.3",
+    "brisky-core": "https://github.com/vigour-io/brisky-props#feature/svg",
     "brisky-events": "^1.3.0",
-    "brisky-props": "^1.1.2",
+    "brisky-props": "https://github.com/vigour-io/brisky-props#feature/ns",
     "brisky-style": "^1.2.1",
     "brisky-scroll": "https://github.com/vigour-io/brisky-scroll",
     "case-parser": "^1.0.0",
