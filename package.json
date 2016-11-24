@@ -18,7 +18,7 @@
   "dependencies": {
     "bubleify": "0.5.1",
     "brisky-class": "^1.3.0",
-    "brisky-core": "https://github.com/vigour-io/brisky-props#feature/svg",
+    "brisky-core": "https://github.com/vigour-io/brisky-core#feature/svg",
     "brisky-events": "^1.3.0",
     "brisky-props": "https://github.com/vigour-io/brisky-props#feature/ns",
     "brisky-style": "^1.2.1",
