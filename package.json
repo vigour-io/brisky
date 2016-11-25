@@ -16,13 +16,13 @@
   "author": "vigour.io <dev@vigour.io>",
   "license": "ISC",
   "dependencies": {
-    "bubleify": "0.5.1",
     "brisky-class": "^1.3.0",
     "brisky-core": "https://github.com/vigour-io/brisky-core#feature/svg",
     "brisky-events": "^1.3.0",
     "brisky-props": "https://github.com/vigour-io/brisky-props#feature/ns",
-    "brisky-style": "^1.2.1",
     "brisky-scroll": "https://github.com/vigour-io/brisky-scroll",
+    "brisky-style": "^1.2.1",
+    "bubleify": "0.5.1",
     "case-parser": "^1.0.0",
     "ua-cases": "^1.1.2",
     "vigour-ua": "^2.0.0"
@@ -47,14 +47,14 @@
     "Youri Daamen <youri@vigour.io>"
   ],
   "devDependencies": {
-    "ducktape": "^1.0.0",
     "coveralls": "^2.11.9",
+    "ducktape": "^1.0.0",
     "istanbul": "^0.4.3",
     "nodemon": "^1.9.1",
+    "parse-element": "^2.0.1",
     "pre-commit": "^1.1.3",
     "standard": "^7.0.1",
     "tap-difflet": "0.4.0",
-    "tape": "^4.4.0",
-    "parse-element": "^2.0.1"
+    "tape": "^4.4.0"
   }
 }
