@@ -13,3 +13,7 @@ module.exports.prototype.inject(
   require('brisky-class'),
   require('brisky-style')
 )
+
+module.exports.prototype.set({
+  class: true
+})
