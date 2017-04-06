@@ -4,8 +4,8 @@
   "description": "Brisky is a lightning fast js library for building state driven user interfaces.",
   "main": "index.js",
   "scripts": {
-    "test": "(ducktape; node test) | tap-difflet && standard",
-    "dev": "nodemon test | tap-difflet",
+    "watch": "builder-boy src/index.js dist/index.js -r -w",
+    "dev": "budo dist/index.inline.js --live",
     "cover": "istanbul cover --report none --print detail test/index.js",
     "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0) && standard"
   },
