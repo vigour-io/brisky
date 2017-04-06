@@ -1,31 +1,55 @@
 'use strict'
 const render = require('../')
 const test = require('tape')
-const hub = require('hub.js')
+const h = require('hub.js')
 
 test('render',  t => {
 
+  const B = (({ dirty, dweep = 'pink' }) => {
+    return h('div', { style: { color: dweep } }, dirty)
+  })
 
-  // lets go go go
+  const hub = h({ dirty: 'its some text', dweep: 'blue' })
+  hub.subscribe({
+    val: 'shallow',
+    _: {
+      property: [
+        (state, type, subs, tree) => {
+          console.log(tree)
+          // hard compuled id (allways an int faster)
+          if (tree._[1]) {
 
-
-  /*
-  const A = ({ blarx }) => <h1>{blarx}</h1>
-
-  const B = ({ dirty, dweep = 'pink' }) => {
-    return <div style={{ color: dweep }}>
-      <A blarx={dirty}/>
-    </div>
-  }
-  */
-
-  // start with parsing asts etc in the render fn itself
-  // const state
-
-  const state = hub({ hello: true })
-
-  render(B({ dirty: state }), document.documentElement)
-
+          }
+        }
+      ]
+    },
+    dirty: {
+      val: 'shallow',
+      _: {
+        update: []
+      },
+    },
+    dweep: {
+      val: 'shallow',
+      _: {
+        update: []
+      }
+    }
+  }, (state, type, subs, tree) => {
+    console.log('----->', subs)
+    const _ = subs._
+    if (_) {
+      // also add _ parent on subs to find what your parent node is
+      // also store the ids
+      if (type !== 'update' && _.property) {
+        let i = _.property.length
+        while (i--) {
+          console.log('x?')
+          _.property[i](state, type, subs, tree)
+        }
+      }
+    }
+  })
 
   t.end()
 })
