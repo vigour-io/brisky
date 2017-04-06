@@ -5,7 +5,9 @@ const h = require('hub.js')
 const { puid } = require('brisky-struct')
 
 test('render', t => {
-
+  // const B = (({ dirty, dweep = 'pink' }) => {
+  //   return h('div', { style: { color: dweep } }, dirty)
+  // })
 
   const hub = h({ dirty: 'its some text', dweep: 'blue' })
 
@@ -19,7 +21,7 @@ test('render', t => {
       // other dom nodes
 
       if (child && typeof child === 'object' && child.inherits) {
-        elem.appendChild((storage[id + i] = document.createTextNode(child.compute())))
+        elem.appendChild((storage[i + id] = document.createTextNode(child.compute())))
       } else if (typeof child === 'string') {
         elem.appendChild(document.createTextNode(child))
       }
@@ -46,23 +48,27 @@ test('render', t => {
     return elem
   }
 
-  const getParent = (id, tree) => {
+  const getParent = (id, tree, key) => {
     var p = tree
+    // can make this faster of course -- what about finding the subs?
     while (p) {
-      if (p._ && (id in p._)) {
-        return p._[id]
+      if (p._ && p._[id]) {
+        return p._[id][key]
       }
       p = p._p
     }
   }
 
-  const remove = (node) => {
-    if (node) node.parentNode.removeChild(node)
+  const getNode = (id, tree) => {
+    var p = tree
+    // can make this faster of course -- what about finding the subs?
+    while (p) {
+      if (p._ && p._[id]) {
+        return p._[id].node
+      }
+      p = p._p
+    }
   }
-
-const B = (({ dirty, dweep = 'pink' }) => {
-  return h('div', { style: { color: dweep } }, dirty)
-})
 
   const render = (props) => {
     const tree = {}
@@ -73,7 +79,11 @@ const B = (({ dirty, dweep = 'pink' }) => {
           (state, type, subs, tree) => {
             if (!tree._) tree._ = {}
             if (type === 'remove') {
-              remove(tree._[1])
+              if (tree._[1]) {
+                const node = tree._[1]
+                node.parentNode.removeChild(node)
+                // handle remove listener here (parsed by self)
+              }
             } else if (type === 'new') {
               const dirty = state.get('dirty', '') // since its bound to text
               const dweep = state.get('dweep', 'pink') // default
@@ -89,7 +99,6 @@ const B = (({ dirty, dweep = 'pink' }) => {
                 // probably add parent id to the function to fin it
               )
               tree._[1] = storage
-              // add to parent
             }
           }
         ]
@@ -99,7 +108,7 @@ const B = (({ dirty, dweep = 'pink' }) => {
         _: {
           update: [
             (state, type, subs, tree) => {
-              getParent(1, tree).node0.nodeValue = state.compute()
+              getParent(1, tree, '0node').nodeValue = state.compute()
             }
           ]
         }
@@ -109,7 +118,7 @@ const B = (({ dirty, dweep = 'pink' }) => {
         _: {
           update: [
             (state, type, subs, tree) => {
-              getParent(1, tree).node.style.color = state.compute()
+              getNode(1, tree).style.color = state.compute()
             }
           ]
         }
@@ -131,27 +140,23 @@ const B = (({ dirty, dweep = 'pink' }) => {
     return tree._[1].node
   }
 
-  // render(B, hub)
   document.body.appendChild(render(hub))
 
   const timeout = i => new Promise(resolve => {
     setTimeout(() => resolve(i), 10)
   })
 
-  // hub.set({
-  //   dirty: function * () {
-  //     let i = 100
-  //     while (i--) { yield timeout(i) }
-  //   }
-  // })
+  hub.set({
+    dirty: function * () {
+      let i = 100
+      while (i--) { yield timeout(i) }
+    }
+  })
 
   let d = Date.now()
-  let i = 1e5
+  let i = 10000
   while (i--) {
-    hub.set({
-      dweep: i % 2 ? 'orange' : 'purple',
-      dirty: i
-    })
+    hub.dirty.set(i)
   }
   console.log(Date.now() - d, 'ms')
 

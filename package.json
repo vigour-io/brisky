@@ -32,6 +32,9 @@
     "Jim de Beer <jim@vigour.io>",
     "Youri Daamen <youri@vigour.io>"
   ],
+  "dependencies": {
+    "brisky-struct": "latest"
+  },
   "devDependencies": {
     "hub.js": "latest",
     "coveralls": "^2.11.9",
