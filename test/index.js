@@ -2,7 +2,7 @@
 const render = require('../')
 const test = require('tape')
 const h = require('hub.js')
-const { get, compute } = require('brisky-struct')
+const { compute } = require('brisky-struct')
 
 test('render', t => {
 
@@ -45,9 +45,7 @@ test('render', t => {
   const getParent = (id, tree) => {
     var p = tree
     while (p) {
-      if (p._ && (id in p._)) {
-        return p._[id]
-      }
+      if (p._ && (id in p._)) return p._[id]
       p = p._p
     }
   }
@@ -58,7 +56,6 @@ test('render', t => {
 
   // -----------------------------------
   // ------ results --------
-
   const $component0x_y = (id, state, tree) => {
     const n = getParent(id, tree)
     if (n.o_0 !== state.stamp) {
@@ -87,47 +84,52 @@ test('render', t => {
       const c = tree._ && tree._[id] && tree._[id].c
       if (c) c.parentNode.removeChild(c)
     } else if (type === 'new') {
+      // also need to check if youre top dog then just add it and set everything else except creation
       if (!tree._) tree._ = {}
       const parent = getParent(parentId, tree)
-      const storage = tree._[id] = {}
+      const storage = tree._[id] || (tree._[id] = {})
+      const props = parent[id]
 
       // ---------------- THIS IS DIFFERENT FOR USAGE ---------
-      const props = parent.$component0
-
       const dirty = calc(props.dirty)
       const dweep = calc(props.dweep) || 'pink'
       const durk = calc(props.durk)
-
       if (isStruct(props.x) || isStruct(props.y)) {
         storage._o_0_x = props.x
         storage._o_0_y = props.y
       }
-      const x = calc(storage._o_0_x) || 0
-      const y = calc(storage._o_0_y) || 0
+      const x = calc(storage._o_0_x || props.x) || 0
+      const y = calc(storage._o_0_y || props.y) || 0
       // ----------------------------------------------------------
 
       // ----------------------------- ELEMENTS ------------------------
+      const component = storage.c || (storage.c = document.createElement('div'))
+
       const text0 = storage.c_0 = document.createTextNode(dirty || '')
       const text1 = storage.c_2_0 = document.createTextNode(durk || '')
       const text2 = storage.c_3_0_0 = document.createTextNode(dirty || '')
-      const div0 = storage.c = document.createElement('div')
-      div0.appendChild(text0)
+      component.appendChild(text0)
       const button0 = document.createElement('button')
       button0.appendChild(document.createTextNode('boeton'))
-      div0.appendChild(button0)
+      component.appendChild(button0)
       const h10 = document.createElement('h1')
       h10.appendChild(text1)
-      div0.appendChild(h10)
+      component.appendChild(h10)
       const li0 = document.createElement('li')
       li0.appendChild(text2)
       const ul0 = document.createElement('ul')
       ul0.appendChild(li0)
-      div0.appendChild(ul0)
+      component.appendChild(ul0)
       // ----------------------------STYLE -------------------------
-      div0.classList.add(
-        style('transform', `translated3d(${x || 0}px, ${y || 0}px, 0px)`),
-        style('color', dweep)
+
+      component.classList.add(
+        style('transform', `translate3d(${x}px, ${y}px, 0px)`),
+        style('color', dweep),
+        style('width', '175px'),
+        style('height', '175px')
       )
+
+      console.log(sheet)
 
       button0.classList.add(
         style('background', 'red'),
@@ -138,20 +140,32 @@ test('render', t => {
       h10.classList.add(style('borderTop', '5px solid blue'))
       // ----------------------------------------------------------
 
-      if (parent.c) parent.c.appendChild(div0)
+      if (parent.c) parent.c.appendChild(component)
     }
   }
+  // -----------------------------------
 
   const render = (props) => {
     const tree = { _: {
       root: {
         c: document.body,
-        $component0: {
+        0: { // component 0 (id)
           dirty: props.get('dirty', {}),
-          dweep: props.get('durk', {}),
+          dweep: props.get('dweep', {}),
           durk: props.get('durk', {}),
           x: props.get('x', {}),
           y: props.get('y', {})
+        },
+        1: { // component 1 (id)
+          dirty: 'diry!',
+          durk: 'durky dirty',
+          x: 100,
+          y: 300
+        },
+        2: { // component 1 (id)
+          y: 400,
+          dirty: props.get('dirty', {}),
+          dweep: 'red'
         }
       }
     } }
@@ -159,188 +173,105 @@ test('render', t => {
     // do need to change ids -- messed up
     hub.subscribe({
       val: 'property', // to handle initial app
-      _: { property: [
-        (state, type, subs, tree) => $component0('root', 0, state, type, tree)
-      ] },
+      _: {
+        property: (state, type, subs, tree) => {
+          $component0('root', 0, state, type, tree)
+        }
+      },
+      blarrrf: {
+        val: 'shallow',
+        _: {
+          property: (state, type, subs, tree) => {
+            $component0('root', 1, state, type, tree)
+            $component0('root', 2, state, type, tree)
+          }
+        },
+        parent: {
+          dirty: {
+            val: 'shallow',
+            _: {
+              update: (state, type, subs, tree) => {
+                $component0dirty(2, state, tree)
+              }
+            }
+          }
+        }
+      },
       x: {
         val: 'shallow',
         _: {
-          update: [
-            (state, type, subs, tree) => $component0x_y(0, state, tree)
-          ]
+          update: (state, type, subs, tree) => {
+            $component0x_y(0, state, tree)
+          }
         }
       },
       y: {
         val: 'shallow',
         _: {
-          update: [
-            (state, type, subs, tree) => $component0x_y(0, state, tree)
-          ]
+          update: (state, type, subs, tree) => {
+            $component0x_y(0, state, tree)
+          }
         }
       },
       durk: {
         val: 'shallow',
         _: {
-          update: [
-            (state, type, subs, tree) => $component0durk(0, state, tree)
-          ]
+          update: (state, type, subs, tree) => {
+            $component0durk(0, state, tree)
+          }
         }
       },
       dirty: {
         val: 'shallow',
         _: {
-          update: [
-            (state, type, subs, tree) => $component0dirty(0, state, tree)
-          ]
+          update: (state, type, subs, tree) => {
+            $component0dirty(0, state, tree)
+          }
         }
       },
       dweep: {
         val: 'shallow',
         _: {
-          update: [
-            (state, type, subs, tree) => $component0dweep(0, state, tree)
-          ]
+          update: (state, type, subs, tree) => {
+            $component0dweep(0, state, tree)
+          }
         }
       }
     }, (state, type, subs, tree) => {
-      const _ = subs._
-      if (_) {
+      if (subs._) {
+        const _ = subs._
         if (type !== 'update') {
-          if (_.property) {
-            let i = _.property.length
-            while (i--) _.property[i](state, type, subs, tree)
-          }
+          if (_.property) _.property(state, type, subs, tree)
         } else if (_.update) {
-          let i = _.update.length
-          while (i--) _.update[i](state, type, subs, tree)
+          _.update(state, type, subs, tree)
         }
       }
     }, true, tree)
 
+    // need to know where the first boy is
     return tree._ && tree._[1] && tree._[1].c
   }
 
-  const hub = h({ field: {} })
-
-  render(hub)
-  // render(B, hub, domNode) // taking over a domNode need to add
-  // add resolve as well
-  // render to node (string as well)
-  // just use h for that
-  // --------- updates -----
-  const timeout = val => new Promise(resolve => {
-    setTimeout(() => resolve(val), 10)
+  const hub = h({
+    durk: '!!!!!!!!',
+    dweep: 'purple',
+    y: 100,
+    dirty: 100
   })
 
+  const timeout = val => new Promise(resolve => setTimeout(() => resolve(val), 10))
   hub.set(function * () {
-    let i = 1000
+    var i = 1e3
     while (i--) {
       yield timeout({
-        dirty: i,
-        y: Math.sin(i / 50) * (200 + i / 20) + 200,
-        x: Math.cos(i / 50) * (200 + i / 20) + 200
+        dirty: i
       })
     }
   })
 
-  let i = 1
-  while (i--) {
-    hub.set({
-      dweep: i % 2 ? 'orange' : 'purple',
-      dirty: i,
-      durk: 'durk!',
-      bla: {}
-    })
-  }
-
-  // let d = Date.now()
-  // i = 1e5
-  // while (i--) {
-  //   hub.set({
-  //     x: i,
-  //     y: i
-  //   })
-  // }
-  // console.log(Date.now() - d, 'ms')
-
-  // i = 1e4
-  // while (i--) {
-  //   hub.set({
-  //     field: i % 2 ? null : {}
-  //   })
-  // }
-  // console.log(Date.now() - d, 'ms')
-
+  var d = Date.now()
+  render(hub)
+  console.log('RENDER', Date.now() - d, 'ms', document.getElementsByTagName('*').length, 'domNodes')
+  hub.set({ blarrrf: true })
   t.end()
 })
-
-/*
-  const B = (({ dirty, dweep = 'pink' }) => {
-    return h('div', { style: { color: dweep } }, dirty)
-  })
-
-  // transform is a bit more tricky --- do it later for now just update 3 times
-  // later add bs.on()
-
-  // maybe put events in attr?
-  const C = (({ dirty, dweep = 'pink', durk, x, y }) => {
-    return h(
-      'div',
-      {
-        style: {
-          color: dweep,
-          transform: `translated3d(${x || 0}px, ${y || 0}px, 0px)`
-        },
-        onClick: () => dirty.set(Math.random())
-        // onRender: () => {},
-        // onRemove: () => {}
-      },
-      dirty,
-      h('button', { style: { background: 'red' } }, 'boeton'),
-      h('h1', { style: { borderTop: '1px solid blue' }, durk }),
-      h('ul', null, h('li', null, dirty))
-    )
-  })
-*/
-
-  // const $component0 = (state, type, subs, tree) => {
-  //   state = state._p // this is wrong ofc
-  //   if (!tree._) tree._ = {}
-  //   if (type === 'remove') {
-  //     remove(tree._[1])
-  //   } else if (type === 'new') {
-  //     const parent = getParentr(0, tree)
-  //     const storage = tree._[1] = {}
-  //     const dirty = state.get('dirty', {}).compute()
-  //     const dweep = state.get('dweep', {}).compute() || 'pink'
-  //     const durk = state.get('durk', {}).compute()
-  //     const x = storage._o_0_x = state.get('x', {}).compute() || 0
-  //     const y = storage._o_0_y = state.get('y', {}).compute() || 0
-  //     storage.c_0 = createText(dirty)
-  //     storage.c_2_0 = createText(durk)
-  //     storage.c_3_0_0 = createText(dirty)
-  //     storage.c = createElement(
-  //       'div',
-  //       {
-  //         style: {
-  //           color: dweep,
-  //           transform: `translated3d(${x || 0}px, ${y || 0}px, 0px)`
-  //         }
-  //       },
-  //       [
-  //         storage.c_0,
-  //         createElement('button', { style: { background: 'red' } }, [ createText('boeton') ]),
-  //         createElement('h1', { style: { background: 'red' } }, [ storage.c_2_0 ]),
-  //         createElement('ul', null, createElement('li', null, [ storage.c_3_0_0 ]))
-  //       ]
-  //     )
-  //     parent.c.appendChild(storage.c)
-  //   }
-  // }
-
-// this is obivously fastest but slower initial since everything will be double...
-  // const $component0Button = document.createElement('button')
-  // $component0Button.style.background = 'red'
-  // $component0Button.appendChild(document.createTextNode('boeton'))
-  // const $componenth10 = document.createElement('h1')
-  // $componenth10.style.background = 'red'
