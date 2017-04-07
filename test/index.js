@@ -2,15 +2,14 @@
 const render = require('../')
 const test = require('tape')
 const h = require('hub.js')
-const { get } = require('brisky-struct')
+const { get, compute } = require('brisky-struct')
 
 test('render', t => {
 
-  // ------- this is all compiler -------
+  // ----------------------------
+  var cnt = 0
   const styles = {}
   const toDash = key => key.replace(/([A-Z])([a-z]|$)/g, '-$1$2').toLowerCase()
-  // toDashcan be done by compiler
-  var cnt = 0
   const uid = num => {
     const div = num / 26 | 0
     var str = String.fromCharCode(97 + num % 26)
@@ -24,22 +23,24 @@ test('render', t => {
     return str
   }
   // add an id for ssr
-  const style = document.createElement('style')
+  const styleSheet = document.createElement('style')
   // WebKit hack :(
-  style.appendChild(document.createTextNode(''))
-  document.head.appendChild(style)
-  const sheet = style.sheet
-  const setStyle = (style, val) => {
-    style = toDash(style)
-    val = `${style}:${val}`
-    if (!styles[val]) {
+  styleSheet.appendChild(document.createTextNode(''))
+  document.head.appendChild(styleSheet)
+  const sheet = styleSheet.sheet
+
+  const style = (style, val) => {
+    const key = style + val
+    if (!(key in styles)) {
       const classname = uid(cnt++)
-      styles[val] = classname
-      sheet.insertRule(`.${classname} { ${val}; }`, sheet.rules.length)
+      styles[key] = classname
+      sheet.insertRule(`.${classname} { ${toDash(style)}:${val}; }`, sheet.rules.length)
+      return classname
+    } else {
+      return styles[key]
     }
-    return styles[val]
   }
-  // -----------------------------------
+  // ----------------------------
 
   const getParent = (id, tree) => {
     var p = tree
@@ -51,70 +52,70 @@ test('render', t => {
     }
   }
 
-  // --------------------------------
-  // compilerstep -- will also work in the browser!
-  setStyle('background', 'red')
-  setStyle('borderTop', '5px solid blue')
-  setStyle('padding', '10px')
-  // ---------------------------------
+  const isStruct = t => t && typeof t === 'object' && t.inherits
 
-  const $component0x_y = (state, type, subs, tree) => {
-    const n = getParent(1, tree)
+  const calc = t => typeof t === 'object' ? compute(t) : t
+
+  // -----------------------------------
+  // ------ results --------
+
+  const $component0x_y = (id, state, tree) => {
+    const n = getParent(id, tree)
     if (n.o_0 !== state.stamp) {
       n.o_0 = state.stamp
-      n.c.style.transform = `translate3d(${n._o_0_x.compute() || 0}px, ${n._o_0_y.compute() || 0}px, 0px)`
+      n.c.style.transform = `translate3d(${calc(n._o_0_x) || 0}px, ${calc(n._o_0_y) || 0}px, 0px)`
     }
   }
 
-  const $component0durk = (state, type, subs, tree) => {
-    getParent(1, tree).c_2_0.nodeValue = state.compute() || ''
+  const $component0durk = (id, state, tree) => {
+    getParent(id, tree).c_2_0.nodeValue = compute(state) || ''
   }
 
-  const $component0dirty = (state, type, subs, tree) => {
-    const p = getParent(1, tree)
-    const val = state.compute()
+  const $component0dirty = (id, state, tree) => {
+    const p = getParent(id, tree)
+    const val = compute(state)
     p.c_0.nodeValue = val || ''
     p.c_3_0_0.nodeValue = val || ''
   }
 
-  const $component0dweep = (state, type, subs, tree) => {
-    getParent(1, tree).c.style.color = state.compute() || 'pink'
+  const $component0dweep = (id, state, tree) => {
+    getParent(id, tree).c.style.color = compute(state) || 'pink'
   }
 
-  const $component0 = (state, type, subs, tree) => {
+  const $component0 = (parentId, id, state, type, tree) => {
     if (type === 'remove') {
-      const c = tree._ && tree._[1] && tree._[1].c
+      const c = tree._ && tree._[id] && tree._[id].c
       if (c) c.parentNode.removeChild(c)
     } else if (type === 'new') {
       if (!tree._) tree._ = {}
-      const parent = getParent(0, tree)
-      const storage = tree._[1] = {}
+      const parent = getParent(parentId, tree)
+      const storage = tree._[id] = {}
 
-      // ---------------- props will come from parent! ---------
-      const dirty = state.get('dirty', {}).compute()
-      const dweep = state.get('dweep', {}).compute() || 'pink'
-      const durk = state.get('durk', {}).compute()
+      // ---------------- THIS IS DIFFERENT FOR USAGE ---------
+      const props = parent.$component0
 
-      storage._o_0_x = state.get('x', {})
-      storage._o_0_y = state.get('y', {})
-      const x = storage._o_0_x.compute() || 0
-      const y = storage._o_0_y.compute() || 0
+      const dirty = calc(props.dirty)
+      const dweep = calc(props.dweep) || 'pink'
+      const durk = calc(props.durk)
+
+      if (isStruct(props.x) || isStruct(props.y)) {
+        storage._o_0_x = props.x
+        storage._o_0_y = props.y
+      }
+      const x = calc(storage._o_0_x) || 0
+      const y = calc(storage._o_0_y) || 0
       // ----------------------------------------------------------
 
-      // ----------------------------- dom ------------------------
+      // ----------------------------- ELEMENTS ------------------------
       const text0 = storage.c_0 = document.createTextNode(dirty || '')
       const text1 = storage.c_2_0 = document.createTextNode(durk || '')
       const text2 = storage.c_3_0_0 = document.createTextNode(dirty || '')
       const div0 = storage.c = document.createElement('div')
-      div0.style.color = dweep // since its state no setStyle
-      div0.style.transform = `translated3d(${x || 0}px, ${y || 0}px, 0px)` // since its state no setStyle
       div0.appendChild(text0)
       const button0 = document.createElement('button')
-      button0.classList.add('a', 'b', 'c')
       button0.appendChild(document.createTextNode('boeton'))
       div0.appendChild(button0)
       const h10 = document.createElement('h1')
-      h10.classList.add('b')
       h10.appendChild(text1)
       div0.appendChild(h10)
       const li0 = document.createElement('li')
@@ -122,38 +123,84 @@ test('render', t => {
       const ul0 = document.createElement('ul')
       ul0.appendChild(li0)
       div0.appendChild(ul0)
+      // ----------------------------STYLE -------------------------
+      div0.classList.add(
+        style('transform', `translated3d(${x || 0}px, ${y || 0}px, 0px)`),
+        style('color', dweep)
+      )
+
+      button0.classList.add(
+        style('background', 'red'),
+        style('borderTop', '5px solid blue'),
+        style('padding', '10px')
+      ) // literals / straight vars just get transpiled to letters
+
+      h10.classList.add(style('borderTop', '5px solid blue'))
       // ----------------------------------------------------------
 
-      parent.c.appendChild(div0)
+      if (parent.c) parent.c.appendChild(div0)
     }
   }
 
   const render = (props) => {
-    const tree = { _: { 0: { c: document.body } } }
+    const tree = { _: {
+      root: {
+        c: document.body,
+        $component0: {
+          dirty: props.get('dirty', {}),
+          dweep: props.get('durk', {}),
+          durk: props.get('durk', {}),
+          x: props.get('x', {}),
+          y: props.get('y', {})
+        }
+      }
+    } }
     // could use parentnode listener or something
     // do need to change ids -- messed up
     hub.subscribe({
       val: 'property', // to handle initial app
-      _: { property: [ $component0 ] },
+      _: { property: [
+        (state, type, subs, tree) => $component0('root', 0, state, type, tree)
+      ] },
       x: {
         val: 'shallow',
-        _: { update: [ $component0x_y ] }
+        _: {
+          update: [
+            (state, type, subs, tree) => $component0x_y(0, state, tree)
+          ]
+        }
       },
       y: {
         val: 'shallow',
-        _: { update: [ $component0x_y ] }
+        _: {
+          update: [
+            (state, type, subs, tree) => $component0x_y(0, state, tree)
+          ]
+        }
       },
       durk: {
         val: 'shallow',
-        _: { update: [ $component0durk ] }
+        _: {
+          update: [
+            (state, type, subs, tree) => $component0durk(0, state, tree)
+          ]
+        }
       },
       dirty: {
         val: 'shallow',
-        _: { update: [ $component0dirty ] }
+        _: {
+          update: [
+            (state, type, subs, tree) => $component0dirty(0, state, tree)
+          ]
+        }
       },
       dweep: {
         val: 'shallow',
-        _: { update: [ $component0dweep ] }
+        _: {
+          update: [
+            (state, type, subs, tree) => $component0dweep(0, state, tree)
+          ]
+        }
       }
     }, (state, type, subs, tree) => {
       const _ = subs._
