@@ -5,8 +5,6 @@ const h = require('hub.js')
 const { puid } = require('brisky-struct')
 
 test('render', t => {
-
-
   const hub = h({ dirty: 'its some text', dweep: 'blue' })
 
   const briskyH = (storage, tag, id, attributes, children) => {
@@ -17,9 +15,12 @@ test('render', t => {
 
       // here we need to handle
       // other dom nodes
-
-      if (child && typeof child === 'object' && child.inherits) {
-        elem.appendChild((storage[id + i] = document.createTextNode(child.compute())))
+      if (child && typeof child === 'object') {
+        if (child.inherits) {
+          elem.appendChild((storage[id + '_' + i] = document.createTextNode(child.compute())))
+        } else if (child.nodeType) {
+          elem.appendChild((storage[id + '_' + i] = child))
+        }
       } else if (typeof child === 'string') {
         elem.appendChild(document.createTextNode(child))
       }
@@ -60,9 +61,18 @@ test('render', t => {
     if (node) node.parentNode.removeChild(node)
   }
 
-const B = (({ dirty, dweep = 'pink' }) => {
-  return h('div', { style: { color: dweep } }, dirty)
-})
+  const B = (({ dirty, dweep = 'pink' }) => {
+    return h('div', { style: { color: dweep } }, dirty)
+  })
+
+  const C = (({ dirty, dweep = 'pink', durk }) => {
+    return h('div', { style: { color: dweep } },
+      dirty,
+      h('button', { style: { background: 'red' } }, 'boeton'),
+      h('h1', { style: { borderTop: '1px solid blue' }, durk }),
+      h('ul', null, h('li', null, dirty))
+    )
+  })
 
   const render = (props) => {
     const tree = {}
@@ -77,29 +87,51 @@ const B = (({ dirty, dweep = 'pink' }) => {
             } else if (type === 'new') {
               const dirty = state.get('dirty', '') // since its bound to text
               const dweep = state.get('dweep', 'pink') // default
+              const durk = state.get('durk', '') // since its bound to text
 
               const storage = {}
+
               briskyH(
                 storage,
                 'div',
-                'node',
+                'c',
                 { style: { color: dweep } },
-                [ dirty ]
-                // coninuation of other STATE elements are a bit harder -- need to find your parent
-                // probably add parent id to the function to fin it
+                [
+                  dirty,
+                  briskyH(storage, 'button', 'c_1', { background: 'red' }, [ 'boeton' ]),
+                  briskyH(storage, 'h1', 'c_2', { background: 'red' }, [ durk ]),
+                  briskyH(storage, 'ul', 'c_3', null, [
+                    briskyH(storage, 'li', 'c_3_0', null, [ dirty ])
+                  ])
+                ]
               )
+
               tree._[1] = storage
-              // add to parent
+
+              console.log(tree._[1])
             }
           }
         ]
+      },
+      durk: {
+        val: 'shallow',
+        _: {
+          update: [
+            (state, type, subs, tree) => {
+              getParent(1, tree).c_2_0.nodeValue = state.compute()
+            }
+          ]
+        }
       },
       dirty: {
         val: 'shallow',
         _: {
           update: [
             (state, type, subs, tree) => {
-              getParent(1, tree).node0.nodeValue = state.compute()
+              getParent(1, tree).c_0.nodeValue = state.compute()
+            },
+            (state, type, subs, tree) => {
+              getParent(1, tree).c_3_0_0.nodeValue = state.compute()
             }
           ]
         }
@@ -109,7 +141,7 @@ const B = (({ dirty, dweep = 'pink' }) => {
         _: {
           update: [
             (state, type, subs, tree) => {
-              getParent(1, tree).node.style.color = state.compute()
+              getParent(1, tree).c.style.color = state.compute()
             }
           ]
         }
@@ -128,7 +160,7 @@ const B = (({ dirty, dweep = 'pink' }) => {
         }
       }
     }, true, tree)
-    return tree._[1].node
+    return tree._[1].c
   }
 
   // render(B, hub)
@@ -138,19 +170,20 @@ const B = (({ dirty, dweep = 'pink' }) => {
     setTimeout(() => resolve(i), 10)
   })
 
-  // hub.set({
-  //   dirty: function * () {
-  //     let i = 100
-  //     while (i--) { yield timeout(i) }
-  //   }
-  // })
+  hub.set({
+    dirty: function * () {
+      let i = 1000
+      while (i--) { yield timeout(i) }
+    }
+  })
 
   let d = Date.now()
-  let i = 1e5
+  let i = 1
   while (i--) {
     hub.set({
       dweep: i % 2 ? 'orange' : 'purple',
-      dirty: i
+      dirty: i,
+      durk: 'durk!'
     })
   }
   console.log(Date.now() - d, 'ms')
