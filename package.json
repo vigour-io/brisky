@@ -7,7 +7,7 @@
     "./dist/index.js": "./dist/index.browser.js"
   },
   "scripts": {
-    "watch": "builder-boy src/index.js dist/index.js -r -w",
+    "watch": "builder-boy test/index.js dist/index.js -r -w",
     "dev": "budo test/index.js --live",
     "cover": "istanbul cover --report none --print detail test/index.js",
     "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0) && standard"
