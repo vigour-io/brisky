@@ -25,7 +25,7 @@
     "brisky-scroll": "^1.0.0",
     "case-parser": "^1.0.0",
     "ua-cases": "^1.1.2",
-    "vigour-ua": "^2.0.0"
+    "vigour-ua": "^3.1.4"
   },
   "bugs": {
     "url": "https://github.com/vigour-io/brisky/issues"
