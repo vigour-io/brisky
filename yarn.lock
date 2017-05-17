@@ -657,7 +657,7 @@ breakable@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/breakable/-/breakable-1.0.0.tgz#784a797915a38ead27bad456b5572cb4bbaa78c1"
 
-brisky-class@^1.3.0:
+brisky-class@^1.1.2, brisky-class@^1.3.0:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/brisky-class/-/brisky-class-1.3.7.tgz#0d920434a20f713b613a6e55cc1d4388e674fd73"
   dependencies:
@@ -687,6 +687,19 @@ brisky-events@^1.3.0:
     vigour-stamp "^1.3.2"
     vigour-ua "^2.0.0"
     vigour-util "^3.1.0"
+
+brisky-focus@^1.2.0:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/brisky-focus/-/brisky-focus-1.2.3.tgz#53933fbe9b174a4599d680a4cbaa428d9670876c"
+  dependencies:
+    babel-preset-es2015 "^6.6.0"
+    babelify "^7.3.0"
+    brisky-class "^1.1.2"
+    brisky-core "^1.4.1"
+    brisky-events "^1.3.0"
+    brisky-props "^1.1.1"
+    ducktape "^1.0.0"
+    vigour-ua "^2.0.0"
 
 brisky-get-reference@^1.0.0:
   version "1.0.2"
@@ -720,7 +733,7 @@ brisky-is-removed@^1.0.0:
   dependencies:
     bubleify "0.5.1"
 
-brisky-props@^1.1.2, brisky-props@^1.2.3:
+brisky-props@^1.1.1, brisky-props@^1.1.2, brisky-props@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/brisky-props/-/brisky-props-1.2.4.tgz#a5561f7e9ce09bc30e3d2e8e96202b9728ab6851"
   dependencies:
@@ -3060,11 +3073,22 @@ read-pkg@^1.0.0:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.5:
+readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.5:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
   dependencies:
     buffer-shims "^1.0.0"
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "~1.0.0"
+    process-nextick-args "~1.0.6"
+    string_decoder "~0.10.x"
+    util-deprecate "~1.0.1"
+
+readable-stream@^2.0.2, readable-stream@~2.0.0, readable-stream@~2.0.5:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
+  dependencies:
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -3080,17 +3104,6 @@ readable-stream@~1.1.11:
     inherits "~2.0.1"
     isarray "0.0.1"
     string_decoder "~0.10.x"
-
-readable-stream@~2.0.0, readable-stream@~2.0.5:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
-  dependencies:
-    core-util-is "~1.0.0"
-    inherits "~2.0.1"
-    isarray "~1.0.0"
-    process-nextick-args "~1.0.6"
-    string_decoder "~0.10.x"
-    util-deprecate "~1.0.1"
 
 readable-stream@~2.1.4:
   version "2.1.5"
@@ -3943,6 +3956,10 @@ vigour-state@^4.6.3:
 vigour-ua@^2.0.0, vigour-ua@^2.0.3, vigour-ua@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/vigour-ua/-/vigour-ua-2.2.0.tgz#87bea1400671f709a0435d97268a72183795dd2c"
+
+vigour-ua@^3.1.4:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/vigour-ua/-/vigour-ua-3.1.5.tgz#fc0efdcb71bd3e372acb57e78c7720bdd0418324"
 
 vigour-util@^3.0.0, vigour-util@^3.1.0, vigour-util@^3.3.0, vigour-util@^3.3.2:
   version "3.3.3"
