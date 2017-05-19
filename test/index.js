@@ -54,8 +54,15 @@ test('render', t => {
 
   const calc = t => typeof t === 'object' ? compute(t) : t
 
+  const remove = (tree, id) => {
+    const c = tree._ && tree._[id] && tree._[id].c
+    if (c) c.parentNode.removeChild(c)
+  }
+
   // -----------------------------------
   // ------ results --------
+  // prop-x state
+  // prop-y state
   const $component0x_y = (id, state, tree) => {
     const n = getParent(id, tree)
     if (n.o_0 !== state.stamp) {
@@ -64,33 +71,36 @@ test('render', t => {
     }
   }
 
+  // prop-durk state
   const $component0durk = (id, state, tree) => {
-    getParent(id, tree).c_2_0.nodeValue = compute(state) || ''
+    getParent(id, tree).c_2_0.nodeValue = compute(state)
   }
 
+  // prop-dirty state
   const $component0dirty = (id, state, tree) => {
     const p = getParent(id, tree)
     const val = compute(state)
-    p.c_0.nodeValue = val || ''
-    p.c_3_0_0.nodeValue = val || ''
+    p.c_0.nodeValue = val
+    p.c_3_0_0.nodeValue = val
   }
 
+  // prop-dweep state
   const $component0dweep = (id, state, tree) => {
     getParent(id, tree).c.style.color = compute(state) || 'pink'
   }
 
+  // render
   const $component0 = (parentId, id, state, type, tree) => {
     if (type === 'remove') {
-      const c = tree._ && tree._[id] && tree._[id].c
-      if (c) c.parentNode.removeChild(c)
+      remove(tree, id)
     } else if (type === 'new') {
       // also need to check if youre top dog then just add it and set everything else except creation
       if (!tree._) tree._ = {}
       const parent = getParent(parentId, tree)
       const storage = tree._[id] || (tree._[id] = {})
-      const props = parent[id]
+      const props = parent[id] || {}
 
-      // ---------------- THIS IS DIFFERENT FOR USAGE ---------
+      // ---------------- PROPS ---------
       const dirty = calc(props.dirty)
       const dweep = calc(props.dweep) || 'pink'
       const durk = calc(props.durk)
@@ -103,8 +113,26 @@ test('render', t => {
       // ----------------------------------------------------------
 
       // ----------------------------- ELEMENTS ------------------------
-      const component = storage.c || (storage.c = document.createElement('div'))
+      // correct order
 
+      /*
+       ({ dirty, dweep = 'pink', durk, x, y }) =>
+        <div style={{
+          color: dweep,
+          transform: `translated3d(${x || 0}px, ${y || 0}px, 0px)`
+        }}>
+        dirty
+        <button style={{ style: { background: 'red' }}}>boeton</button>
+        <h1 style={{ borderTop: '1px solid blue' }}>durk</h1>
+        <ul>
+          <li>
+            dirty
+          </li>
+        </ul>
+        </div>
+      */
+
+      const component = storage.c || (storage.c = document.createElement('div'))
       const text0 = storage.c_0 = document.createTextNode(dirty || '')
       const text1 = storage.c_2_0 = document.createTextNode(durk || '')
       const text2 = storage.c_3_0_0 = document.createTextNode(dirty || '')
@@ -129,8 +157,6 @@ test('render', t => {
         style('height', '175px')
       )
 
-      console.log(sheet)
-
       button0.classList.add(
         style('background', 'red'),
         style('borderTop', '5px solid blue'),
@@ -143,6 +169,7 @@ test('render', t => {
       if (parent.c) parent.c.appendChild(component)
     }
   }
+
   // -----------------------------------
 
   const render = (props) => {
@@ -165,8 +192,9 @@ test('render', t => {
         2: { // component 1 (id)
           y: 400,
           dirty: props.get('dirty', {}),
-          dweep: 'red'
+          dweep: 'green'
         }
+        // props with an element next level :D
       }
     } }
     // could use parentnode listener or something
@@ -176,6 +204,10 @@ test('render', t => {
       _: {
         property: (state, type, subs, tree) => {
           $component0('root', 0, state, type, tree)
+          // let i = 1e4
+          // while (i-- > 100) {
+            // $component0('root', 100, state, type, tree)
+          // }
         }
       },
       blarrrf: {
@@ -256,18 +288,28 @@ test('render', t => {
     durk: '!!!!!!!!',
     dweep: 'purple',
     y: 100,
-    dirty: 100
-  })
-
-  const timeout = val => new Promise(resolve => setTimeout(() => resolve(val), 10))
-  hub.set(function * () {
-    var i = 1e3
-    while (i--) {
-      yield timeout({
-        dirty: i
-      })
+    dirty: 100,
+    a: {
+      b: true
     }
   })
+
+  console.log(hub.a.b.path())
+
+  const timeout = val => new Promise(resolve => {
+    setTimeout(() => resolve(val), 10)
+  })
+
+  // hub.set(function * () {
+  //   let i = 1000
+  //   while (i--) {
+  //     yield timeout({
+  //       dirty: i,
+  //       y: Math.sin(i / 50) * (200 + i / 20) + 200,
+  //       x: Math.cos(i / 50) * (200 + i / 20) + 200
+  //     })
+  //   }
+  // })
 
   var d = Date.now()
   render(hub)

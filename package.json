@@ -36,6 +36,7 @@
     "brisky-struct": "latest"
   },
   "devDependencies": {
+    "brisky-render": "latest",
     "hub.js": "latest",
     "coveralls": "^2.11.9",
     "istanbul": "^0.4.3",
