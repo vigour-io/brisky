@@ -9,3 +9,7 @@ module.exports = (code, ast) => {
     })
   }
 }
+
+const fs = () => {
+
+}
