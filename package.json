@@ -33,6 +33,8 @@
     "Youri Daamen <youri@vigour.io>"
   ],
   "dependencies": {
+    "acorn": "^4.0.4",
+    "acorn-jsx": "^3.0.1",
     "brisky-struct": "latest"
   },
   "devDependencies": {
