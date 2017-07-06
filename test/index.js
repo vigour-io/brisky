@@ -1,5 +1,5 @@
 const { create, get, puid, compute } = require('brisky-struct')
-const { render, isStruct, calc, addSubscription, createTransformer, findParent } = require('./framework')
+const { render, isStruct, calc, addSubscription, createTransformer, findParent, parent } = require('./framework')
 // ------------------------------------------------
 // const App = require('./jsx.transpiled.js')
 // ------------------------------------------------
@@ -22,6 +22,8 @@ const List = props => {
 // this is pretty usefull to support
 //   return <div {...rest}>lulz</div>
 // }
+
+
 
 const App = ({ title, items }) => {
   return <div>{title}
@@ -59,10 +61,13 @@ ThingElement.style.margin = '10px'
 ThingElement.style.width = '50px'
 ThingElement.style.height = '50px'
 
+// missing the same type of component on the same
 const Thing = {
   props: {
+    // these boys need a transformer
     title1: (s, subs, tree, id) => {
-      findParent(tree._p, puid(s.parent()) + id).childNodes[0].nodeValue = compute(s)
+      // need to get transformer here
+      tree._p._[puid(s.parent()) + id].childNodes[0].nodeValue = compute(s)
     }
   },
   element: ThingElement,
@@ -219,7 +224,7 @@ const App = {
 // ------------------------------------------------
 const app = render(App, s)
 
-var i = 2e3
+var i = 4e3
 var arr = []
 while (i--) {
   arr.push({
@@ -251,7 +256,7 @@ var total = 0
 const x = () => {
   cnt++
   var d = Date.now()
-  var i = 2e3
+  var i = 4e3
   var arr = []
   while (i--) {
     arr.push({
