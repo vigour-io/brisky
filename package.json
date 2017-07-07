@@ -35,19 +35,20 @@
   "dependencies": {
     "acorn": "^4.0.4",
     "acorn-jsx": "^3.0.1",
-    "brisky-struct": "latest"
+    "brisky-struct": "latest",
+    "chalk": "^2.0.1"
   },
   "devDependencies": {
     "brisky-render": "latest",
-    "hub.js": "latest",
+    "budo": "^9.4.7",
+    "builder-boy": "latest",
     "coveralls": "^2.11.9",
+    "hub.js": "latest",
     "istanbul": "^0.4.3",
     "nodemon": "^1.9.1",
     "pre-commit": "^1.1.3",
-    "standard": "^7.0.1",
+    "standard": "^7.1.2",
     "tap-difflet": "0.4.0",
-    "tape": "^4.4.0",
-    "budo": "^9.4.7",
-    "builder-boy": "latest"
+    "tape": "^4.4.0"
   }
 }
