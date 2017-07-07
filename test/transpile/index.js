@@ -3,6 +3,13 @@ const { walker, showcode, assembleFunctions, hasArg } = require('./util')
 // walker
 var id = 0
 
+
+//
+const createUIElement = (id, tag) => {
+  return `var $${id} = document.createElement('${tag}') // :D`
+}
+
+
 // this is for text or perhaps children etc
 // AKA TEXT
 
@@ -309,7 +316,7 @@ const parseJSXElement = (code, node, subs, args, pid, components) => {
     parseElement(code, components[tag], subs, props, myId, components)
     subs._.new.push('// ----------')
   } else {
-    subs._.new.push(`var $${myId} = document.createElement('${tag}')`)
+    subs._.new.push(createUIElement(myId, tag)) // `var $${myId} = document.createElement('${tag}')`)
 
     if (node.children) {
       node.children.forEach(child => {
