@@ -4,7 +4,7 @@ const parse = require('./transpile')
 const standard = require('standard')
 const ui = require('./transpile/ui/browser')
 
-console.log('\n\start parsing...')
+console.log('\n\start parsing...', ui)
 
 const result = parse(jsx.toString(), ui)
 
@@ -29,17 +29,13 @@ const parseRaw = (result, key) => {
     raw.push(key + ': ' + result + ',')
   }
 }
-
 parseRaw(result)
 raw[raw.length - 1] = raw[raw.length - 1].slice(0, -1)
-// raw.pop()
-raw.unshift(`const { findParent } = require('./framework')\n`)
-
-fs.writeFileSync(__dirname + '/jsx.transpiled.real.js', raw.join('\n'))
-
+// raw.unshift(`const { findParent } = require('./framework')\n`)
+// fs.writeFileSync(__dirname + '/jsx.transpiled.real.js', raw.join('\n'))
 // will make this super nice
-// standard.lintText(raw.join('\n'), { fix: true }, (err, data) => {
-//   if (err) console.log('ERR!', err)
-//   console.log(data.results[0])
-//   fs.writeFileSync(__dirname + '/jsx.transpiled.real.js', data.results[0].output)  //eslint-disable-line
-// })
+standard.lintText(raw.join('\n'), { fix: true }, (err, data) => {
+  if (err) console.log('ERR!', err)
+  // console.log(data.results[0])
+  fs.writeFileSync(__dirname + '/jsx.transpiled.real.js', data.results[0].output)  //eslint-disable-line
+})

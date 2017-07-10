@@ -1,5 +1,5 @@
 const acornjsx = require('acorn-jsx')
-const { walker, showcode, assembleFunctions } = require('./util')
+const { assembleFunctions, string } = require('./util')
 const { collect } = require('./components')
 const { parseElement } = require('./element')
 
@@ -23,13 +23,13 @@ module.exports = (code, ui, ast, entry = 'App') => {
   if (components[entry]) {
     console.log('entry component:', entry)
     // here we can start
-    const subs = { val: 'switch' }
+    const subs = { val: string('switch') }
     // functions that can be used by the program
     const functions = {}
 
-    parseElement({ subs, functions, components, code }, components[entry])
+    parseElement({ subs, functions, components, code, ui }, components[entry])
 
-    console.log('parsed subs')
+    return assembleFunctions(subs)
   } else {
     console.log('cannot find component:', entry)
   }

@@ -1,17 +1,19 @@
 module.exports = {
-  createElement: () => {
-
+  createElement: (id, type) => {
+    // type / tag
+    console.log('createElement', id, type)
+    return `var _${id} = tree._[${id}] = document.createElement('${type}')`
   },
-  removeElement: () => {
-
+  removeChild: (id, childId) => {
+    console.log('removeElement')
   },
-  createText: () => {
-
+  createText: (id, val) => {
+    console.log('createText')
   },
-  updateText: () => {
-
+  updateText: (id, val) => {
+    console.log('updateText')
   },
-  addChild: () => {
-
+  addChild: (id, childId) => {
+    return `_${id}.appendChild(_${childId})`
   }
 }

@@ -34,7 +34,7 @@ exports.parseArgs = (status, node) => {
       } else {
         result.val.push({
           key: prop.key.name,
-          val: prop.value.name,
+          val: prop.value.name
         })
       }
     })

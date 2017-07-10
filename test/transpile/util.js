@@ -60,8 +60,14 @@ const assembleFunctions = subs => {
       assembleFunctions(subs[key])
     }
   }
+  return subs
 }
 
+const string = val => {
+  return `'${val}'`
+}
+
+exports.string = string
 exports.showcode = showcode
 exports.walker = walker
 exports.assembleFunctions = assembleFunctions
