@@ -14,7 +14,6 @@ const tree = {}
 state.subscribe(App, render, false, tree)
 
 // console.log(tree)
-
 document.body.appendChild(tree._[1])
 
 setTimeout(() => {
