@@ -74,18 +74,23 @@ const Thing = ({ fur, penis }) => {
 //   return <div>{props.title}</div>
 // }
 
-const Blurf = props => <div>{props.bla}</div>
+// const Blurf = (props =) => <div>{props.bla}</div>
+
+
+// const Blurf = props => <div>{props.bla}</div>
 
 // dont parse args here -- parse args in blurf
 // elements can get props passed -- props ALLWAYS need wrappers
 // props can have multiple
 // prop val -> prop -> prop -> prop -- etc
 
-const App = props => <Blurf bla={props.title} />
+// const App = props => <Blurf bla={props.title} />
 
-// const App = ({ title }) => {
-//   return <div>{title}</div>
-// }
+// const App = (props = { title: 'fun' }) => <Blurf bla={props.title} />
+
+const App = ({ title = 'fun', hello, gur = { hello: true } }) => {
+  return <div>{title}</div>
+}
 
 // const App = ({ title: turd }) => {
 //   return <div>{title}</div>

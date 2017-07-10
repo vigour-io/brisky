@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 
 const walker = (node, parse, parent) => {
-  if (parent) {
+  if (parent && !node.parent) {
     Object.defineProperty(node, 'parent', { value: parent, enumerable: false })
   }
   const val = parse(node)
