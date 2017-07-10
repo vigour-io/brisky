@@ -1,5 +1,5 @@
 const { showcode, walker } = require('../util')
-
+const { createPropFromExpression } = require('./expression')
 /*
 implement these in the framework
 View, Text, Image
@@ -58,44 +58,68 @@ const createAndAdd = (status, child, parentId) => {
     // }
 */
 
-const parseIdentifier = (status, node, props, args) => {
+// prop calculation helper
 
-}
+// const addChild = (status, node, props, args) => {
 
-const parseExpression = (status, node, props, args) => {
+// }
+// move to expression
+
+// pass props and args as well....
+const parseExpressionContainer = (status, node, props, args) => {
   if (node.type === 'JSXExpressionContainer') {
-    // needs to go to own file!!!!
-    // here we need to start creating shit
-    console.log('parse expression')
+    const prop = createPropFromExpression(
+      status,
+      node.expression,
+      props,
+      args
+    )
+
+    console.log('prop:', prop)
+
+    if (prop.type === 'struct') {
+      // simple straight forward struct
+      console.log('go parse prop')
+      const update = getListeners(status, 'update')
+      const listeners = getListeners(status, 'new')
+
+      console.log(update, listeners)
+    } else if (prop.type === 'raw') {
+
+    } else if (prop.type === 'child') {
+
+    } else if (prop.type === 'reference') {
+
+    }
   }
 }
 
 const parseJSXElement = (status, node, props, args) => {
   // args
-  // type === 'empty'
-  // type === 'ObjectPattern'
-  // type === 'Identifier'
+    // type === 'empty'
+    // type === 'ObjectPattern'
+    // type === 'Identifier'
   // props
   // if !props (all is subscription)
   console.log('JSXElement Arguments:\n', args)
-  if (!props) {
-    console.log('JSXElement Props: all subscription')
-    // all props are struct
-    showcode(status.code, node)
-    const openingElement = node.openingElement
-    const parentId = createElement(status, openingElement)
-    const children = node.children
-    // als here need to check for parentId
-    // if first -- do shit
-    walker(children, child => {
-      createAndAdd(status, child, parentId)
-      parseExpression(status, child, props, args)
-      // console.log(child.type)
-    })
-  } else {
-    console.log('got props!')
+  console.log('JSXElement Props: all subscription')
+  // all props are struct
+  showcode(status.code, node)
+  const openingElement = node.openingElement
+  if (openingElement.id) {
+    // reset id
+    openingElement.id = false
   }
+  const parentId = createElement(status, openingElement)
+  const children = node.children
+  // als here need to check for parentId
+  // if first -- do shit
+  walker(children, child => {
+    createAndAdd(status, child, parentId)
+    parseExpressionContainer(status, child, props, args)
+  })
 
+  return parentId
   // switch in a function (using closures)
 }
 
