@@ -30,9 +30,9 @@ const createPropFromExpression = (status, node, props, args) => {
                 // default!
                 let result
                 if (arg.default) {
-                  result = expression.replace(name, val.key)
+                  result = expression.replace(name, `(${val.key} || ${arg.default})`)
                 } else {
-                  result = expression.replace(name, `('${val.key}|| ${arg.default}')`)
+                  result = expression.replace(name, val.key)
                 }
 
                 val.expression = {

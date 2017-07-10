@@ -3,7 +3,6 @@ const { walker } = require('./util')
 
 exports.collect = ast => {
   const components = {}
-
   for (let i = 0; i < ast.body.length; i++) {
     const node = ast.body[i]
     if (node.type === 'VariableDeclaration') {
@@ -21,6 +20,5 @@ exports.collect = ast => {
       }
     }
   }
-
   return components
 }

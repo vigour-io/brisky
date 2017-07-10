@@ -1,4 +1,4 @@
-const { showcode, walker } = require('../util')
+const { showcode, walker, string } = require('../util')
 const { createPropFromExpression } = require('./expression')
 /*
 implement these in the framework
@@ -69,21 +69,27 @@ const createAndAdd = (status, child, parentId) => {
 const parseExpressionContainer = (status, node, props, args) => {
   if (node.type === 'JSXExpressionContainer') {
     const prop = createPropFromExpression(
-      status,
-      node.expression,
-      props,
-      args
+      status, node.expression, props, args
     )
-
     console.log('prop:', prop)
-
     if (prop.type === 'struct') {
-      // simple straight forward struct
       console.log('go parse prop')
-      const update = getListeners(status, 'update')
+      // const update = getListeners(status, 'update')
       const listeners = getListeners(status, 'new')
-
-      console.log(update, listeners)
+      const id = ++cnt
+      let newValue
+      // , updateValue
+      if (prop.expression.type === 'inline') {
+        newValue = prop.expression.val.replace(
+          prop.key,
+          // compute has to return nothing by default
+          `s.get([${prop.val.map(string).join(',')}, 'compute'])`
+          // addElement
+        )
+      }
+      const parentId = node.parent.openingElement.id
+      const line = status.ui.createText(status, id, parentId, newValue, listeners)
+      if (line) listeners.push(line)
     } else if (prop.type === 'raw') {
 
     } else if (prop.type === 'child') {

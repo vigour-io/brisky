@@ -11,8 +11,9 @@ module.exports = {
   removeChild: (status, id, childId) => {
     console.log('removeElement')
   },
-  createText: (status, id, val) => {
+  createText: (status, id, parentId, val) => {
     console.log('createText')
+    return `_${parentId}.appendChild((tree._[${id}] = document.createTextNode(${val})))`
   },
   updateText: (status, id, val) => {
     console.log('updateText')
