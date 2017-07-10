@@ -1,8 +1,11 @@
 const chalk = require('chalk')
 
 const walker = (node, parse, parent) => {
-  if (parent) node.parent = parent
-  if (!parse(node)) {
+  if (parent) {
+    Object.defineProperty(node, 'parent', { value: parent, enumerable: false })
+  }
+  const val = parse(node)
+  if (!val) {
     const keys = Object.keys(node)
     for (let i = 0; i < keys.length; i++) {
       let key = keys[i]
@@ -17,6 +20,8 @@ const walker = (node, parse, parent) => {
         walker(child, parse, node)
       }
     }
+  } else {
+    return val
   }
 }
 
@@ -50,7 +55,6 @@ const assembleFunctions = subs => {
       subs._[fn] = parsed + subs._[fn].join('\n') + '\n }'
     }
   }
-
   for (let key in subs) {
     if (typeof subs[key] === 'object' && key !== '_') {
       assembleFunctions(subs[key])
@@ -58,17 +62,7 @@ const assembleFunctions = subs => {
   }
 }
 
-const hasArg = (str, args) => {
-  for (let i = 0; i < args.length; i++) {
-    if (args[i].key === str) {
-      return args[i]
-    }
-  }
-  return false
-}
-
 exports.showcode = showcode
 exports.walker = walker
-exports.hasArg = hasArg
 exports.assembleFunctions = assembleFunctions
 

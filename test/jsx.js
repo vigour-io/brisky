@@ -17,7 +17,11 @@
 
 // including non literal text etc
 
-const Poop = ({ gurf }) => {
+var bla = () => {
+
+}
+
+const poop = ({ gurf }) => {
   return <p>{gurf}</p>
 }
 
@@ -51,14 +55,42 @@ const Thing = ({ fur, penis }) => {
   return <h2>{fur} {penis}<Poop gurf={penis + '🎩'} /></h2>
 }
 
-const App = ({ title, flups }) => {
-  // const bla = title + '!!!' -- this is def a thing to parse
-  return <div>
-    <Thing fur={'👖' + title + '👖'} penis={'👕' + flups + '👕'} />
-    <Sheit child={<button>{'HELLO'}</button>} />
-    <Sheit><button>{'bye'}</button></Sheit>
-    <Sheit child={'ha!'}><button>{'barf'}</button></Sheit>
-  </div>
+// const App = ({ title, flups }) => {
+//   // const bla = title + '!!!' -- this is def a thing to parse
+//   return <div>
+//     <Thing fur={'👖' + title + '👖'} penis={'👕' + flups + '👕'} />
+//     <Sheit child={<button>{'HELLO'}</button>} />
+//     <Sheit><button>{'bye'}</button></Sheit>
+//     <Sheit child={'ha!'}><button>{'barf'}</button></Sheit>
+//   </div>
+
+// const App = props => {
+//   return <div>{props.title}</div>
+// }
+
+// const App = props => <div>{props.title}</div>
+
+// const App = function (props) {
+//   return <div>{props.title}</div>
+// }
+
+const Blurf = props => <div>{props.bla}</div>
+
+// dont parse args here -- parse args in blurf
+// elements can get props passed -- props ALLWAYS need wrappers
+// props can have multiple
+// prop val -> prop -> prop -> prop -- etc
+
+const App = props => <Blurf bla={props.title} />
+
+// const App = ({ title }) => {
+//   return <div>{title}</div>
+// }
+
+// const App = ({ title: turd }) => {
+//   return <div>{title}</div>
+// }
+
 
   // need a good system for <Poop gur='?' /> as a nested child (in an expression)
   // also need to pass .children as property!
@@ -70,6 +102,6 @@ const App = ({ title, flups }) => {
   //     <Thing text={flups} penis={flups} />
   //   </div>
   // </div>
-}
+// }
 
 module.exports = App
