@@ -16,7 +16,9 @@ const parseExpressionContainer = (status, node) => {
 
       // status from current subs path
       // most simple
-      //
+
+      // RESUSE -- also not good enough
+      // need to check relative subs paths also need to add those when making a prop
       let subs = status.subs
       for (let i = 0, len = prop.val.length; i < len; i++) {
         const key = prop.val[i]
@@ -35,13 +37,20 @@ const parseExpressionContainer = (status, node) => {
           path: prop.val // not enough of course
         }
       ), 'update')
+      // REUSE
+
+      // default value === '' since we use it as text here...
+
+      // remove needs to be handled seperately -- then it will become an empty string as well
 
       const id = ++status.id
       let newValue, updateValue
       if (prop.expression.type === 'inline') {
         newValue = prop.expression.val.replace(
           new RegExp(prop.key, 'g'),
-          `s.get([${prop.val.map(string).join(',')}, 'compute'])`
+          prop.val.length === 1
+            ? `s.get(${prop.val.map(string).join(',')}, '').compute()`
+            : `s.get([${prop.val.map(string).join(',')}], '').compute()`
         )
         updateValue = prop.expression.val.replace(new RegExp(prop.key, 'g'), 's.compute()')
       }

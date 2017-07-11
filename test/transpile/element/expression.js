@@ -1,4 +1,4 @@
-const { showcode, walker } = require('../util')
+const { walker, showcode } = require('../util')
 var cnt = 0
 
 // parse props that are being passed to an element
@@ -8,19 +8,16 @@ var cnt = 0
 
 //   }
 // }
+// lots to do here
 
 const createPropFromExpression = (status, node) => {
-  // need to use status paths to get correct path in subs / t
-  // maybe add them here?
-  console.log('parse expression', node)
   const props = status.props
   const args = status.args
   const val = {}
-  const expression = status.code.slice(node.start, node.end)
+  const expression = status.code.slice(node.start, node.end).split('')
+  const start = node.start
   console.log(`expression: "${expression}"`)
-  // set .val
 
-  // this file needs most love....
   walker(node, (child) => {
     if (child.type === 'Identifier') {
       const name = child.name
@@ -34,30 +31,34 @@ const createPropFromExpression = (status, node) => {
                 // also take care if perhaps the val is the same
                 val.type = 'struct'
                 val.key = `__${++cnt}__`
+                // PATHS!
+
                 val.val = [ args.val[i].key ]
                 // default!
-                let result
-                if (arg.default) {
-                  // use indexes this is not enough!
-                  result = expression.replace(new RegExp(name, 'g'), `(${val.key} || ${arg.default})`)
-                } else {
-                  result = expression.replace(new RegExp(name, 'g'), val.key)
-                }
-                // expression: type inline and function (which can be re-used)
-                val.expression = {
-                  type: 'inline',
-                  val: result
-                }
+                const replacement = arg.default
+                  ? `(${val.key} || ${arg.default})`
+                  : val.key
+
+                val.expression = { type: 'inline', replacement: [] }
+                val.expression.replacement.push([ child, replacement ])
+
+                console.log(val.expression.val)
               } else {
-                // multiple -- multiple can be checked better
+                if (args.val[i].key === val.val[0]) {
+                  const replacement = arg.default
+                    ? `(${val.key} || ${arg.default})`
+                    : val.key
+                  val.expression.replacement.push([ child, replacement ])
+                }
               }
             } else {
+              // this is a bit harder -- allways results to reference types
               // lets get multiple straight
               // need to do shit like reference parsing also props need to have subs path correction etc
               // need to take care of props as well
               // coud just say its allways from the top the path in the subs
               // that will make it rly easy
-              console.log('have propas different parsing')
+              console.log('have props different parsing')
             }
             break
           }
@@ -67,6 +68,45 @@ const createPropFromExpression = (status, node) => {
       }
     }
   })
+
+  if (val.expression.type === 'inline') {
+    let code = ''
+    let replacement = 0
+
+    showcode(status.code, val.expression.replacement.map(val => val[0]))
+
+    // make a util for this kind of shit
+    for (let i = 0; i < expression.length; i++) {
+      const replace = val.expression.replacement[replacement]
+      if (replace) {
+        const rstart = replace[0].start - start
+        const range = (replace[0].end - replace[0].start) + rstart
+        if (i >= rstart && i < range) {
+          if (i === rstart) {
+            code += replace[1]
+          }
+          if (i === range - 1) {
+            replacement++
+          }
+        } else {
+          code += expression[i]
+        }
+      } else {
+        code += expression[i]
+      }
+    }
+
+    delete val.expression.replacement
+    console.log('CODE:', code)
+    val.expression.val = code
+  }
+
+  /*
+    const result = expression.split('')
+    const index = child.start - start
+    result.splice(index, child.end - child.start, replacement)
+  */
+  // need to delete nested references
   // also many types
   return val
 }

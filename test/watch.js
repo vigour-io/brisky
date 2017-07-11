@@ -4,7 +4,7 @@ const parse = require('./transpile')
 const standard = require('standard')
 const ui = require('./transpile/ui/browser')
 
-console.log('\n\start parsing...', ui)
+console.log('\nstart parsing...')
 
 const result = parse(jsx.toString(), ui)
 

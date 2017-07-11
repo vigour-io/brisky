@@ -2,9 +2,17 @@
 
 // const App = (props = { title: 'fun' }) => <Blurf bla={props.title} />
 
-const App = ({ title = 'fun', hello, gur = { hello: true } }) => {
-  return <div><p><h1>{'!' + title.toUpperCase() + '!'}</h1></p></div>
+const App = ({ title = 'fun', hello: bye, gur = { hello: true } }) => {
+  return <div>
+    <h1>X{'!bye' + bye.toUpperCase() + bye.toLowerCase() + 'bye!'}X</h1>
+  </div>
 }
+
+/*
+ <h1>bye{bye.toUpperCase()}!</h1>
+    <h2>hello</h2>
+    <h3>{'hello'}</h3>
+*/
 
 module.exports = App
 
