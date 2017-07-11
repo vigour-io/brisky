@@ -33,6 +33,7 @@ const createPropFromExpression = (status, node) => {
                 val.key = `__${++cnt}__`
                 // PATHS!
 
+                // key can be an array
                 val.val = [ args.val[i].key ]
                 // default!
                 const replacement = arg.default
@@ -44,14 +45,19 @@ const createPropFromExpression = (status, node) => {
 
                 console.log(val.expression.val)
               } else {
+                // also not enough key can be an array....
                 if (args.val[i].key === val.val[0]) {
                   const replacement = arg.default
                     ? `(${val.key} || ${arg.default})`
                     : val.key
                   val.expression.replacement.push([ child, replacement ])
+                } else {
+                  console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
                 }
               }
             } else {
+              // very different obvisouly
+              // also lot of these things can be reused for switch etc
               // this is a bit harder -- allways results to reference types
               // lets get multiple straight
               // need to do shit like reference parsing also props need to have subs path correction etc

@@ -52,6 +52,8 @@ const parseExpressionContainer = (status, node) => {
             ? `s.get(${prop.val.map(string).join(',')}, '').compute()`
             : `s.get([${prop.val.map(string).join(',')}], '').compute()`
         )
+
+        // this is too simplistic only make the var one time then re-use
         updateValue = prop.expression.val.replace(new RegExp(prop.key, 'g'), 's.compute()')
       }
       const parentId = node.parent.openingElement.id
