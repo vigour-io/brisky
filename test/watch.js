@@ -29,12 +29,14 @@ const parseRaw = (result, key) => {
     raw.push(key + ': ' + result + ',')
   }
 }
-parseRaw(result)
+parseRaw(result.subs)
 raw[raw.length - 1] = raw[raw.length - 1].slice(0, -1)
 // raw.unshift(`const { findParent } = require('./framework')\n`)
 // fs.writeFileSync(__dirname + '/jsx.transpiled.real.js', raw.join('\n'))
 // will make this super nice
-standard.lintText(raw.join('\n'), { fix: true }, (err, data) => {
+const str = result.init + '\n' + raw.join('\n')
+
+standard.lintText(str, { fix: true }, (err, data) => {
   if (err) console.log('ERR!', err)
   // console.log(data.results[0])
   fs.writeFileSync(__dirname + '/jsx.transpiled.real.js', data.results[0].output)  //eslint-disable-line

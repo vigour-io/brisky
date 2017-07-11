@@ -30,11 +30,14 @@ module.exports = (code, ui, ast, entry = 'App') => {
     const functions = {}
 
     parseElement(
-      { subs, functions, components, code, ui, path, originalSubs },
+      { subs, functions, components, code, ui, path, originalSubs, id: 0 },
       components[entry]
     )
 
-    return assembleFunctions(subs)
+    return {
+      subs: assembleFunctions(subs),
+      init: Object.keys(functions).map(val => functions[val]).join('\n')
+    }
   } else {
     console.log('cannot find component:', entry)
   }

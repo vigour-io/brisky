@@ -1,4 +1,5 @@
 // have to become dists
-module.exports = function () {
+const fn = function () {
 
 }
+

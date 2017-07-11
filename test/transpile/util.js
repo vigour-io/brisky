@@ -68,6 +68,7 @@ const assembleFunctions = subs => {
 }
 
 const string = val => {
+  // do checks if its no allready like this
   return `'${val}'`
 }
 

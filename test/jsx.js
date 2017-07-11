@@ -3,7 +3,7 @@
 // const App = (props = { title: 'fun' }) => <Blurf bla={props.title} />
 
 const App = ({ title = 'fun', hello, gur = { hello: true } }) => {
-  return <div><p><h1>{title + '!'}</h1></p></div>
+  return <div><p><h1>{'!' + title.toUpperCase() + '!'}</h1></p></div>
 }
 
 module.exports = App
