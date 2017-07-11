@@ -18,6 +18,6 @@ document.body.appendChild(tree._[1])
 
 setTimeout(() => {
   state.set({
-    title: 'woooow'
+    title: ''
   })
 }, 1500)

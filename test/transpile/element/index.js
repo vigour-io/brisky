@@ -1,10 +1,10 @@
-const { showcode, walker, string } = require('../util')
+const { showcode, walker, string, merge } = require('../util')
 const { createPropFromExpression } = require('./expression')
+
 /*
 implement these in the framework
-View, Text, Image
+View, Text, Image ?
 */
-
 const { parseArgs, parseProps } = require('./props')
 
 var cnt = 0
@@ -34,38 +34,14 @@ const addElement = (status, id, childId) => {
 }
 
 const createAndAdd = (status, child, parentId) => {
-  // if child.tag does not start with a captial !== <X />
   const id = createElement(status, child)
   if (id) {
     child.id = id
     addElement(status, (child.parent && child.parent.id) || parentId, id)
   }
-  // else needs to call nested parseJSXElement and calc props for it
   return id
 }
 
-/*
-    // if children...
-    // if (type === 'ObjectPattern') {
-    //   console.log('\nargs.type === ObjectPattern')
-    //   // pre-defined args
-
-    // }
-    // else if (type === 'Identifier') {
-    //   walker(children, child => {
-    //     createAndAdd(status, child, parentId)
-    //   })
-    // }
-*/
-
-// prop calculation helper
-
-// const addChild = (status, node, props, args) => {
-
-// }
-// move to expression
-
-// pass props and args as well....
 const parseExpressionContainer = (status, node, props, args) => {
   if (node.type === 'JSXExpressionContainer') {
     const prop = createPropFromExpression(
@@ -100,33 +76,27 @@ const parseExpressionContainer = (status, node, props, args) => {
   }
 }
 
-const parseJSXElement = (status, node, props, args) => {
-  // args
+const parseJSXElement = (status, node) => {
+  // status.args
     // type === 'empty'
     // type === 'ObjectPattern'
     // type === 'Identifier'
-  // props
-  // if !props (all is subscription)
-  console.log('JSXElement Arguments:\n', args)
-  console.log('JSXElement Props: all subscription')
-  // all props are struct
-  showcode(status.code, node)
+  // status.props
+  // if !props all is subscription, also need to get subscription path so you know where you are
+  // add it on status
+
   const openingElement = node.openingElement
-  if (openingElement.id) {
-    // reset id
-    openingElement.id = false
-  }
+  if (openingElement.id) openingElement.id = false // nodes are re-used so need to become false
   const parentId = createElement(status, openingElement)
   const children = node.children
   // als here need to check for parentId
   // if first -- do shit
   walker(children, child => {
     createAndAdd(status, child, parentId)
-    parseExpressionContainer(status, child, props, args)
+    parseExpressionContainer(status, child)
   })
-
+  // nested functions for events and any for example
   return parentId
-  // switch in a function (using closures)
 }
 
 exports.parseElement = (status, node, props, args) => {
@@ -147,7 +117,8 @@ exports.parseElement = (status, node, props, args) => {
             // 'got a block with a jsx element returned'
             // { return <div /> }
           }
-        } else if (type === '') { // if statements
+        } else if (type === '') {
+          // if statements are the biggest
           // walk if statements
         }
       })
@@ -157,7 +128,10 @@ exports.parseElement = (status, node, props, args) => {
         // results.straightReturnJSX
         console.log('results.straightReturnJSX')
         // if subs change need to pass own status object
-        parseJSXElement(status, results.straightReturnJSX, props, parseArgs(status, node))
+        parseJSXElement(
+          merge(status, { props, args: parseArgs(status, node) }),
+          results.straightReturnJSX
+        )
       }
     }
     // parseJSXElement(status, node, props, parseArgs(status, node))
@@ -166,9 +140,12 @@ exports.parseElement = (status, node, props, args) => {
   } else if (type === 'JSXElement') {
     // here you dont need to parse the args at all
     // find jsx element else there is switch / any involved
-    parseJSXElement(status, node, props, args || { type: 'empty' })
+    parseJSXElement(
+      merge(status, { props, args: args || { type: 'empty' } }),
+      node
+    )
   } else {
-    console.log('cannot parse as element!')
+    console.log('parseElement: cannot parse as element!')
     showcode(status.code, node)
   }
 }

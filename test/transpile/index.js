@@ -24,10 +24,15 @@ module.exports = (code, ui, ast, entry = 'App') => {
     console.log('entry component:', entry)
     // here we can start
     const subs = { val: string('switch') }
+    const originalSubs = subs
+    const path = []
     // functions that can be used by the program
     const functions = {}
 
-    parseElement({ subs, functions, components, code, ui }, components[entry])
+    parseElement(
+      { subs, functions, components, code, ui, path, originalSubs },
+      components[entry]
+    )
 
     return assembleFunctions(subs)
   } else {

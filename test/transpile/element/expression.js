@@ -8,8 +8,10 @@ var cnt = 0
 //   }
 // }
 
-const createPropFromExpression = (status, node, props, args) => {
+const createPropFromExpression = (status, node) => {
   console.log('parse expression', node)
+  const props = status.props
+  const args = status.args
   const val = {}
   const expression = status.code.slice(node.start, node.end)
   console.log(`expression: "${expression}"`)
@@ -35,6 +37,8 @@ const createPropFromExpression = (status, node, props, args) => {
                   result = expression.replace(name, val.key)
                 }
 
+                // type inline and function
+                // those 2 should be enough
                 val.expression = {
                   type: 'inline',
                   val: result

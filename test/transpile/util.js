@@ -25,6 +25,10 @@ const walker = (node, parse, parent) => {
   }
 }
 
+const merge = (status, val) => {
+  return Object.assign({}, status, val)
+}
+
 const showcode = (str, start, end) => { // eslint-disable-line
   if (typeof start === 'object') {
     if (start.end) {
@@ -71,4 +75,4 @@ exports.string = string
 exports.showcode = showcode
 exports.walker = walker
 exports.assembleFunctions = assembleFunctions
-
+exports.merge = merge
