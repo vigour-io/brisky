@@ -1,4 +1,3 @@
-const fs = require('fs')
 const parse = require('./transpile')
 const standard = require('standard')
 const browser = require('./transpile/ui/browser')
@@ -6,7 +5,6 @@ const browser = require('./transpile/ui/browser')
 module.exports = (code, cb, ui) => {
   console.log('\nstart parsing...', ui.id)
   if (!ui) ui = browser
-
   const result = parse(code, ui)
   const raw = [ 'module.exports = ' ]
   const parseRaw = (result, key) => {
