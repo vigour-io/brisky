@@ -1,10 +1,27 @@
 const { getListeners } = require('./subscription')
 const { createPropFromExpression } = require('./expression')
-const { string, merge } = require('../util')
+const { string, merge, showcode } = require('../util')
 
 // const addToSubscription = () => {
 
 // }
+
+// add addText funtion
+
+const plainText = (status, node) => {
+  if (node.type === 'Literal' && node.parent.type === 'JSXElement') {
+    showcode(status.code, node)
+    // this is plain text
+    const listeners = getListeners(status, 'new')
+    const line = status.ui.createText(
+        status,
+        false,
+        node.parent.openingElement.id,
+        string(node.value)
+      )
+    if (line) listeners.push(line)
+  }
+}
 
 const parseExpressionContainer = (status, node) => {
   if (node.type === 'JSXExpressionContainer') {
@@ -72,3 +89,4 @@ const parseExpressionContainer = (status, node) => {
 }
 
 exports.parseExpressionContainer = parseExpressionContainer
+exports.plainText = plainText

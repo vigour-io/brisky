@@ -72,8 +72,20 @@ const string = val => {
   return `'${val}'`
 }
 
+const isEqual = (a, b) => {
+  var i = a.length
+  if (i !== b.length) return false
+  while (i--) {
+    if (b[i] !== a[i]) {
+      return false
+    }
+  }
+  return true
+}
+
 exports.string = string
 exports.showcode = showcode
 exports.walker = walker
 exports.assembleFunctions = assembleFunctions
 exports.merge = merge
+exports.isEqual = isEqual

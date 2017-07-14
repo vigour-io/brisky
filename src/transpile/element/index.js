@@ -1,6 +1,6 @@
 const { showcode, walker, merge } = require('../util')
 const { getListeners } = require('./subscription')
-const { parseExpressionContainer } = require('./children')
+const { parseExpressionContainer, plainText } = require('./children')
 /*
 implement these in the framework (Primitives)
 View, Text, Image
@@ -50,6 +50,7 @@ const parseJSXElement = (status, node) => {
   walker(children, child => {
     createAndAdd(status, child, parentId)
     parseExpressionContainer(status, child)
+    plainText(status, child)
     // parseAttributes(status, child, parentId)
   })
   // nested functions for events and any for example

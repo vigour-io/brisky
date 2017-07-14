@@ -10,7 +10,7 @@ const createTest = (folder, file) => {
     if (err) {
       console.log('cannot parse :(', err)
     } else {
-      console.log('go parse', data)
+      console.log('success write file')
       fs.writeFileSync(join(__dirname, folder, 'result', file + '.js'), data)
     }
   })

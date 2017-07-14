@@ -18,7 +18,9 @@ module.exports =
       var _1 = tree._[1] = document.createElement('div')
       var _2 = tree._[2] = document.createElement('h1')
       _1.appendChild(_2)
+      _2.appendChild(document.createTextNode('X'))
       _2.appendChild((tree._[3] = document.createTextNode('!bye' + s.get('hello', '').compute().toUpperCase() + s.get('hello', '').compute().toLowerCase() + 'bye!')))
+      _2.appendChild(document.createTextNode('X'))
     }
   },
   hello:

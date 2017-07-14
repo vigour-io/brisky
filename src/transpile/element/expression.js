@@ -1,14 +1,5 @@
-const { walker, showcode } = require('../util')
+const { walker, showcode, isEqual } = require('../util')
 var cnt = 0
-
-// parse props that are being passed to an element
-// usefull for some methods perhaps to put it in a class
-// class Expresion {
-//   constructor (type, val) {
-
-//   }
-// }
-// lots to do here
 
 const createPropFromExpression = (status, node) => {
   const props = status.props
@@ -16,7 +7,9 @@ const createPropFromExpression = (status, node) => {
   const val = {}
   const expression = status.code.slice(node.start, node.end).split('')
   const start = node.start
-  console.log(`expression: "${expression}"`)
+
+  // need to have path as well
+  console.log(`expression: "${expression.join('')}"`)
 
   walker(node, (child) => {
     if (child.type === 'Identifier') {
@@ -28,14 +21,11 @@ const createPropFromExpression = (status, node) => {
           if (arg.val === name) {
             if (!props) {
               if (!val.type) {
-                // also take care if perhaps the val is the same
                 val.type = 'struct'
                 val.key = `__${++cnt}__`
                 // PATHS!
 
-                // key can be an array
                 val.val = [ args.val[i].key ]
-                // default!
                 const replacement = arg.default
                   ? `(${val.key} || ${arg.default})`
                   : val.key
@@ -43,10 +33,15 @@ const createPropFromExpression = (status, node) => {
                 val.expression = { type: 'inline', replacement: [] }
                 val.expression.replacement.push([ child, replacement ])
 
-                console.log(val.expression.val)
               } else {
                 // also not enough key can be an array....
+                // isEqual (array)
+                //
+                // console.log(args.val[i], val.val)
+                // not enough need more e.g. paths
+
                 if (args.val[i].key === val.val[0]) {
+                  // this cam become a util
                   const replacement = arg.default
                     ? `(${val.key} || ${arg.default})`
                     : val.key
@@ -56,6 +51,7 @@ const createPropFromExpression = (status, node) => {
                 }
               }
             } else {
+              // for when used as a child
               // very different obvisouly
               // also lot of these things can be reused for switch etc
               // this is a bit harder -- allways results to reference types
@@ -79,8 +75,6 @@ const createPropFromExpression = (status, node) => {
     let code = ''
     let replacement = 0
 
-    showcode(status.code, val.expression.replacement.map(val => val[0]))
-
     // make a util for this kind of shit
     for (let i = 0; i < expression.length; i++) {
       const replace = val.expression.replacement[replacement]
@@ -103,7 +97,6 @@ const createPropFromExpression = (status, node) => {
     }
 
     delete val.expression.replacement
-    console.log('CODE:', code)
     val.expression.val = code
   }
 
