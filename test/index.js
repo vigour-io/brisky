@@ -4,11 +4,16 @@ const { join } = require('path')
 const parse = require('../')
 const test = require('tape')
 
-const createTest = (file) => {
-  const code = fs.readFileSync(join(__dirname, file)).toString()
+const createTest = (folder, file) => {
+  const code = fs.readFileSync(join(__dirname, folder, file + '.js')).toString()
   parse(code, (err, data) => {
-    console.log('go parse', err, data)
+    if (err) {
+      console.log('cannot parse :(', err)
+    } else {
+      console.log('go parse', data)
+      fs.writeFileSync(join(__dirname, folder, 'result', file + '.js'), data)
+    }
   })
 }
 
-createTest('props/basic')
+createTest('props', 'basic')
