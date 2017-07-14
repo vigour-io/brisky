@@ -1,17 +1,9 @@
 const { getListeners } = require('./subscription')
 const { createPropFromExpression } = require('./expression')
-const { string, merge, showcode } = require('../util')
-
-// const addToSubscription = () => {
-
-// }
-
-// add addText funtion
+const { string, merge } = require('../util')
 
 const plainText = (status, node) => {
   if (node.type === 'Literal' && node.parent.type === 'JSXElement') {
-    showcode(status.code, node)
-    // this is plain text
     const listeners = getListeners(status, 'new')
     const line = status.ui.createText(
         status,
@@ -63,6 +55,7 @@ const parseExpressionContainer = (status, node) => {
       const id = ++status.id
       let newValue, updateValue
       if (prop.expression.type === 'inline') {
+        // reuse of computes etc
         newValue = prop.expression.val.replace(
           new RegExp(prop.key, 'g'),
           prop.val.length === 1

@@ -30,6 +30,7 @@ const merge = (status, val) => {
 }
 
 const showcode = (str, start, end) => { // eslint-disable-line
+  if (typeof str === 'object') str = str.code
   if (typeof start === 'object') {
     if (start.end) {
       showcode(str, start.start, start.end)
@@ -44,6 +45,35 @@ const showcode = (str, start, end) => { // eslint-disable-line
       chalk.green(str.slice(start, end)) +
       chalk.blue(str.slice(end, end + 50 > str.length ? str.length : end + 50))
     )
+  }
+}
+
+const extractPath = (status, node) => {
+  // if (node.type === 'MemberExpression')
+  if (node.parent && node.parent.type === 'MemberExpression') {
+    // console.log('ok is an object')
+    const path = []
+    // showcode(status, node.parent.parent)
+    let child = node.parent
+    if (node.type === 'Identifier') {
+      path.push(node.name)
+    }
+    while (child && child.type === 'MemberExpression') {
+      if (child.parent && child.parent.type === 'CallExpression') {
+        // do special shit here
+        // console.log(child.parent)
+        break
+      }
+      path.push(child.property.name)
+      child = child.parent
+    }
+    // path.push(node.name)
+    console.log('||| --->')
+    return path
+    // while check for properties
+  } else if (node.type === 'Identifier') {
+    console.log('isIdentifier')
+    return [ node.name ]
   }
 }
 
@@ -89,3 +119,5 @@ exports.walker = walker
 exports.assembleFunctions = assembleFunctions
 exports.merge = merge
 exports.isEqual = isEqual
+exports.extractPath = extractPath
+

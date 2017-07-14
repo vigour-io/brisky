@@ -8,7 +8,7 @@ module.exports = {
     if (id) {
       return `var _${id} = tree._[${id}] = document.createElement('${type}')`
     } else {
-      // for non dynamic children
+      // for non dynamic children (needs to be used)
       return `var _${id} = document.createElement('${type}')`
     }
   },

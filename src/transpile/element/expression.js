@@ -1,4 +1,4 @@
-const { walker, showcode, isEqual } = require('../util')
+const { walker, showcode, isEqual, extractPath } = require('../util')
 var cnt = 0
 
 const createPropFromExpression = (status, node) => {
@@ -19,6 +19,11 @@ const createPropFromExpression = (status, node) => {
         while (i--) {
           const arg = args.val[i]
           if (arg.val === name) {
+
+            showcode(status.code, child)
+            const path = extractPath(status, child)
+            console.log('PATH:', path)
+
             if (!props) {
               if (!val.type) {
                 val.type = 'struct'
