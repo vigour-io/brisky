@@ -18,7 +18,7 @@ module.exports =
       _6.appendChild((tree._[7] = document.createTextNode(s.get('bla', '').compute() + '!' + s.get('bla', '').compute() + s.get(['x', 'y', 'z'], '').compute())))
       var _8 = tree._[8] = document.createElement('div')
       _1.appendChild(_8)
-      _8.appendChild((tree._[9] = document.createTextNode(s.get(['bla', 'bax'], '').compute() + '!' + s.get('blurf', '').compute() + s.get(['x', 'y', 'z'], '').compute())))
+      _8.appendChild((tree._[9] = document.createTextNode(s.get(['bla', 'bax'], '').compute() + '!' + undefined + s.get(['x', 'y', 'z'], '').compute())))
     },
     update: (s, type, subs, tree) => {
       s._[5].nodeValue = s.compute()
@@ -44,8 +44,8 @@ module.exports =
         _:
         {
           update: (s, type, subs, tree) => {
-            s._[7].nodeValue = s.parent(3).get([ 'bla' ]).compute() + '!' + s.parent(3).get([ 'bla' ]).compute() + s.compute()
-            s._[9].nodeValue = s.parent(3).get([ 'bla', 'bax' ]).compute() + '!' + s.parent(3).get([ 'blurf' ]).compute() + s.compute()
+            s._[7].nodeValue = s.parent(3).get([ 'bla' ]).compute() + '!' + __3__ + s.compute()
+            s._[9].nodeValue = s.parent(3).get([ 'bla', 'bax' ]).compute() + '!' + undefined + s.compute()
           }
         }
       }
@@ -58,7 +58,6 @@ module.exports =
     {
       update: (s, type, subs, tree) => {
         s._[7].nodeValue = s.compute() + '!' + s.compute() + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
-        s._[7].nodeValue = s.compute() + '!' + s.compute() + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
       }
     },
     bax:
@@ -67,7 +66,7 @@ module.exports =
       _:
       {
         update: (s, type, subs, tree) => {
-          s._[9].nodeValue = s.compute() + '!' + s.parent(2).get([ 'blurf' ]).compute() + s.parent(2).get([ 'x', 'y', 'z' ]).compute()
+          s._[9].nodeValue = s.compute() + '!' + undefined + s.parent(2).get([ 'x', 'y', 'z' ]).compute()
         }
       }
     }
@@ -78,7 +77,7 @@ module.exports =
     _:
     {
       update: (s, type, subs, tree) => {
-        s._[9].nodeValue = s.parent(1).get([ 'bla', 'bax' ]).compute() + '!' + s.compute() + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
+        s._[9].nodeValue = s.parent(1).get([ 'bla', 'bax' ]).compute() + '!' + undefined + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
       }
     }
   }

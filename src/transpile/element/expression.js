@@ -1,6 +1,14 @@
 const { walker, isEqual, extractPath, getObject, showcode } = require('../util')
 var cnt = 0
 
+const exists = (val, path) => {
+  for (let key in val.val) {
+    if (val.val[key].type === 'struct' && isEqual(path, val.val[key].val)) {
+      return key
+    }
+  }
+}
+
 const createPropFromExpression = (status, node) => {
   var val = {}
   const props = status.props
@@ -58,6 +66,7 @@ const createPropFromExpression = (status, node) => {
               val.expression.replacement.push([ getObject(status, child), replacement ])
             } else {
               if (val.type === 'struct') {
+                // same for raw ofcourse
                 console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE', path)
                 const prev = val
                 const expression = prev.expression
@@ -72,29 +81,32 @@ const createPropFromExpression = (status, node) => {
                 // we dont need to parse recursively in the user
                 // all work will be done here
                 expression.replacementKey = [ expression.replacementKey ]
-                const nested = {}
-                nested.type = 'struct'
-                nested.val = path
-                nested.fromSubscription = status.path
-                const replacementKey = `__${++cnt}__`
-                const replacement = replacementKey
-                expression.replacementKey.push(replacementKey)
+                let replacement = exists(val, path)
+                if (!replacement) {
+                  const nested = {}
+                  nested.type = 'struct'
+                  nested.val = path
+                  nested.fromSubscription = status.path
+                  const replacementKey = `__${++cnt}__`
+                  expression.replacementKey.push(replacementKey)
+                  val.val[replacementKey] = nested
+                }
                 expression.replacement.push([ getObject(status, child), replacement ])
-                val.val[replacementKey] = nested
               } else if (val.type === 'group') {
                 // again need to know if struct ofc...
                 const expression = val.expression
-                const nested = {}
-                nested.type = 'struct'
-                nested.val = path
-                nested.fromSubscription = status.path
-                const replacementKey = `__${++cnt}__`
-                const replacement = replacementKey
-                expression.replacementKey.push(replacementKey)
+                let replacement = exists(val, path)
+                if (!replacement) {
+                  const nested = {}
+                  nested.type = 'struct'
+                  nested.val = path
+                  nested.fromSubscription = status.path
+                  const replacementKey = `__${++cnt}__`
+                  replacement = replacementKey
+                  expression.replacementKey.push(replacementKey)
+                  val.val[replacementKey] = nested
+                }
                 expression.replacement.push([ getObject(status, child), replacement ])
-                val.val[replacementKey] = nested
-                // lets add it then
-                // more then one
               } else if (val.type === 'raw') {
                 // raw
               }
