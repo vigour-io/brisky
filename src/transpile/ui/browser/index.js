@@ -1,4 +1,4 @@
-const include = require('../../include')
+// const include = require('../../include')
 
 module.exports = {
   id: 'browser',
@@ -29,7 +29,7 @@ module.exports = {
     return `${str}._[${id}].nodeValue = ${val}`
   },
   addChild: (status, id, childId) => {
-    // include(status, 'fn')
+    // include(status, 'getParent')
     return `_${id}.appendChild(_${childId})`
   }
 }

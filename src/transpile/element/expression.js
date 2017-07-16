@@ -45,7 +45,7 @@ const createPropFromExpression = (status, node) => {
             } else {
               // for when used as a child
               // very different obvisouly
-              // need the referencve thing -- if mulple fields make an object using the path / key as keys (easy for debug)
+              // need the reference thing -- if mulple fields make an object using the path / key as keys (easy for debug)
               console.log('!!! have props different parsing !!!')
             }
             break

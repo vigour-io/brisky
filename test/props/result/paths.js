@@ -14,7 +14,7 @@ module.exports =
       _2.appendChild(document.createTextNode('X'))
       var _4 = tree._[4] = document.createElement('h2')
       _1.appendChild(_4)
-      _4.appendChild((tree._[5] = document.createTextNode(s.get(['field', 'a', 'b', 'c'], '').compute().toUpperCase())))
+      _4.appendChild((tree._[5] = document.createTextNode(s.get(['field', 'a', 'b', 'c', 'd'], '').compute().toUpperCase())))
       var _6 = tree._[6] = document.createElement('h3')
       _1.appendChild(_6)
       _6.appendChild((tree._[7] = document.createTextNode(s.get('field', '').compute())))
@@ -52,11 +52,14 @@ module.exports =
       {
         c:
         {
-          val: 'shallow',
-          _:
+          d:
           {
-            update: (s, type, subs, tree) => {
-              s._p._p._p._p._[5].nodeValue = s.compute().toUpperCase()
+            val: 'shallow',
+            _:
+            {
+              update: (s, type, subs, tree) => {
+                s._p._p._p._p._p._[5].nodeValue = s.compute().toUpperCase()
+              }
             }
           }
         }
