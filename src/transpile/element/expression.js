@@ -19,7 +19,6 @@ const createPropFromExpression = (status, node) => {
         while (i--) {
           const arg = args.val[i]
           if (arg.val === name) {
-
             showcode(status.code, child)
             const path = extractPath(status, child)
             console.log('PATH:', path)
@@ -30,21 +29,21 @@ const createPropFromExpression = (status, node) => {
                 val.key = `__${++cnt}__`
                 // PATHS!
 
-                val.val = [ args.val[i].key ]
+                val.val = path
                 const replacement = arg.default
                   ? `(${val.key} || ${arg.default})`
                   : val.key
 
+                  // path resolve when there is a prop
+
                 val.expression = { type: 'inline', replacement: [] }
                 val.expression.replacement.push([ child, replacement ])
-
               } else {
                 // also not enough key can be an array....
                 // isEqual (array)
                 //
                 // console.log(args.val[i], val.val)
                 // not enough need more e.g. paths
-
                 if (args.val[i].key === val.val[0]) {
                   // this cam become a util
                   const replacement = arg.default
