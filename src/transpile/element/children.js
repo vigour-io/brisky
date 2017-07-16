@@ -39,9 +39,11 @@ const parseSingleStruct = (status, node, prop) => {
     const replacementKey = prop.expression.replacementKey
     newValue = prop.expression.val.replace(
       new RegExp(replacementKey, 'g'),
-      prop.val.length === 1
-        ? `s.get(${prop.val.map(string).join(',')}, '').compute()`
-        : `s.get([${prop.val.map(string).join(',')}], '').compute()`
+      prop.val.length === 0
+        ? 's.compute()'
+        : prop.val.length === 1
+          ? `s.get(${prop.val.map(string).join(',')}, '').compute()`
+          : `s.get([${prop.val.map(string).join(',')}], '').compute()`
     )
     updateValue = prop.expression.val.replace(new RegExp(replacementKey, 'g'), 's.compute()')
   }
@@ -84,9 +86,11 @@ const parseExpressionContainer = (status, node) => {
             const path = target.val
             newValue = newValue.replace(
               new RegExp(replacementKey, 'g'),
-              target.val.length === 1
-                ? `s.get(${target.val.map(string).join(',')}, '').compute()`
-                : `s.get([${target.val.map(string).join(',')}], '').compute()`
+              target.val.length === 0
+                ? 's.compute()'
+                : target.val.length === 1
+                  ? `s.get(${target.val.map(string).join(',')}, '').compute()`
+                  : `s.get([${target.val.map(string).join(',')}], '').compute()`
             )
             const subs = createSubs(status.subs, target)
             const updateListeners = getListeners(merge(

@@ -12,7 +12,7 @@ module.exports =
       _2.appendChild((tree._[3] = document.createTextNode(s.get('nested', '').compute())))
       var _4 = tree._[4] = document.createElement('h2')
       _1.appendChild(_4)
-      _4.appendChild((tree._[5] = document.createTextNode(s.get([], '').compute())))
+      _4.appendChild((tree._[5] = document.createTextNode(s.compute())))
       var _6 = tree._[6] = document.createElement('div')
       _1.appendChild(_6)
       _6.appendChild((tree._[7] = document.createTextNode(s.get('bla', '').compute() + '!' + s.get('bla', '').compute() + s.get(['x', 'y', 'z'], '').compute())))
