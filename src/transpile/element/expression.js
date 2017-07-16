@@ -82,14 +82,15 @@ const createPropFromExpression = (status, node) => {
                 // all work will be done here
                 expression.replacementKey = [ expression.replacementKey ]
                 let replacement = exists(val, path)
+                console.log(replacement)
                 if (!replacement) {
                   const nested = {}
                   nested.type = 'struct'
                   nested.val = path
                   nested.fromSubscription = status.path
-                  const replacementKey = `__${++cnt}__`
-                  expression.replacementKey.push(replacementKey)
-                  val.val[replacementKey] = nested
+                  replacement = `__${++cnt}__`
+                  val.val[replacement] = nested
+                  expression.replacementKey.push(replacement)
                 }
                 expression.replacement.push([ getObject(status, child), replacement ])
               } else if (val.type === 'group') {

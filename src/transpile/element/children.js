@@ -102,10 +102,7 @@ const parseExpressionContainer = (status, node) => {
                 const key = prop.expression.replacementKey[j]
                 const relativeTarget = prop.val[key]
                 const val = `s${resolvePath(path, relativeTarget.val)}.compute()`
-                // walk back from your current prop
-                // then do smarter resolve
-                console.log(val)
-                updateValue = updateValue.replace(key, val)
+                updateValue = updateValue.replace(new RegExp(key, 'g'), val)
               }
               // re-write from the current value
             }
