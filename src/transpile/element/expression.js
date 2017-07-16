@@ -35,10 +35,16 @@ const createPropFromExpression = (status, node) => {
       const path = extractPath(status, child)
       const arg = isObject && getArg(args, child.name)
       if (arg || (isIdentifier && path && path[0] === args.val)) {
-        if (isIdentifier) path.shift()
+        if (isIdentifier) {
+          path.shift()
+        } else if (arg) {
+          path[0] = arg.key
+        }
         if (!props) {
           if (!val.type) {
             val.type = 'struct'
+            // not enough....
+            // need to map keys
             val.val = path
             const replacementKey = `__${++cnt}__`
             const replacement = arg && arg.default ? `(${replacementKey} || ${arg.default})` : replacementKey
