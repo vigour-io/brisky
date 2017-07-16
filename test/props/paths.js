@@ -4,8 +4,8 @@ const App = ({ field }) => {
     <h2>{field.a.b.c.d.toUpperCase()}</h2>
     <h3>{field}</h3>
     <h4>X{field.nested.a + '!' + field.nested.a}</h4>
+    <h5>{field.nested.a + field.x.y.z}</h5>
   </div>
 }
-// field.barf.x
 
 module.exports = App

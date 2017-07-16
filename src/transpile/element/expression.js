@@ -9,6 +9,16 @@ const exists = (val, path) => {
   }
 }
 
+const getArg = (args, name) => {
+  var i = args.val.length
+  while (i--) {
+    const arg = args.val[i]
+    if (arg.val === name) {
+      return arg
+    }
+  }
+}
+
 const createPropFromExpression = (status, node) => {
   var val = {}
   const props = status.props
@@ -19,105 +29,69 @@ const createPropFromExpression = (status, node) => {
   console.log(`expression: "${expression.join('')}"`)
 
   walker(node, (child) => {
-    if (child.type === 'Identifier') {
-      const name = child.name
-      if (args.type === 'ObjectPattern') {
-        let i = args.val.length
-        while (i--) {
-          const arg = args.val[i]
-          if (arg.val === name) {
-            const path = extractPath(status, child)
-            if (!props) {
-              if (!val.type) {
-                val.fromSubscription = status.path
-                val.type = 'struct'
-                val.val = path
-                const replacementKey = `__${++cnt}__`
-                const replacement = arg.default
-                  ? `(${replacementKey} || ${arg.default})`
-                  : replacementKey
-
-                val.expression = { type: 'inline', replacement: [], replacementKey }
-                val.expression.replacement.push([ getObject(status, child), replacement ])
-              } else {
-                // lets do raw as well!
-                console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
-              }
-            } else {
-              // for when used as a child
-              // very different obvisouly
-              // need the reference thing -- if mulple fields make an object using the path / key as keys (easy for debug)
-              console.log('!!! have props different parsing !!!')
-            }
-            break
-          }
-        }
-      } else if (args.type === 'Identifier') {
-        const path = extractPath(status, child)
-        if (path[0] === args.val) {
-          path.shift()
-          if (!props) {
-            if (!val.type) {
-              val.type = 'struct'
-              val.val = path
-              const replacementKey = `__${++cnt}__`
-              const replacement = replacementKey
-              val.expression = { type: 'inline', replacement: [], replacementKey }
-              val.expression.replacement.push([ getObject(status, child), replacement ])
-            } else {
-              if (val.type === 'struct') {
-                // same for raw ofcourse
-                console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE', path)
-                const prev = val
-                const expression = prev.expression
-                delete prev.expression
-                val = {
-                  type: 'group',
-                  val: {
-                    [expression.replacementKey]: prev
-                  },
-                  expression
-                }
-                // we dont need to parse recursively in the user
-                // all work will be done here
-                expression.replacementKey = [ expression.replacementKey ]
-                let replacement = exists(val, path)
-                console.log(replacement)
-                if (!replacement) {
-                  const nested = {}
-                  nested.type = 'struct'
-                  nested.val = path
-                  nested.fromSubscription = status.path
-                  replacement = `__${++cnt}__`
-                  val.val[replacement] = nested
-                  expression.replacementKey.push(replacement)
-                }
-                expression.replacement.push([ getObject(status, child), replacement ])
-              } else if (val.type === 'group') {
-                // again need to know if struct ofc...
-                const expression = val.expression
-                let replacement = exists(val, path)
-                if (!replacement) {
-                  const nested = {}
-                  nested.type = 'struct'
-                  nested.val = path
-                  nested.fromSubscription = status.path
-                  const replacementKey = `__${++cnt}__`
-                  replacement = replacementKey
-                  expression.replacementKey.push(replacementKey)
-                  val.val[replacementKey] = nested
-                }
-                expression.replacement.push([ getObject(status, child), replacement ])
-              } else if (val.type === 'raw') {
-                // raw
-              }
-            }
+    const isObject = args.type === 'ObjectPattern'
+    const isIdentifier = args.type === 'Identifier'
+    if (isIdentifier || isObject) {
+      const path = extractPath(status, child)
+      const arg = isObject && getArg(args, child.name)
+      if (arg || (isIdentifier && path && path[0] === args.val)) {
+        if (isIdentifier) path.shift()
+        if (!props) {
+          if (!val.type) {
+            val.type = 'struct'
+            val.val = path
+            const replacementKey = `__${++cnt}__`
+            const replacement = arg && arg.default ? `(${replacementKey} || ${arg.default})` : replacementKey
+            val.expression = { type: 'inline', replacement: [], replacementKey }
+            val.expression.replacement.push([ getObject(status, child), replacement ])
           } else {
-            // for when used as a child
-            // very different obvisouly
-            // need the reference thing -- if mulple fields make an object using the path / key as keys (easy for debug)
-            console.log('!!! have props different parsing !!!')
+            if (val.type === 'struct') {
+              const prev = val
+              const expression = prev.expression
+              delete prev.expression
+              val = {
+                type: 'group',
+                val: {
+                  [expression.replacementKey]: prev
+                },
+                expression
+              }
+              expression.replacementKey = [ expression.replacementKey ]
+              let replacement = exists(val, path)
+              if (!replacement) {
+                const nested = {}
+                nested.type = 'struct'
+                nested.val = path
+                nested.fromSubscription = status.path
+                replacement = `__${++cnt}__`
+                val.val[replacement] = nested
+                expression.replacementKey.push(replacement)
+              }
+              expression.replacement.push([ getObject(status, child), replacement ])
+            } else if (val.type === 'group') {
+              // again need to know if struct ofc...
+              const expression = val.expression
+              let replacement = exists(val, path)
+              if (!replacement) {
+                const nested = {}
+                nested.type = 'struct'
+                nested.val = path
+                nested.fromSubscription = status.path
+                const replacementKey = `__${++cnt}__`
+                replacement = arg && arg.default ? `(${replacementKey} || ${arg.default})` : replacementKey
+                expression.replacementKey.push(replacementKey)
+                val.val[replacementKey] = nested
+              }
+              expression.replacement.push([ getObject(status, child), replacement ])
+            } else if (val.type === 'raw') {
+              // raw
+            }
           }
+        } else {
+          // for when used as a child
+          // very different obvisouly
+          // need the reference thing -- if mulple fields make an object using the path / key as keys (easy for debug)
+          console.log('!!! have props different parsing !!!')
         }
       }
     }
