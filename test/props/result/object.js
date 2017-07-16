@@ -18,10 +18,11 @@ module.exports =
       _6.appendChild((tree._[7] = document.createTextNode(s.get('bla', '').compute() + '!' + s.get('bla', '').compute() + s.get(['x', 'y', 'z'], '').compute())))
       var _8 = tree._[8] = document.createElement('div')
       _1.appendChild(_8)
+      _8.appendChild(document.createTextNode('yuzi'))
       _8.appendChild((tree._[9] = document.createTextNode(s.get(['bla', 'bax'], '').compute() + '!' + s.get('blurf', '').compute() + s.get(['x', 'y', 'z'], '').compute())))
     },
     update: (s, type, subs, tree) => {
-      s._[5].nodeValue = s.compute()
+      tree._[5].nodeValue = s.compute()
     }
   },
   nested:
@@ -30,7 +31,7 @@ module.exports =
     _:
     {
       update: (s, type, subs, tree) => {
-        s._p._[3].nodeValue = s.compute()
+        tree._p._[3].nodeValue = s.compute()
       }
     }
   },
@@ -44,8 +45,8 @@ module.exports =
         _:
         {
           update: (s, type, subs, tree) => {
-            s._[7].nodeValue = s.parent(3).get([ 'bla' ]).compute() + '!' + s.parent(3).get([ 'bla' ]).compute() + s.compute()
-            s._[9].nodeValue = s.parent(3).get([ 'bla', 'bax' ]).compute() + '!' + s.parent(3).get([ 'blurf' ]).compute() + s.compute()
+            tree._[7].nodeValue = s.parent(3).get([ 'bla' ]).compute() + '!' + s.parent(3).get([ 'bla' ]).compute() + s.compute()
+            tree._[9].nodeValue = s.parent(3).get([ 'bla', 'bax' ]).compute() + '!' + s.parent(3).get([ 'blurf' ]).compute() + s.compute()
           }
         }
       }
@@ -57,7 +58,7 @@ module.exports =
     _:
     {
       update: (s, type, subs, tree) => {
-        s._[7].nodeValue = s.compute() + '!' + s.compute() + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
+        tree._[7].nodeValue = s.compute() + '!' + s.compute() + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
       }
     },
     bax:
@@ -66,7 +67,7 @@ module.exports =
       _:
       {
         update: (s, type, subs, tree) => {
-          s._[9].nodeValue = s.compute() + '!' + s.parent(2).get([ 'blurf' ]).compute() + s.parent(2).get([ 'x', 'y', 'z' ]).compute()
+          tree._[9].nodeValue = s.compute() + '!' + s.parent(2).get([ 'blurf' ]).compute() + s.parent(2).get([ 'x', 'y', 'z' ]).compute()
         }
       }
     }
@@ -77,7 +78,7 @@ module.exports =
     _:
     {
       update: (s, type, subs, tree) => {
-        s._[9].nodeValue = s.parent(1).get([ 'bla', 'bax' ]).compute() + '!' + s.compute() + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
+        tree._[9].nodeValue = s.parent(1).get([ 'bla', 'bax' ]).compute() + '!' + s.compute() + s.parent(1).get([ 'x', 'y', 'z' ]).compute()
       }
     }
   }

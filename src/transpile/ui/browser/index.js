@@ -24,7 +24,7 @@ module.exports = {
   },
   updateText: (status, id, parentId, val, subs) => {
     var i = subs.length
-    var str = 's'
+    var str = 'tree'
     while (i--) { str += '._p' }
     return `${str}._[${id}].nodeValue = ${val}`
   },
