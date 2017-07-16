@@ -22,7 +22,6 @@ const parseExpressionContainer = (status, node) => {
     // also need to take status path into account for subscriptions
     if (prop.type === 'struct') {
       const listeners = getListeners(status, 'new')
-
       // status from current subs path
       // most simple
 
@@ -47,11 +46,8 @@ const parseExpressionContainer = (status, node) => {
         }
       ), 'update')
       // REUSE
-
       // default value === '' since we use it as text here...
-
       // remove needs to be handled seperately -- then it will become an empty string as well
-
       const id = ++status.id
       let newValue, updateValue
       if (prop.expression.type === 'inline') {
@@ -62,7 +58,6 @@ const parseExpressionContainer = (status, node) => {
             ? `s.get(${prop.val.map(string).join(',')}, '').compute()`
             : `s.get([${prop.val.map(string).join(',')}], '').compute()`
         )
-
         // this is too simplistic only make the var one time then re-use
         updateValue = prop.expression.val.replace(new RegExp(prop.key, 'g'), 's.compute()')
       }

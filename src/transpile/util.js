@@ -49,30 +49,24 @@ const showcode = (str, start, end) => { // eslint-disable-line
 }
 
 const extractPath = (status, node) => {
-  // if (node.type === 'MemberExpression')
   if (node.parent && node.parent.type === 'MemberExpression') {
-    // console.log('ok is an object')
     const path = []
-    // showcode(status, node.parent.parent)
     let child = node.parent
     if (node.type === 'Identifier') {
       path.push(node.name)
     }
     while (child && child.type === 'MemberExpression') {
       if (child.parent && child.parent.type === 'CallExpression') {
-        // do special shit here
-        // console.log(child.parent)
+        // do special shit here -- need to inline .root .parent
+        // make hooks for those perhaps? --- method calls are special
+        // also make it possible to add root in your path with a default val?
         break
       }
       path.push(child.property.name)
       child = child.parent
     }
-    // path.push(node.name)
-    console.log('||| --->')
     return path
-    // while check for properties
   } else if (node.type === 'Identifier') {
-    console.log('isIdentifier')
     return [ node.name ]
   }
 }
@@ -98,7 +92,7 @@ const assembleFunctions = subs => {
 }
 
 const string = val => {
-  // do checks if its no allready like this
+  // do checks if its not allready like this
   return `'${val}'`
 }
 

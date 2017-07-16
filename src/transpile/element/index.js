@@ -39,9 +39,6 @@ const parseJSXElement = (status, node) => {
     // type === 'empty'
     // type === 'ObjectPattern'
     // type === 'Identifier'
-  // status.props
-  // if !props all is subscription, also need to get subscription path so you know where you are
-  // add it on status
   const openingElement = node.openingElement
   if (openingElement.id) openingElement.id = false // nodes are re-used so need to become false
   const parentId = createElement(status, openingElement)
@@ -53,7 +50,6 @@ const parseJSXElement = (status, node) => {
     plainText(status, child)
     // parseAttributes(status, child, parentId)
   })
-  // nested functions for events and any for example
   return parentId
 }
 
@@ -91,11 +87,11 @@ exports.parseElement = (status, node) => {
     // here you dont need to parse the args at all
     // find jsx element else there is switch / any involved
     parseJSXElement(
-      merge(status, { args: status.args || { type: 'empty' } }),
+      merge(status, { args: status.args || { type: 'Empty' } }),
       node
     )
   } else {
-    console.log('parseElement: cannot parse as element!')
+    console.log('parseElement: cannot parse node as element!')
     showcode(status.code, node)
   }
 }

@@ -2,7 +2,7 @@
 const fs = require('fs')
 const { join } = require('path')
 const parse = require('../')
-const test = require('tape')
+// const test = require('tape')
 
 const createTest = (folder, file) => {
   const code = fs.readFileSync(join(__dirname, folder, file + '.js')).toString()

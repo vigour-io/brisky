@@ -1,4 +1,4 @@
-const { walker, showcode, isEqual, extractPath } = require('../util')
+const { walker, isEqual, extractPath } = require('../util')
 var cnt = 0
 
 const createPropFromExpression = (status, node) => {
@@ -19,33 +19,28 @@ const createPropFromExpression = (status, node) => {
         while (i--) {
           const arg = args.val[i]
           if (arg.val === name) {
-            showcode(status.code, child)
             const path = extractPath(status, child)
-            console.log('PATH:', path)
 
             if (!props) {
               if (!val.type) {
                 val.type = 'struct'
-                val.key = `__${++cnt}__`
-                // PATHS!
-
+                val.key = `__${++cnt}__` // this is qwrong
                 val.val = path
                 const replacement = arg.default
                   ? `(${val.key} || ${arg.default})`
-                  : val.key
+                  : val.key // call this replacement key
 
                   // path resolve when there is a prop
 
                 val.expression = { type: 'inline', replacement: [] }
                 val.expression.replacement.push([ child, replacement ])
               } else {
-                // also not enough key can be an array....
-                // isEqual (array)
-                //
-                // console.log(args.val[i], val.val)
-                // not enough need more e.g. paths
-                if (args.val[i].key === val.val[0]) {
-                  // this cam become a util
+                if (isEqual(path, val.val)) {
+                  console.log('isEqual dont reparse', val)
+                  // if multiple add reference and re-write all keys
+                  // also dont use val.key make it expression.key
+                  // if a reference parse all reffed things? and replace the keys
+                  // need to think of a system for this
                   const replacement = arg.default
                     ? `(${val.key} || ${arg.default})`
                     : val.key

@@ -27,6 +27,10 @@ module.exports =
       var _6 = tree._[6] = document.createElement('h3')
       _1.appendChild(_6)
       _6.appendChild((tree._[7] = document.createTextNode(s.get('field', '').compute())))
+      var _8 = tree._[8] = document.createElement('h4')
+      _1.appendChild(_8)
+      _8.appendChild(document.createTextNode('X'))
+      _8.appendChild((tree._[9] = document.createTextNode(s.get(['field', 'nested', 'a'], '').compute().nested.a + '!' + s.get(['field', 'nested', 'a'], '').compute().nested.a)))
     }
   },
   field:
@@ -38,6 +42,16 @@ module.exports =
       {
         update: (s, type, subs, tree) => {
           getParent(tree, 3).nodeValue = s.compute().nested
+        }
+      },
+      a:
+      {
+        val: 'shallow',
+        _:
+        {
+          update: (s, type, subs, tree) => {
+            getParent(tree, 9).nodeValue = s.compute().nested.a + '!' + s.compute().nested.a
+          }
         }
       }
     },
