@@ -40,12 +40,12 @@ const parseSingleStruct = (status, node, prop) => {
     newValue = prop.expression.val.replace(
       new RegExp(replacementKey, 'g'),
       prop.val.length === 0
-        ? 's.compute()'
+        ? 'state.compute()'
         : prop.val.length === 1
-          ? `s.get(${prop.val.map(string).join(',')}, '').compute()`
-          : `s.get([${prop.val.map(string).join(',')}], '').compute()`
+          ? `state.get(${prop.val.map(string).join(',')}, '').compute()`
+          : `state.get([${prop.val.map(string).join(',')}], '').compute()`
     )
-    updateValue = prop.expression.val.replace(new RegExp(replacementKey, 'g'), 's.compute()')
+    updateValue = prop.expression.val.replace(new RegExp(replacementKey, 'g'), 'state.compute()')
   }
   const parentId = node.parent.openingElement.id // bit lame to put id in opening element....
   const line = status.ui.createText(status, id, parentId, newValue, listeners)
@@ -87,17 +87,17 @@ const parseExpressionContainer = (status, node) => {
             newValue = newValue.replace(
               new RegExp(replacementKey, 'g'),
               target.val.length === 0
-                ? 's.compute()'
+                ? 'state.compute()'
                 : target.val.length === 1
-                  ? `s.get(${target.val.map(string).join(',')}, '').compute()`
-                  : `s.get([${target.val.map(string).join(',')}], '').compute()`
+                  ? `state.get(${target.val.map(string).join(',')}, '').compute()`
+                  : `state.get([${target.val.map(string).join(',')}], '').compute()`
             )
             const subs = createSubs(status.subs, target)
             const updateListeners = getListeners(merge(
                 status, { subs, path: path.val }
               ), 'update')
 
-            let updateValue = prop.expression.val.replace(new RegExp(replacementKey, 'g'), 's.compute()')
+            let updateValue = prop.expression.val.replace(new RegExp(replacementKey, 'g'), 'state.compute()')
             // now need to parse all internal efficently
             // need to log the subs field
             let j = prop.expression.replacementKey.length
@@ -105,7 +105,7 @@ const parseExpressionContainer = (status, node) => {
               if (j !== i) {
                 const key = prop.expression.replacementKey[j]
                 const relativeTarget = prop.val[key]
-                const val = `s${resolvePath(path, relativeTarget.val)}.compute()`
+                const val = `state${resolvePath(path, relativeTarget.val)}.compute()`
                 updateValue = updateValue.replace(new RegExp(key, 'g'), val)
               }
               // re-write from the current value

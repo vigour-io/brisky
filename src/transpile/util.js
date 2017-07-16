@@ -96,9 +96,9 @@ const assembleFunctions = subs => {
     for (let fn in subs._) {
       var parsed
       if (fn === 'new') {
-        parsed = `(s, type, subs, tree) => { \nif (!tree._) tree._ = {}\n`
+        parsed = `(state, type, subs, tree) => { \nif (!tree._) tree._ = {}\n`
       } else {
-        parsed = `(s, type, subs, tree) => { \n`
+        parsed = `(state, type, subs, tree) => { \n`
       }
       subs._[fn] = parsed + subs._[fn].join('\n') + '\n }'
     }
