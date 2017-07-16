@@ -1,12 +1,3 @@
-const getParent = (tree, id) => { //eslint-disable-line
-  var p = tree
-  while (p) {
-    if (p._ && p._[id]) {
-      return p._[id]
-    }
-    p = tree._p
-  }
-}
 
 module.exports =
 {
@@ -19,18 +10,18 @@ module.exports =
       var _2 = tree._[2] = document.createElement('h1')
       _1.appendChild(_2)
       _2.appendChild(document.createTextNode('X'))
-      _2.appendChild((tree._[3] = document.createTextNode(s.get(['field', 'nested'], '').compute().nested)))
+      _2.appendChild((tree._[3] = document.createTextNode(s.get(['field', 'nested'], '').compute())))
       _2.appendChild(document.createTextNode('X'))
       var _4 = tree._[4] = document.createElement('h2')
       _1.appendChild(_4)
-      _4.appendChild((tree._[5] = document.createTextNode(s.get(['field', 'a', 'b', 'c'], '').compute().a.b.c.toUpperCase())))
+      _4.appendChild((tree._[5] = document.createTextNode(s.get(['field', 'a', 'b', 'c'], '').compute().toUpperCase())))
       var _6 = tree._[6] = document.createElement('h3')
       _1.appendChild(_6)
       _6.appendChild((tree._[7] = document.createTextNode(s.get('field', '').compute())))
       var _8 = tree._[8] = document.createElement('h4')
       _1.appendChild(_8)
       _8.appendChild(document.createTextNode('X'))
-      _8.appendChild((tree._[9] = document.createTextNode(s.get(['field', 'nested', 'a'], '').compute().nested.a + '!' + s.get(['field', 'nested', 'a'], '').compute().nested.a)))
+      _8.appendChild((tree._[9] = document.createTextNode(s.get(['field', 'nested', 'a'], '').compute() + '!' + s.get(['field', 'nested', 'a'], '').compute())))
     }
   },
   field:
@@ -41,7 +32,7 @@ module.exports =
       _:
       {
         update: (s, type, subs, tree) => {
-          getParent(tree, 3).nodeValue = s.compute().nested
+          s._p._p._[3].nodeValue = s.compute()
         }
       },
       a:
@@ -50,7 +41,7 @@ module.exports =
         _:
         {
           update: (s, type, subs, tree) => {
-            getParent(tree, 9).nodeValue = s.compute().nested.a + '!' + s.compute().nested.a
+            s._p._p._p._[9].nodeValue = s.compute() + '!' + s.compute()
           }
         }
       }
@@ -65,7 +56,7 @@ module.exports =
           _:
           {
             update: (s, type, subs, tree) => {
-              getParent(tree, 5).nodeValue = s.compute().a.b.c.toUpperCase()
+              s._p._p._p._p._[5].nodeValue = s.compute().toUpperCase()
             }
           }
         }
@@ -75,7 +66,7 @@ module.exports =
     _:
     {
       update: (s, type, subs, tree) => {
-        getParent(tree, 7).nodeValue = s.compute()
+        s._p._[7].nodeValue = s.compute()
       }
     }
   }

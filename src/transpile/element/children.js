@@ -38,6 +38,8 @@ const parseExpressionContainer = (status, node) => {
       if (!subs.val || subs.val !== true) {
         subs.val = string('shallow')
       }
+
+      console.log(prop.val)
       const updateListeners = getListeners(merge(
         status,
         {
@@ -52,19 +54,22 @@ const parseExpressionContainer = (status, node) => {
       let newValue, updateValue
       if (prop.expression.type === 'inline') {
         // reuse of computes etc
+        const replacementKey = prop.expression.replacementKey
         newValue = prop.expression.val.replace(
-          new RegExp(prop.key, 'g'),
+          new RegExp(replacementKey, 'g'),
           prop.val.length === 1
             ? `s.get(${prop.val.map(string).join(',')}, '').compute()`
             : `s.get([${prop.val.map(string).join(',')}], '').compute()`
         )
-        // this is too simplistic only make the var one time then re-use
-        updateValue = prop.expression.val.replace(new RegExp(prop.key, 'g'), 's.compute()')
+        // not enough shit....
+        console.log('------>expression', prop.expression.val, replacementKey)
+        updateValue = prop.expression.val.replace(new RegExp(replacementKey, 'g'), 's.compute()')
       }
-      const parentId = node.parent.openingElement.id
+      const parentId = node.parent.openingElement.id // bit lame to put id in opening element....
       const line = status.ui.createText(status, id, parentId, newValue, listeners)
       if (line) listeners.push(line)
-      const line2 = status.ui.updateText(status, id, parentId, updateValue, updateListeners)
+      // get path and levels
+      const line2 = status.ui.updateText(status, id, parentId, updateValue, prop.val, updateListeners)
       if (line2) updateListeners.push(line2)
     } else if (prop.type === 'raw') {
 

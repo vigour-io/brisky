@@ -48,6 +48,26 @@ const showcode = (str, start, end) => { // eslint-disable-line
   }
 }
 
+const getObject = (status, node) => {
+  if (node.parent && node.parent.type === 'MemberExpression') {
+    let child = node.parent
+    let prev = child
+    while (child && child.type === 'MemberExpression') {
+      if (child.parent && child.parent.type === 'CallExpression') {
+        // do special shit here -- need to inline .root .parent
+        // make hooks for those perhaps? --- method calls are special
+        // also make it possible to add root in your path with a default val?
+        break
+      }
+      prev = child
+      child = child.parent
+    }
+    return prev
+  } else {
+    return node
+  }
+}
+
 const extractPath = (status, node) => {
   if (node.parent && node.parent.type === 'MemberExpression') {
     const path = []
@@ -114,4 +134,4 @@ exports.assembleFunctions = assembleFunctions
 exports.merge = merge
 exports.isEqual = isEqual
 exports.extractPath = extractPath
-
+exports.getObject = getObject

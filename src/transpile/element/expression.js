@@ -1,4 +1,4 @@
-const { walker, isEqual, extractPath } = require('../util')
+const { walker, isEqual, extractPath, getObject } = require('../util')
 var cnt = 0
 
 const createPropFromExpression = (status, node) => {
@@ -7,7 +7,6 @@ const createPropFromExpression = (status, node) => {
   const val = {}
   const expression = status.code.slice(node.start, node.end).split('')
   const start = node.start
-
   // need to have path as well
   console.log(`expression: "${expression.join('')}"`)
 
@@ -20,31 +19,25 @@ const createPropFromExpression = (status, node) => {
           const arg = args.val[i]
           if (arg.val === name) {
             const path = extractPath(status, child)
-
             if (!props) {
               if (!val.type) {
                 val.type = 'struct'
-                val.key = `__${++cnt}__` // this is qwrong
                 val.val = path
+                const replacementKey = `__${++cnt}__`
                 const replacement = arg.default
-                  ? `(${val.key} || ${arg.default})`
-                  : val.key // call this replacement key
+                  ? `(${replacementKey} || ${arg.default})`
+                  : replacementKey
 
-                  // path resolve when there is a prop
-
-                val.expression = { type: 'inline', replacement: [] }
-                val.expression.replacement.push([ child, replacement ])
+                val.expression = { type: 'inline', replacement: [], replacementKey }
+                val.expression.replacement.push([ getObject(status, child), replacement ])
               } else {
-                if (isEqual(path, val.val)) {
-                  console.log('isEqual dont reparse', val)
-                  // if multiple add reference and re-write all keys
-                  // also dont use val.key make it expression.key
-                  // if a reference parse all reffed things? and replace the keys
-                  // need to think of a system for this
+                // lets do raw as well!
+                if (val.type === 'struct' && isEqual(path, val.val)) {
+                  console.log('expression: type struct and isEqual dont reparse', val)
                   const replacement = arg.default
-                    ? `(${val.key} || ${arg.default})`
-                    : val.key
-                  val.expression.replacement.push([ child, replacement ])
+                    ? `(${val.expression.replacementKey} || ${arg.default})`
+                    : val.expression.replacementKey
+                  val.expression.replacement.push([ getObject(status, child), replacement ])
                 } else {
                   console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
                 }
@@ -52,14 +45,8 @@ const createPropFromExpression = (status, node) => {
             } else {
               // for when used as a child
               // very different obvisouly
-              // also lot of these things can be reused for switch etc
-              // this is a bit harder -- allways results to reference types
-              // lets get multiple straight
-              // need to do shit like reference parsing also props need to have subs path correction etc
-              // need to take care of props as well
-              // coud just say its allways from the top the path in the subs
-              // that will make it rly easy
-              console.log('have props different parsing')
+              // need the referencve thing -- if mulple fields make an object using the path / key as keys (easy for debug)
+              console.log('!!! have props different parsing !!!')
             }
             break
           }
@@ -73,8 +60,6 @@ const createPropFromExpression = (status, node) => {
   if (val.expression.type === 'inline') {
     let code = ''
     let replacement = 0
-
-    // make a util for this kind of shit
     for (let i = 0; i < expression.length; i++) {
       const replace = val.expression.replacement[replacement]
       if (replace) {
@@ -97,15 +82,10 @@ const createPropFromExpression = (status, node) => {
 
     delete val.expression.replacement
     val.expression.val = code
+  } else {
+    console.log('no support for complex expressions yet')
   }
 
-  /*
-    const result = expression.split('')
-    const index = child.start - start
-    result.splice(index, child.end - child.start, replacement)
-  */
-  // need to delete nested references
-  // also many types
   return val
 }
 

@@ -22,9 +22,11 @@ module.exports = {
       return `_${parentId}.appendChild(document.createTextNode(${val}))`
     }
   },
-  updateText: (status, id, parentId, val) => {
-    include(status, 'getParent')
-    return `getParent(tree, ${id}).nodeValue = ${val}`
+  updateText: (status, id, parentId, val, subs) => {
+    var i = subs.length
+    var str = 's'
+    while (i--) { str += '._p' }
+    return `${str}._[${id}].nodeValue = ${val}`
   },
   addChild: (status, id, childId) => {
     // include(status, 'fn')

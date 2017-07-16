@@ -29,7 +29,13 @@ module.exports = (code, cb, ui) => {
   raw[raw.length - 1] = raw[raw.length - 1].slice(0, -1)
   const str = result.init + '\n' + raw.join('\n')
   standard.lintText(str, { fix: true }, (err, data) => {
-    if (err) console.log('standard ERR!', err)
-    cb(err, data.results[0].output)
+    const messages = data.results
+      .reduce((a, b) => a + b.messages
+        .reduce((a, b) => b + `(${b.line}:${b.column}) ${b.message}`,
+          ''),
+        '')
+    // not good enough
+    console.log(messages)
+    cb(err, err ? messages : data.results[0].output)
   })
 }
