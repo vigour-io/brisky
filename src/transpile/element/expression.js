@@ -2,9 +2,9 @@ const { walker, isEqual, extractPath, getObject, showcode } = require('../util')
 var cnt = 0
 
 const createPropFromExpression = (status, node) => {
+  var val = {}
   const props = status.props
   const args = status.args
-  const val = {}
   const expression = status.code.slice(node.start, node.end).split('')
   const start = node.start
   // need to have path as well
@@ -21,6 +21,7 @@ const createPropFromExpression = (status, node) => {
             const path = extractPath(status, child)
             if (!props) {
               if (!val.type) {
+                val.fromSubscription = status.path
                 val.type = 'struct'
                 val.val = path
                 const replacementKey = `__${++cnt}__`
@@ -69,8 +70,34 @@ const createPropFromExpression = (status, node) => {
               if (val.type === 'struct' && isEqual(path, val.val)) {
                 const replacement = val.expression.replacementKey
                 val.expression.replacement.push([ getObject(status, child), replacement ])
-              } else {
-                console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
+              } else if (val.type === 'struct') {
+                console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE', path)
+                const prev = val
+                const expression = prev.expression
+                delete prev.expression
+                val = {
+                  type: 'reference',
+                  val: {
+                    [expression.replacementKey]: prev
+                  },
+                  expression
+                }
+                // we dont need to parse recursively in the user
+                // all work will be done here
+                expression.replacementKey = [ expression.replacementKey ]
+                const nested = {}
+                nested.type = 'struct'
+                nested.val = path
+                nested.fromSubscription = status.path
+                const replacementKey = `__${++cnt}__`
+                const replacement = replacementKey
+                expression.replacementKey.push(replacementKey)
+                expression.replacement.push([ getObject(status, child), replacement ])
+                val.val[replacementKey] = nested
+              } else if (val.type === 'reference') {
+                // more then one
+              } else if (val.type === 'raw') {
+                // raw
               }
             }
           } else {
@@ -92,6 +119,7 @@ const createPropFromExpression = (status, node) => {
     return { type: 'error' }
   }
 
+  // this replacement thing can become a util
   if (val.expression.type === 'inline') {
     let code = ''
     let replacement = 0
