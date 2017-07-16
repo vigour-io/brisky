@@ -15,7 +15,7 @@ module.exports =
       _4.appendChild((tree._[5] = document.createTextNode(s.get([], '').compute())))
       var _6 = tree._[6] = document.createElement('div')
       _1.appendChild(_6)
-      _6.appendChild((tree._[7] = document.createTextNode(s.get('bla', '').compute())))
+      _6.appendChild((tree._[7] = document.createTextNode(s.get('bla', '').compute() + '!' + s.get('bla', '').compute())))
     },
     update: (s, type, subs, tree) => {
       s._[5].nodeValue = s.compute()
@@ -37,7 +37,7 @@ module.exports =
     _:
     {
       update: (s, type, subs, tree) => {
-        s._p._[7].nodeValue = s.compute()
+        s._p._[7].nodeValue = s.compute() + '!' + s.compute()
       }
     }
   }

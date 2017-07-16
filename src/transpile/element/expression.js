@@ -56,9 +56,9 @@ const createPropFromExpression = (status, node) => {
         const path = extractPath(status, child)
         console.log('prop!', path)
         if (path[0] === args.val) {
+          path.shift()
           if (!props) {
             if (!val.type) {
-              path.shift()
               val.type = 'struct'
               val.val = path
               const replacementKey = `__${++cnt}__`
@@ -66,16 +66,12 @@ const createPropFromExpression = (status, node) => {
               val.expression = { type: 'inline', replacement: [], replacementKey }
               val.expression.replacement.push([ getObject(status, child), replacement ])
             } else {
-              // lets do raw as well!
-              // if (val.type === 'struct' && isEqual(path, val.val)) {
-              //   console.log('expression: type struct and isEqual dont reparse', val)
-              //   const replacement = arg.default
-              //     ? `(${val.expression.replacementKey} || ${arg.default})`
-              //     : val.expression.replacementKey
-              //   val.expression.replacement.push([ getObject(status, child), replacement ])
-              // } else {
-              //   console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
-              // }
+              if (val.type === 'struct' && isEqual(path, val.val)) {
+                const replacement = val.expression.replacementKey
+                val.expression.replacement.push([ getObject(status, child), replacement ])
+              } else {
+                console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
+              }
             }
           } else {
             // for when used as a child
