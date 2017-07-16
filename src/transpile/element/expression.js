@@ -1,4 +1,4 @@
-const { walker, isEqual, extractPath, getObject } = require('../util')
+const { walker, isEqual, extractPath, getObject, showcode } = require('../util')
 var cnt = 0
 
 const createPropFromExpression = (status, node) => {
@@ -53,9 +53,48 @@ const createPropFromExpression = (status, node) => {
         }
       } else if (args.type === 'Identifier') {
         console.log('using props --- do something!')
+        const path = extractPath(status, child)
+        console.log('prop!', path)
+        if (path[0] === args.val) {
+          if (!props) {
+            if (!val.type) {
+              path.shift()
+              val.type = 'struct'
+              val.val = path
+              const replacementKey = `__${++cnt}__`
+              const replacement = replacementKey
+              val.expression = { type: 'inline', replacement: [], replacementKey }
+              val.expression.replacement.push([ getObject(status, child), replacement ])
+            } else {
+              // lets do raw as well!
+              // if (val.type === 'struct' && isEqual(path, val.val)) {
+              //   console.log('expression: type struct and isEqual dont reparse', val)
+              //   const replacement = arg.default
+              //     ? `(${val.expression.replacementKey} || ${arg.default})`
+              //     : val.expression.replacementKey
+              //   val.expression.replacement.push([ getObject(status, child), replacement ])
+              // } else {
+              //   console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
+              // }
+            }
+          } else {
+            // for when used as a child
+            // very different obvisouly
+            // need the reference thing -- if mulple fields make an object using the path / key as keys (easy for debug)
+            console.log('!!! have props different parsing !!!')
+          }
+        }
       }
     }
   })
+
+  if (!val.expression) {
+    console.log('\ncould not parse expression')
+    showcode(status, node)
+    console.log('\n')
+    // can also just be raw ofc....
+    return { type: 'error' }
+  }
 
   if (val.expression.type === 'inline') {
     let code = ''
