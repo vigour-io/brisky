@@ -127,6 +127,14 @@ const isEqual = (a, b) => {
   return true
 }
 
+const resolvePath = (target, other) => {
+  if (isEqual(target, other)) {
+    return ''
+  }
+  var str = `.parent(${target.length}).get([ ${other.map(string)} ])`
+  return str
+}
+
 exports.string = string
 exports.showcode = showcode
 exports.walker = walker
@@ -135,3 +143,4 @@ exports.merge = merge
 exports.isEqual = isEqual
 exports.extractPath = extractPath
 exports.getObject = getObject
+exports.resolvePath = resolvePath

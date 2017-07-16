@@ -33,15 +33,7 @@ const createPropFromExpression = (status, node) => {
                 val.expression.replacement.push([ getObject(status, child), replacement ])
               } else {
                 // lets do raw as well!
-                if (val.type === 'struct' && isEqual(path, val.val)) {
-                  console.log('expression: type struct and isEqual dont reparse', val)
-                  const replacement = arg.default
-                    ? `(${val.expression.replacementKey} || ${arg.default})`
-                    : val.expression.replacementKey
-                  val.expression.replacement.push([ getObject(status, child), replacement ])
-                } else {
-                  console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
-                }
+                console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE')
               }
             } else {
               // for when used as a child
@@ -53,9 +45,7 @@ const createPropFromExpression = (status, node) => {
           }
         }
       } else if (args.type === 'Identifier') {
-        console.log('using props --- do something!')
         const path = extractPath(status, child)
-        console.log('prop!', path)
         if (path[0] === args.val) {
           path.shift()
           if (!props) {
@@ -67,16 +57,13 @@ const createPropFromExpression = (status, node) => {
               val.expression = { type: 'inline', replacement: [], replacementKey }
               val.expression.replacement.push([ getObject(status, child), replacement ])
             } else {
-              if (val.type === 'struct' && isEqual(path, val.val)) {
-                const replacement = val.expression.replacementKey
-                val.expression.replacement.push([ getObject(status, child), replacement ])
-              } else if (val.type === 'struct') {
+              if (val.type === 'struct') {
                 console.log('THIS IS A MULTI SUBSCRIPTION NEED TO MAKE REF PROP TYPE', path)
                 const prev = val
                 const expression = prev.expression
                 delete prev.expression
                 val = {
-                  type: 'reference',
+                  type: 'group',
                   val: {
                     [expression.replacementKey]: prev
                   },
@@ -94,7 +81,19 @@ const createPropFromExpression = (status, node) => {
                 expression.replacementKey.push(replacementKey)
                 expression.replacement.push([ getObject(status, child), replacement ])
                 val.val[replacementKey] = nested
-              } else if (val.type === 'reference') {
+              } else if (val.type === 'group') {
+                // again need to know if struct ofc...
+                const expression = val.expression
+                const nested = {}
+                nested.type = 'struct'
+                nested.val = path
+                nested.fromSubscription = status.path
+                const replacementKey = `__${++cnt}__`
+                const replacement = replacementKey
+                expression.replacementKey.push(replacementKey)
+                expression.replacement.push([ getObject(status, child), replacement ])
+                val.val[replacementKey] = nested
+                // lets add it then
                 // more then one
               } else if (val.type === 'raw') {
                 // raw

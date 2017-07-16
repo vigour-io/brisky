@@ -1,6 +1,6 @@
 const { getListeners } = require('./subscription')
 const { createPropFromExpression } = require('./expression')
-const { string, merge } = require('../util')
+const { string, merge, resolvePath } = require('../util')
 
 const plainText = (status, node) => {
   if (node.type === 'Literal' && node.parent.type === 'JSXElement') {
@@ -23,13 +23,13 @@ const createSubs = (subs, prop) => {
     }
     subs = subs[key]
   }
+  if (!subs.val || subs.val !== true) subs.val = string('shallow')
   return subs
 }
 
 const parseSingleStruct = (status, node, prop) => {
   const listeners = getListeners(status, 'new')
   const subs = createSubs(status.subs, prop)
-  if (!subs.val || subs.val !== true) subs.val = string('shallow')
   const updateListeners = getListeners(merge(
     status, { subs, path: prop.val }
   ), 'update')
@@ -63,7 +63,7 @@ const parseExpressionContainer = (status, node) => {
 
     } else if (prop.type === 'child') {
 
-    } else if (prop.type === 'reference') {
+    } else if (prop.type === 'group') {
       // nested refs as well -- also you dont care about prev props here anymore
       // needs to be recursive this whole replacement thing
       // do that in a bit
@@ -81,14 +81,36 @@ const parseExpressionContainer = (status, node) => {
           const replacementKey = prop.expression.replacementKey[i]
           const target = prop.val[replacementKey]
           if (target.type === 'struct') {
+            const path = target.val
             newValue = newValue.replace(
               new RegExp(replacementKey, 'g'),
               target.val.length === 1
                 ? `s.get(${target.val.map(string).join(',')}, '').compute()`
                 : `s.get([${target.val.map(string).join(',')}], '').compute()`
             )
+            const subs = createSubs(status.subs, target)
+            const updateListeners = getListeners(merge(
+                status, { subs, path: path.val }
+              ), 'update')
 
-            // ok lets get this update shit going
+            let updateValue = prop.expression.val.replace(new RegExp(replacementKey, 'g'), 's.compute()')
+            // now need to parse all internal efficently
+            // need to log the subs field
+            let j = prop.expression.replacementKey.length
+            while (j--) {
+              if (j !== i) {
+                const key = prop.expression.replacementKey[j]
+                const relativeTarget = prop.val[key]
+                const val = `s${resolvePath(path, relativeTarget.val)}.compute()`
+                // walk back from your current prop
+                // then do smarter resolve
+                console.log(val)
+                updateValue = updateValue.replace(key, val)
+              }
+              // re-write from the current value
+            }
+            const line2 = status.ui.updateText(status, id, parentId, updateValue, prop.val, updateListeners)
+            if (line2) updateListeners.push(line2)
           }
         }
         const line = status.ui.createText(status, id, parentId, newValue, listeners)
