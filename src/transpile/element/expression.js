@@ -28,7 +28,7 @@ const createPropFromExpression = (status, node) => {
   // need to have path as well
   console.log(`expression: "${expression.join('')}"`)
 
-  walker(node, (child) => {
+  walker(node, child => {
     const isObject = args.type === 'ObjectPattern'
     const isIdentifier = args.type === 'Identifier'
     if (isIdentifier || isObject) {
