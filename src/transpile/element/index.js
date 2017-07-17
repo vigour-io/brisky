@@ -1,6 +1,6 @@
 const { showcode, walker, merge } = require('../util')
 const { getListeners } = require('./subscription')
-const { parseExpressionContainer, plainText } = require('./children')
+const { parseExpressionContainer, plainText } = require('./expression/container')
 /*
 implement these in the framework (Primitives)
 View, Text, Image

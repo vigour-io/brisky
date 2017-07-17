@@ -1,4 +1,4 @@
-const { walker, isEqual, extractPath, getObject, showcode } = require('../util')
+const { walker, isEqual, extractPath, getObject, showcode } = require('../../util')
 var cnt = 0
 
 const exists = (val, path) => {

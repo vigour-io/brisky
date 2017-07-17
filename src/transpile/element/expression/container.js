@@ -1,6 +1,6 @@
-const { getListeners } = require('./subscription')
-const { createPropFromExpression } = require('./expression')
-const { string, merge, resolvePath } = require('../util')
+const { getListeners } = require('../subscription')
+const { createPropFromExpression } = require('./')
+const { string, merge, resolvePath } = require('../../util')
 
 const plainText = (status, node) => {
   if (node.type === 'Literal' && node.parent.type === 'JSXElement') {
@@ -52,6 +52,7 @@ const parseSingleStruct = (status, node, prop) => {
   if (line2) updateListeners.push(line2)
 }
 
+// this has to be called expression as well...
 const parseExpressionContainer = (status, node) => {
   if (node.type === 'JSXExpressionContainer') {
     const prop = createPropFromExpression(status, node.expression)
