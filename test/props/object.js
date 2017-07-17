@@ -4,6 +4,7 @@ const App = (props) => {
     <h2>{props}</h2>
     <div>{props.bla + '!' + props.bla + props.x.y.z}</div>
     <div>yuzi{props.bla.bax + '!' + props.blurf + props.x.y.z}</div>
+    <div>{props.bla.bla.bla.toUpperCase()}</div>
   </div>
 }
 

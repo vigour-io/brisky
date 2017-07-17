@@ -16,4 +16,4 @@ const createTest = (folder, file) => {
   })
 }
 
-createTest('props', 'basic')
+createTest('props', 'object')
