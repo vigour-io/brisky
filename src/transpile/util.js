@@ -114,7 +114,7 @@ const assembleFunctions = subs => {
 
 const string = val => {
   // do checks if its not allready like this
-  return `'${val}'`
+  return `\`${val}\``
 }
 
 const isEqual = (a, b) => {

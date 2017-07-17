@@ -35,7 +35,6 @@ module.exports = (code, cb, ui) => {
           ''),
         '')
     // not good enough
-    console.log(messages)
     cb(err, err ? messages : data.results[0].output)
   })
 }
