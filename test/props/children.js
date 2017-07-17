@@ -2,7 +2,7 @@
 
 // this is step 1
 const App = props => <div>
-  hello<div>bye</div>
+  <div>bye</div>
 </div>
 
 // step 2 is switch

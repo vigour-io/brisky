@@ -114,6 +114,8 @@ const assembleFunctions = subs => {
 
 const string = val => {
   // do checks if its not allready like this
+  // needs to escape all backticks (`)
+  // also it probably a good idea to allways trim stuff in text
   return `\`${val}\``
 }
 

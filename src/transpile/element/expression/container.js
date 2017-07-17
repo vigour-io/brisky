@@ -3,8 +3,12 @@ const { createPropFromExpression } = require('./')
 const { string, merge, resolvePath } = require('../../util')
 
 const plainText = (status, node) => {
-  if (node.type === 'Literal' && (node.parent.type === 'JSXElement')) {
+  // need to check sibblings for whitespaces
+  if (node.type === 'Literal' && (node.parent.type === 'JSXElement') && !/^\s+$/.test(node.value)) {
+    // get sibblings is important
     const listeners = getListeners(status, 'new')
+    // need to trim starting and ending whitespaces in the jsx element
+    // also remove tabs enters etc
     const line = status.ui.createText(
         status,
         false,
