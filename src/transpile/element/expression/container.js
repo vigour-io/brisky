@@ -3,7 +3,7 @@ const { createPropFromExpression } = require('./')
 const { string, merge, resolvePath } = require('../../util')
 
 const plainText = (status, node) => {
-  if (node.type === 'Literal' && node.parent.type === 'JSXElement') {
+  if (node.type === 'Literal' && (node.parent.type === 'JSXElement')) {
     const listeners = getListeners(status, 'new')
     const line = status.ui.createText(
         status,

@@ -28,6 +28,8 @@ const addElement = (status, id, childId) => {
 const createAndAdd = (status, child, parentId) => {
   const id = createElement(status, child)
   if (id) {
+    console.log('go and create fuck face')
+
     child.id = id
     addElement(status, (child.parent && child.parent.id) || parentId, id)
   }
@@ -40,28 +42,37 @@ const parseJSXElement = (status, node) => {
     // type === 'ObjectPattern'
     // type === 'Identifier'
   const openingElement = node.openingElement
+
   if (openingElement.id) openingElement.id = false // nodes are re-used so need to become false
   const parentId = createElement(status, openingElement)
-  const children = node.children
-
-  walker(children, child => {
-    createAndAdd(status, child, parentId)
-    parseExpressionContainer(status, child)
-    plainText(status, child)
+  // const children = node.children
+  openingElement.id = parentId
+  walker(node, child => {
+    if (child !== openingElement) {
+      showcode(status, child)
+      createAndAdd(status, child, parentId)
+      parseExpressionContainer(status, child)
+      plainText(status, child)
+    }
     // parseAttributes(status, child, parentId)
-  })
+  }, node)
   return parentId
 }
 
 exports.parseElement = (status, node) => {
   const type = node.type
   if (type === 'ArrowFunctionExpression' || type === 'FunctionExpression') {
+    let results = {}
     // there is more difference ofc
     // this is an actual component
     // collect top jsx elements
     // parse if statement
-    if (node.body.type === 'BlockStatement') {
-      var results = {}
+    // if node.body.type === evaluation do a switch come on
+
+    if (node.body.type === 'JSXElement') {
+      // if !if statement!
+      results.straightReturnJSX = node.body
+    } else if (node.body.type === 'BlockStatement') {
       node.body.body.forEach(child => {
         const type = child.type
         if (type === 'ReturnStatement') {

@@ -13,9 +13,7 @@ const getArg = (args, name) => {
   var i = args.val.length
   while (i--) {
     const arg = args.val[i]
-    if (arg.val === name) {
-      return arg
-    }
+    if (arg.val === name) return arg
   }
 }
 
@@ -26,7 +24,6 @@ const createPropFromExpression = (status, node) => {
   const expression = status.code.slice(node.start, node.end).split('')
   const start = node.start
   // need to have path as well
-  console.log(`expression: "${expression.join('')}"`)
 
   walker(node, child => {
     const isObject = args.type === 'ObjectPattern'
