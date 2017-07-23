@@ -59,6 +59,9 @@ const parseSingleStruct = (status, node, prop) => {
 // this has to be called expression as well...
 const parseExpressionContainer = (status, node) => {
   if (node.type === 'JSXExpressionContainer') {
+
+    console.log('hello expression')
+
     const prop = createPropFromExpression(status, node.expression)
     if (prop.type === 'struct') {
       parseSingleStruct(status, node, prop)
