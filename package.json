@@ -2,14 +2,14 @@
   "name": "brisky",
   "version": "2.0.0",
   "description": "Brisky is a lightning fast js library for building state driven user interfaces.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "browser": {
     "./dist/index.js": "./dist/index.browser.js"
   },
   "scripts": {
+    "budo":  "budo test/index.js",
     "dev": "nodemon test/index --ignore */result/*",
-    "cover": "istanbul cover --report none --print detail test/index.js",
-    "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0) && standard"
+    "watch": "builder-boy src/index.js dist/index.js -t node -t browser -r -w"
   },
   "repository": {
     "type": "git",
