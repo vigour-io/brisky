@@ -22,25 +22,25 @@ console.log(Struct)
 const state = new Struct()
 
 const arr = {}
-var i = 1e6
+var i = 1e5
 while (i--) {
   arr[i] = {
     val: 'hello' + i,
-    a: i,
-    b: i,
-    c: i
+    a: 'a' + i,
+    b: 'b' + i,
+    c: 'c' + i
   }
 }
 
 var d = Date.now()
 state.set(arr)
-console.log('set + create 1mil * 4', Date.now() - d, 'ms')
+console.log('set + create 100k * 4', Date.now() - d, 'ms')
 
 d = Date.now()
-i = 1e6
+i = 1e5
 var r
 while (i--) {
-  r = state.get(20)
+  r = state.get(2023)
 }
 console.log('get 1mil', Date.now() - d, 'ms', r)
 

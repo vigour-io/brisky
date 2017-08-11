@@ -18,7 +18,7 @@ const keyToId = key => {
   const numkey = ~~key
   if (numkey) {
     // do something a bit different then charcode at avoid colish
-    return (5381 * 33) ^ numkey
+    return (5381 * 33) ^ ((5381 * 33) ^ numkey)
   } else {
     let i = key.length
     let id = 5381
@@ -30,7 +30,7 @@ const keyToId = key => {
 }
 
 const insertId = (keyId, id) => {
-  (id * 33) ^ keyId
+  id = (id * 33) ^ keyId
   return id >>> 0
 }
 
@@ -77,6 +77,12 @@ const set = (target, val, stamp, id, branch) => {
           // can use keys or keyids
           // cache can just safe keys
           // key id is used here and can be recalulated
+          // if (key === 'a' || key === 'c' || key === 'b') {
+          //   console.log(key, keyId, leafId, id)
+          // }
+          // if (key === 'c') {
+          //   throw new Error()
+          // }
           newArray.push(keyId)
           branch.leaves[leafId] = new Leaf(val[key], stamp, id, leafId, branch)
         }
