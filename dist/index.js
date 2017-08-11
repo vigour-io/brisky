@@ -1,5 +1,7 @@
 var $2180032073 = require('string-hash')
-;const $3404267062_define = (obj, key, val) => {
+;
+
+const $3404267062_define = (obj, key, val) => {
   Object.defineProperty(obj, key, { value: val, configurable: true })
 }
 
@@ -11,9 +13,12 @@ var $2180032073 = require('string-hash')
 // }
 
 // if you want to support a get from a leaf itself it needs its id which is a bit lame
+
+// same as strign hash but check for number as well to opt mem
 const $3404267062_keyToId = key => {
   const numkey = ~~key
   if (numkey) {
+    // do something a bit different then charcode at avoid colish
     return (5381 * 33) ^ numkey
   } else {
     let i = key.length
@@ -49,7 +54,12 @@ const $3404267062_get = (id, key, branch) => {
   return f
 }
 
-var $3404267062_cnt = 0
+// var cnt = 0
+
+const $3404267062_setVal = (target, val, stamp, id, branch) => {
+  target.val = val
+}
+
 const $3404267062_set = (target, val, stamp, id, branch) => {
   if (typeof val === 'object') {
     if (!val) {
@@ -60,12 +70,11 @@ const $3404267062_set = (target, val, stamp, id, branch) => {
       let newArray
       for (let key in val) {
         if (key === 'val') {
-          target.val = val.val
+          $3404267062_setVal(target, val.val, stamp, id, branch)
         } else {
           const keyId = $3404267062_keyToId(key)
           const leafId = $3404267062_insertId(id, keyId)
           if (!newArray) newArray = []
-          $3404267062_cnt++
           // can use keys or keyids
           // cache can just safe keys
           // key id is used here and can be recalulated
@@ -88,7 +97,7 @@ const $3404267062_set = (target, val, stamp, id, branch) => {
       }
     }
   } else {
-    target.val = val
+    $3404267062_setVal(target, val, stamp, id, branch)
   }
 }
 
@@ -110,6 +119,7 @@ $3404267062_define($3404267062_leaf, 'get', function (key) {
 
 const $3404267062_Struct = function (val, stamp, arrays, strings) {
   this.leaves = {}
+  this.realkeys = {}
   this.arrays = arrays || {}
   this.strings = strings || {}
   this.branches = []

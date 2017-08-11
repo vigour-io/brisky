@@ -1,3 +1,5 @@
+import stringHash from 'string-hash'
+
 const define = (obj, key, val) => {
   Object.defineProperty(obj, key, { value: val, configurable: true })
 }
@@ -10,9 +12,12 @@ const define = (obj, key, val) => {
 // }
 
 // if you want to support a get from a leaf itself it needs its id which is a bit lame
+
+// same as strign hash but check for number as well to opt mem
 const keyToId = key => {
   const numkey = ~~key
   if (numkey) {
+    // do something a bit different then charcode at avoid colish
     return (5381 * 33) ^ numkey
   } else {
     let i = key.length
@@ -48,7 +53,12 @@ const get = (id, key, branch) => {
   return f
 }
 
-var cnt = 0
+// var cnt = 0
+
+const setVal = (target, val, stamp, id, branch) => {
+  target.val = val
+}
+
 const set = (target, val, stamp, id, branch) => {
   if (typeof val === 'object') {
     if (!val) {
@@ -59,12 +69,11 @@ const set = (target, val, stamp, id, branch) => {
       let newArray
       for (let key in val) {
         if (key === 'val') {
-          target.val = val.val
+          setVal(target, val.val, stamp, id, branch)
         } else {
           const keyId = keyToId(key)
           const leafId = insertId(id, keyId)
           if (!newArray) newArray = []
-          cnt++
           // can use keys or keyids
           // cache can just safe keys
           // key id is used here and can be recalulated
@@ -87,7 +96,7 @@ const set = (target, val, stamp, id, branch) => {
       }
     }
   } else {
-    target.val = val
+    setVal(target, val, stamp, id, branch)
   }
 }
 
@@ -109,6 +118,7 @@ define(leaf, 'get', function (key) {
 
 const Struct = function (val, stamp, arrays, strings) {
   this.leaves = {}
+  this.realkeys = {}
   this.arrays = arrays || {}
   this.strings = strings || {}
   this.branches = []

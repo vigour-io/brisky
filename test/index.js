@@ -25,7 +25,7 @@ const arr = {}
 var i = 1e6
 while (i--) {
   arr[i] = {
-    val: 'hello',
+    val: 'hello' + i,
     a: i,
     b: i,
     c: i
