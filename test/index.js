@@ -22,15 +22,28 @@ console.log(Struct)
 const state = new Struct()
 
 const arr = {}
-var i = 1e5
+var i = 1e6
 while (i--) {
-  arr[i + 'hello' + i] = 'hello'
+  arr[i] = {
+    val: 'hello',
+    a: i,
+    b: i,
+    c: i
+  }
 }
 
-const d = Date.now()
+var d = Date.now()
 state.set(arr)
+console.log('set + create 1mil * 4', Date.now() - d, 'ms')
 
-console.log(Date.now() - d, 'ms')
+d = Date.now()
+i = 1e6
+var r
+while (i--) {
+  r = state.get(20)
+}
+console.log('get 1mil', Date.now() - d, 'ms', r)
 
 console.log(state)
+global.state = state
 // createTest('props', 'children')

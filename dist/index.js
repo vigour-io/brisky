@@ -1,7 +1,5 @@
 var $2180032073 = require('string-hash')
-;
-
-const $3404267062_define = (obj, key, val) => {
+;const $3404267062_define = (obj, key, val) => {
   Object.defineProperty(obj, key, { value: val, configurable: true })
 }
 
@@ -12,33 +10,46 @@ const $3404267062_define = (obj, key, val) => {
   // id >>> 0
 // }
 
-const $3404267062_Leaf = function (val, stamp, parent, id, branch) {
-  if (parent) {
-    this.parent = parent
-  }
-  if (val !== void 0) {
-    // set(this, val, stamp, id, branch)
+// if you want to support a get from a leaf itself it needs its id which is a bit lame
+const $3404267062_keyToId = key => {
+  const numkey = ~~key
+  if (numkey) {
+    return (5381 * 33) ^ numkey
+  } else {
+    let i = key.length
+    let id = 5381
+    while (i) {
+      id = (id * 33) ^ key.charCodeAt(--i)
+    }
+    return id >>> 0
   }
 }
 
-const $3404267062_leaf = $3404267062_Leaf.prototype
+const $3404267062_insertId = (keyId, id) => {
+  (id * 33) ^ keyId
+  return id >>> 0
+}
 
-$3404267062_leaf.parent = 0
-$3404267062_leaf.val = 0
-$3404267062_leaf.stamp = 0
-$3404267062_leaf.subStamp = 0
-$3404267062_leaf.referenceTo = 0
-$3404267062_leaf.referencesFrom = 0
-$3404267062_leaf.keys = 0
-$3404267062_leaf.branch = false
-// constructor field
+const $3404267062_arrayToId = (arr, id) => {
+  let i = arr.length
+  while (i) {
+    id = (id * 33) ^ $3404267062_keyToId(arr[--i])
+  }
+  return id >>> 0
+}
 
-// also make a fast set using puid
+const $3404267062_get = (id, key, branch) => {
+  id = $3404267062_insertId(id, $3404267062_keyToId(key))
+  const f = branch.leaves[id]
+  if (!f) {
+    return
+  }
+  f.id = id
+  f.branch = branch
+  return f
+}
 
-// const create = (target, val, stamp, id, branch) => {
-
-// }
-
+var $3404267062_cnt = 0
 const $3404267062_set = (target, val, stamp, id, branch) => {
   if (typeof val === 'object') {
     if (!val) {
@@ -46,18 +57,61 @@ const $3404267062_set = (target, val, stamp, id, branch) => {
     } else if (val.constructor === Array) {
 
     } else {
+      let newArray
       for (let key in val) {
-        const leafId = (id * 33 ^ ($2180032073(key))) >>> 0
-        branch.leaves[leafId] = new $3404267062_Leaf(val, stamp, id, leafId, branch)
+        if (key === 'val') {
+          target.val = val.val
+        } else {
+          const keyId = $3404267062_keyToId(key)
+          const leafId = $3404267062_insertId(id, keyId)
+          if (!newArray) newArray = []
+          $3404267062_cnt++
+          // can use keys or keyids
+          // cache can just safe keys
+          // key id is used here and can be recalulated
+          newArray.push(keyId)
+          branch.leaves[leafId] = new $3404267062_Leaf(val[key], stamp, id, leafId, branch)
+        }
         // set subStamp and stuff as well
       }
+      if (newArray) {
+        if (!target.keys) {
+          // arrays can be shared if you walk them witht his operation (id * 33 ^ keyId) >>> 0
+          const arrayId = $3404267062_arrayToId(newArray)
+          target.keys = arrayId
+          if (!branch.arrays[arrayId]) {
+            branch.arrays[arrayId] = newArray
+          }
+        } else {
+          // insert make new
+        }
+      }
     }
+  } else {
+    target.val = val
   }
 }
 
-const $3404267062_Struct = function (val, stamp, arrays) {
+const $3404267062_Leaf = function (val, stamp, parent, id, branch) {
+  if (parent) {
+    this.parent = parent
+  }
+  // this.id = id // nessecary if you want to support an api
+  if (val !== void 0) {
+    $3404267062_set(this, val, stamp, id, branch)
+  }
+}
+
+const $3404267062_leaf = $3404267062_Leaf.prototype
+
+$3404267062_define($3404267062_leaf, 'get', function (key) {
+  return $3404267062_get(this.id, key, this.branch)
+})
+
+const $3404267062_Struct = function (val, stamp, arrays, strings) {
   this.leaves = {}
   this.arrays = arrays || {}
+  this.strings = strings || {}
   this.branches = []
   // just added to leaves if you want to make a ref to the root :/
   this.self = this.leaves[5381] = new $3404267062_Leaf(val)
@@ -70,9 +124,9 @@ $3404267062_define($3404267062_struct, 'set', function (val, stamp) {
   $3404267062_set(this.self, val, stamp, 5381, this)
 })
 
-$3404267062_define($3404267062_struct, 'get', function (val) {
- // do a set
-
+$3404267062_define($3404267062_struct, 'get', function (key) {
+  // do array etc
+  return $3404267062_get(5381, key, this)
 })
 
 
