@@ -18,4 +18,19 @@
 console.log('bla......')
 const { Struct } = require('../')
 console.log(Struct)
+
+const state = new Struct()
+
+const arr = {}
+var i = 1e5
+while (i--) {
+  arr[i + 'hello' + i] = 'hello'
+}
+
+const d = Date.now()
+state.set(arr)
+
+console.log(Date.now() - d, 'ms')
+
+console.log(state)
 // createTest('props', 'children')

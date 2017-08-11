@@ -1,18 +1,23 @@
 import hash from 'string-hash'
 
 const define = (obj, key, val) => {
-  Object.defineProperty(obj, key, { value: val })
+  Object.defineProperty(obj, key, { value: val, configurable: true })
 }
 
-const puid = (arr) => {
+// const puid = (arr) => {
   // for each in arr
   // var id = 5381
   // id = id * 33 ^ (hash(key))
   // id >>> 0
-}
+// }
 
-const Leaf = function (val, stamp, parent) {
-
+const Leaf = function (val, stamp, parent, id, branch) {
+  if (parent) {
+    this.parent = parent
+  }
+  if (val !== void 0) {
+    // set(this, val, stamp, id, branch)
+  }
 }
 
 const leaf = Leaf.prototype
@@ -27,25 +32,41 @@ leaf.keys = 0
 leaf.branch = false
 // constructor field
 
-define(leaf, 'set', function (val, stamp) {
+// also make a fast set using puid
 
-})
+// const create = (target, val, stamp, id, branch) => {
 
-const Struct = function () {
-  this.leafes = {}
-  this.arrays = {}
-  this.val = {}
+// }
+
+const set = (target, val, stamp, id, branch) => {
+  if (typeof val === 'object') {
+    if (!val) {
+      // is null
+    } else if (val.constructor === Array) {
+
+    } else {
+      for (let key in val) {
+        const leafId = (id * 33 ^ (hash(key))) >>> 0
+        branch.leaves[leafId] = new Leaf(val, stamp, id, leafId, branch)
+        // set subStamp and stuff as well
+      }
+    }
+  }
+}
+
+const Struct = function (val, stamp, arrays) {
+  this.leaves = {}
+  this.arrays = arrays || {}
   this.branches = []
-  this.self = new Leaf()
+  // just added to leaves if you want to make a ref to the root :/
+  this.self = this.leaves[5381] = new Leaf(val)
   // same here needs constructor / props
-
-  this.leafes[5381] = this.leaf
 }
 
 const struct = Struct.prototype
 
 define(struct, 'set', function (val, stamp) {
-  this.self.set(val, stamp)
+  set(this.self, val, stamp, 5381, this)
 })
 
 define(struct, 'get', function (val) {
