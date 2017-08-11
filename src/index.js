@@ -1,9 +1,7 @@
 import hash from 'string-hash'
 
 const define = (obj, key, val) => {
-  Object.defineProperty(obj, key, {
-    value: val
-  })
+  Object.defineProperty(obj, key, { value: val })
 }
 
 const puid = (arr) => {
@@ -41,7 +39,7 @@ const Struct = function () {
   this.self = new Leaf()
   // same here needs constructor / props
 
-  this.leaves[5381] = this.leaf
+  this.leafes[5381] = this.leaf
 }
 
 Struct.prototype.set = function (val, stamp) {

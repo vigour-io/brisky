@@ -2,9 +2,7 @@ var $2180032073 = require('string-hash')
 ;
 
 const $3404267062_define = (obj, key, val) => {
-  Object.defineProperty(obj, key, {
-    value: val
-  })
+  Object.defineProperty(obj, key, { value: val })
 }
 
 const $3404267062_puid = (arr) => {
@@ -42,7 +40,7 @@ const $3404267062_Struct = function () {
   this.self = new $3404267062_Leaf()
   // same here needs constructor / props
 
-  this.leaves[5381] = this.leaf
+  this.leafes[5381] = this.leaf
 }
 
 $3404267062_Struct.prototype.set = function (val, stamp) {
