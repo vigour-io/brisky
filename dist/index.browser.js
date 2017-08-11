@@ -7,34 +7,11 @@ const $3404267062_define = (obj, key, val) => {
   })
 }
 
-const $3404267062_puid = t => {
-  var id = 5381
-  var p = t
-  if (t._c) {
-    while (p) {
-      let key = p.key
-      if (key !== void 0) {
-        id = id * 33 ^ ($2180032073(key))
-        p = p._cLevel === 1 ? p._c : p._p
-      } else {
-        return id >>> 0
-      }
-    }
-    return id >>> 0
-  } else if (t._puid) {
-    return t._puid
-  } else {
-    while (p) {
-      let key = p.key
-      if (key !== void 0) {
-        id = id * 33 ^ ($2180032073(key))
-        p = p._p
-      } else {
-        return (t._puid = id >>> 0)
-      }
-    }
-    return (t._puid = id >>> 0)
-  }
+const $3404267062_puid = (arr) => {
+  // for each in arr
+  // var id = 5381
+  // id = id * 33 ^ (hash(key))
+  // id >>> 0
 }
 
 const $3404267062_Leaf = function (val, stamp, parent) {
@@ -58,7 +35,7 @@ $3404267062_define($3404267062_leaf, 'set', function (val, stamp) {
 })
 
 const $3404267062_Struct = function () {
-  this.leaves = {}
+  this.leafes = {}
   this.arrays = {}
   this.val = {}
   this.branches = []
