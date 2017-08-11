@@ -42,13 +42,15 @@ const Struct = function () {
   this.leafes[5381] = this.leaf
 }
 
-Struct.prototype.set = function (val, stamp) {
-  this.self.set(val, stamp)
-}
+const struct = Struct.prototype
 
-Struct.prototype.get = function (val) {
+define(struct, 'set', function (val, stamp) {
+  this.self.set(val, stamp)
+})
+
+define(struct, 'get', function (val) {
  // do a set
 
-}
+})
 
 export { Leaf, Struct }

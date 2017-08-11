@@ -43,14 +43,16 @@ const $3404267062_Struct = function () {
   this.leafes[5381] = this.leaf
 }
 
-$3404267062_Struct.prototype.set = function (val, stamp) {
-  this.self.set(val, stamp)
-}
+const $3404267062_struct = $3404267062_Struct.prototype
 
-$3404267062_Struct.prototype.get = function (val) {
+$3404267062_define($3404267062_struct, 'set', function (val, stamp) {
+  this.self.set(val, stamp)
+})
+
+$3404267062_define($3404267062_struct, 'get', function (val) {
  // do a set
 
-}
+})
 
 
 
