@@ -4,6 +4,12 @@ const define = (obj, key, val) => {
   Object.defineProperty(obj, key, { value: val, configurable: true })
 }
 
+
+var murmurHash3 = require("murmurhash3js");
+
+
+console.log(murmurHash3.x86.hash128("My hovercraft is full of eels.", 25))
+
 // const puid = (arr) => {
   // for each in arr
   // var id = 5381
@@ -14,41 +20,75 @@ const define = (obj, key, val) => {
 // if you want to support a get from a leaf itself it needs its id which is a bit lame
 
 // same as strign hash but check for number as well to opt mem
+const seed = 5381
+
+const numEscape = seed * 33
 const keyToId = key => {
-  const numkey = ~~key
-  if (numkey) {
-    // do something a bit different then charcode at avoid colish
-    return (5381 * 33) ^ ((5381 * 33) ^ numkey)
-  } else {
-    let i = key.length
-    let id = 5381
-    while (i) {
-      id = (id * 33) ^ key.charCodeAt(--i)
-    }
-    return id >>> 0
-  }
+  // const numkey = ~~key
+  return murmurHash3.x86.hash32(key)
+  // if (numkey) {
+  //   // do something a bit different then charcode at avoid colish
+  //   return numEscape ^ ((numEscape * 33) ^ numkey)
+  // } else {
+    // let i = key.length
+    // let id = seed
+    // while (i) {
+    //   id = (id * 33) ^ key.charCodeAt(--i)
+    // }
+    // return id >>> 0
+  // }
 }
 
-const insertId = (keyId, id) => {
-  id = (id * 33) ^ keyId
-  return id >>> 0
+// var md5sum = crypto.createHash('md5');
+
+// console.log('lullz', md5sum)
+
+
+// can use a check if id exists if parent === else know its my own generate new hash
+
+const pushId = (id, keyId) => {
+  // var name = 'braitsch';
+  // var hash = crypto.createHash('md5')
+  //   .update(name)
+  //   .digest('hex');
+  // return crypto.createHash('md5').update(id).update(keyId).digest('hex')
+  // murmurHash3.x86.hash32(
+  return murmurHash3.x86.hash32(id + '' + keyId)
+  // id will become just number
+  // you can make paths smarter like
+  // if(id) && id[keyID]
+  // else
+  // id = (id * 33) ^ keyId
+  // return murmurHash3.x86.hash32(id)
+  // return id >>> 0
 }
 
 const arrayToId = (arr, id) => {
   let i = arr.length
   while (i) {
-    id = (id * 33) ^ keyToId(arr[--i])
+    id = (id * 33) ^ stringHash(arr[--i])
   }
   return id >>> 0
+  // return arr.toString()
+}
+
+const getFromLeaves = (id, branch) => {
+  return branch.leaves[id]
+}
+
+const getRaw = (id, key, branch) => {
+  id = pushId(id, keyToId(key))
+  return branch.leaves[id]
 }
 
 const get = (id, key, branch) => {
-  id = insertId(id, keyToId(key))
+  console.log(key)
+
+  id = pushId(id, keyToId(key))
+  console.log(id)
   const f = branch.leaves[id]
-  if (!f) {
-    return
-  }
-  f.id = id
+  if (!f) { return }
+  // f.id = id // set this sporatidcly
   f.branch = branch
   return f
 }
@@ -63,8 +103,14 @@ const set = (target, val, stamp, id, branch) => {
   if (typeof val === 'object') {
     if (!val) {
       // is null
-    } else if (val.constructor === Array) {
-
+    } else if (Array.isArray(val)) {
+      if (val[0] === '@') {
+        console.log('is reference')
+        // can totally be a leaf object
+      }
+    } else if (val.isLeaf) {
+      console.log('is ref directly')
+      // console.log('need to check if part of same struct -- but later')
     } else {
       let newArray
       for (let key in val) {
@@ -72,17 +118,10 @@ const set = (target, val, stamp, id, branch) => {
           setVal(target, val.val, stamp, id, branch)
         } else {
           const keyId = keyToId(key)
-          const leafId = insertId(id, keyId)
+          const leafId = pushId(id, keyId)
+          // if (!newArray) newArray = {}
           if (!newArray) newArray = []
-          // can use keys or keyids
-          // cache can just safe keys
-          // key id is used here and can be recalulated
-          // if (key === 'a' || key === 'c' || key === 'b') {
-          //   console.log(key, keyId, leafId, id)
-          // }
-          // if (key === 'c') {
-          //   throw new Error()
-          // }
+          // newArray[keyId] = true
           newArray.push(keyId)
           branch.leaves[leafId] = new Leaf(val[key], stamp, id, leafId, branch)
         }
@@ -106,11 +145,15 @@ const set = (target, val, stamp, id, branch) => {
   }
 }
 
+// constructor that you can extend
+
 const Leaf = function (val, stamp, parent, id, branch) {
   if (parent) {
-    this.parent = parent
+    this.p = parent
   }
-  // this.id = id // nessecary if you want to support an api
+  this.id = id
+  // this.id = id // nessecary if you want to support an api - but slow maybe set when needed
+  // subscriptions can cache their id / key hashes
   if (val !== void 0) {
     set(this, val, stamp, id, branch)
   }
@@ -122,6 +165,12 @@ define(leaf, 'get', function (key) {
   return get(this.id, key, this.branch)
 })
 
+define(leaf, 'parent', function (key) {
+  return getFromLeaves(this.p, this.branch)
+})
+
+define(leaf, 'isLeaf', true)
+
 const Struct = function (val, stamp, arrays, strings) {
   this.leaves = {}
   this.realkeys = {}
@@ -129,19 +178,20 @@ const Struct = function (val, stamp, arrays, strings) {
   this.strings = strings || {}
   this.branches = []
   // just added to leaves if you want to make a ref to the root :/
-  this.self = this.leaves[5381] = new Leaf(val)
+  this.self = this.leaves[seed] = new Leaf(val, stamp, false, seed)
+  this.leaves[seed].branch = this
   // same here needs constructor / props
 }
 
 const struct = Struct.prototype
 
 define(struct, 'set', function (val, stamp) {
-  set(this.self, val, stamp, 5381, this)
+  set(this.self, val, stamp, seed, this)
 })
 
 define(struct, 'get', function (key) {
   // do array etc
-  return get(5381, key, this)
+  return get(seed, key, this)
 })
 
-export { Leaf, Struct }
+export { Leaf, Struct, getRaw }

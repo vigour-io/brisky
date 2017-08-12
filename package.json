@@ -7,7 +7,7 @@
     "./dist/index.js": "./dist/index.browser.js"
   },
   "scripts": {
-    "budo":  "budo test/index.js",
+    "budo": "budo test/index.js",
     "dev": "nodemon test/index --ignore */result/*",
     "watch": "builder-boy src/index.js dist/index.js -t node -t browser -r -w"
   },
@@ -35,7 +35,9 @@
     "acorn": "^4.0.4",
     "acorn-jsx": "^3.0.1",
     "brisky-struct": "latest",
-    "chalk": "^2.0.1"
+    "chalk": "^2.0.1",
+    "honesthash": "^0.1.10",
+    "murmurhash3js": "^3.0.1"
   },
   "devDependencies": {
     "brisky-render": "latest",
