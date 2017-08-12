@@ -25,7 +25,8 @@ const seed = 5381
 const numEscape = seed * 33
 const keyToId = key => {
   // const numkey = ~~key
-  return murmurHash3.x86.hash32(key)
+  // typeof number just teturn it + 5381
+  return murmurHash3.x86.hash32(key + '')
   // if (numkey) {
   //   // do something a bit different then charcode at avoid colish
   //   return numEscape ^ ((numEscape * 33) ^ numkey)
@@ -82,7 +83,7 @@ const getRaw = (id, key, branch) => {
 }
 
 const get = (id, key, branch) => {
-  console.log(key)
+  console.log(key, keyToId(key), id)
 
   id = pushId(id, keyToId(key))
   console.log(id)

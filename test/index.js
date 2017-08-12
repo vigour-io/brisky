@@ -59,3 +59,5 @@ console.log('get 1mil', Date.now() - d, 'ms', r)
 console.log(state)
 global.state = state
 // createTest('props', 'children')
+
+console.log(Object.keys(state.leaves).length)
