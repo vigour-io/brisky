@@ -18,12 +18,13 @@ const getPathId = path => {
   while (i--) {
     let j = path[i].length
     while (j) {
-      hash1 = (hash1 * 33) ^ path[i].charCodeAt(--j)
-      hash2 = (hash2 * 139) ^ path[i].charCodeAt(j)
+      let chr = path[i].charCodeAt(--j)
+      hash1 = (hash1 * 33) ^ chr
+      hash2 = (hash2 * 139) ^ chr
     }
   }
 
-  return (hash1 & 0x3fffff) * 0x40000000 + (hash2 & 0x3fffffff)
+  return (hash1 >>> 0) * 4294967296 + (hash2 >>> 0)
 }
 
 // Prepare for performance test
