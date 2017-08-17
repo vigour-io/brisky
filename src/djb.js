@@ -15,7 +15,7 @@ const djb3 = str => {
   while (i--) {
     let chr = str.charCodeAt(i)
     hash1 = (hash1 * 33) ^ chr
-    hash2 = (hash2 * 139) ^ chr
+    hash2 = (hash2 * 33) ^ chr
   }
 
   return (hash1 >>> 0) * 4294967296 + (hash2 >>> 0)
