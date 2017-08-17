@@ -20,7 +20,7 @@ const getPathId = path => {
     while (j) {
       let chr = path[i].charCodeAt(--j)
       hash1 = (hash1 * 33) ^ chr
-      hash2 = (hash2 * 139) ^ chr
+      hash2 = (hash2 * 33) ^ chr
     }
   }
 
