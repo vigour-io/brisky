@@ -18,10 +18,10 @@ const djb3 = str => {
     hash2 = (hash2 * 33) ^ chr
   }
 
-  return (hash1 >>> 0) * 4294967296 + (hash2 >>> 0)
+  return (hash1 >>> 0) * 648391 + (hash2 >>> 0)
 }
 
-const n = 5e7 // 50 million
+const n = 6e7 // 60 million
 
 var collision = Array(n)
 var count = 0
