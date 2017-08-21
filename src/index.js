@@ -12,10 +12,10 @@ const keyToId = (key, id = root) => {
   return id >>> 0
 }
 
-const keysToId = (keys, id = root) => {
-  var i = keys.length
+const arrayId = (arr, id = root) => {
+  var i = arr.length
   while (i--) {
-    id = keyToId(String(keys[i]), id)
+    id = keyToId(String(arr[i]), id)
   }
   return id
 }
@@ -45,6 +45,14 @@ const get = (branch, key, id) => {
   return leaf
 }
 
+const getApi = (branch, path, id = root) => {
+  if (Array.isArray(path)) {
+    // implement get path here
+  } else {
+    return get(branch, path, id)
+  }
+}
+
 const setVal = (target, val, stamp, id, branch) => {
   target.val = val
 }
@@ -70,7 +78,7 @@ const set = (target, val, stamp, id, branch) => {
           const leafId = keyToId(key, id)
           if (!keys) keys = []
           keys.push(leafId)
-          branch.leaves[leafId] = new Leaf(val[key], stamp, id, leafId, branch)
+          branch.leaves[leafId] = new Leaf(val[key], stamp, leafId, id, branch)
         }
         // set subStamp and stuff as well
       }
@@ -89,7 +97,7 @@ const set = (target, val, stamp, id, branch) => {
           }
           keys = combined
         }
-        const keysId = keysToId(keys)
+        const keysId = arrayId(keys)
         target.keys = keysId
         if (!branch.arrays[keysId]) {
           branch.arrays[keysId] = keys
@@ -103,9 +111,9 @@ const set = (target, val, stamp, id, branch) => {
 
 // constructor that you can extend
 
-const Leaf = function (val, stamp, parent, id, branch) {
+const Leaf = function (val, stamp, id, parent, branch) {
   if (parent) {
-    this.p = parent
+    this._p = parent
   }
   // this.id = id // nessecary if you want to support an api - but slow maybe set when needed
   // subscriptions can cache their id / key hashes
@@ -117,11 +125,11 @@ const Leaf = function (val, stamp, parent, id, branch) {
 const leaf = Leaf.prototype
 
 define(leaf, 'get', function (key) {
-  return get(this.branch, key, this.id)
+  return getApi(this.branch, key, this.id)
 })
 
 define(leaf, 'parent', function () {
-  return this.branch.leaves[this.p]
+  return this.branch.leaves[this._p]
 })
 
 define(leaf, 'isLeaf', true)
@@ -133,7 +141,7 @@ const Struct = function (val, stamp, arrays, strings) {
   this.strings = strings || {}
   this.branches = []
   // just added to leaves if you want to make a ref to the root :/
-  this.leaves[root] = new Leaf(val, stamp, false, root)
+  this.leaves[root] = new Leaf(val, stamp, root, false)
   this.leaves[root].branch = this
   // same here needs constructor / props
 }
@@ -144,9 +152,9 @@ define(struct, 'set', function (val, stamp) {
   set(this.leaves[root], val, stamp, root, this)
 })
 
-define(struct, 'get', function (key) {
+define(struct, 'get', function (path) {
   // do array etc
-  return get(this, key)
+  return getApi(this, path)
 })
 
-export { Leaf, Struct }
+export { Leaf, Struct, get }
