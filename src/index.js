@@ -21,17 +21,19 @@ const arrayId = (arr, id = root) => {
 }
 
 const pathToId = (path, id = root) => {
-  var i = path.length
-  while (i--) {
+  const pL = path.length
+  let i = -1
+  while (++i < pL) {
     id = keyToId(path[i], id)
   }
   return id
 }
 
 const pathToIds = (path, id = root) => {
-  var i = path.length
-  const ids = new Array(i)
-  while (i--) {
+  const pL = path.length
+  const ids = new Array(pL)
+  let i = -1
+  while (++i < pL) {
     ids[i] = id = keyToId(path[i], id)
   }
   return ids
@@ -53,7 +55,21 @@ const get = (branch, key, id) => {
 
 const getApi = (branch, path, id = root) => {
   if (Array.isArray(path)) {
-    // implement get path here
+    const ids = pathToIds(path, id)
+    let i = ids.length - 1
+    const leaf = getFromLeaves(branch, ids[i])
+    if (leaf) {
+      return leaf
+    } else {
+      // time to check for refs
+      while (i) {
+        const leaf = getFromLeaves(branch, ids[i])
+        if (leaf) {
+          // check refTo
+        }
+        i--
+      }
+    }
   } else {
     return get(branch, path, id)
   }
