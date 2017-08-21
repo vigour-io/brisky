@@ -1,3 +1,5 @@
+import { addToArrays, getArray } from './cache'
+
 const root = 5381
 
 const define = (obj, key, val) => {
@@ -19,16 +21,6 @@ const arrayId = (arr, id = root) => {
   }
   return id
 }
-
-// maybe nıt necessary
-// const pathToId = (path, id = root) => {
-//   const pL = path.length
-//   let i = -1
-//   while (++i < pL) {
-//     id = keyToId(path[i], id)
-//   }
-//   return id
-// }
 
 const pathToIds = (path, id = root) => {
   const pL = path.length
@@ -121,7 +113,7 @@ const set = (target, val, stamp, id, branch) => {
       }
       if (keys) {
         if (target.keys) {
-          const existing = branch.arrays[target.keys]
+          const existing = getArray(target.keys)
           const combined = new Array(existing.length + keys.length)
           const eL = existing.length
           let i = eL
@@ -134,11 +126,8 @@ const set = (target, val, stamp, id, branch) => {
           }
           keys = combined
         }
-        const keysId = arrayId(keys)
-        target.keys = keysId
-        if (!branch.arrays[keysId]) {
-          branch.arrays[keysId] = keys
-        }
+        target.keys = arrayId(keys)
+        addToArrays(target.keys, keys)
       }
     }
   } else {
@@ -171,11 +160,9 @@ define(leaf, 'parent', function () {
 
 define(leaf, 'isLeaf', true)
 
-const Struct = function (val, stamp, arrays, strings) {
+const Struct = function (val, stamp) {
   this.leaves = {}
   this.realKeys = {} // what is this?
-  this.arrays = arrays || {}
-  this.strings = strings || {}
   this.branches = []
   // just added to leaves if you want to make a ref to the root :/
   this.leaves[root] = new Leaf(val, stamp, root, false, this)
