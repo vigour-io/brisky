@@ -14,17 +14,17 @@ master.set({
   }
 })
 
-console.log('pointer1:', master.get(['pointers', 'pointer1', 'real']).compute())
-console.log('pointer2:', master.get(['pointers', 'pointer2']).compute())
-console.log('pointer3:', master.get(['pointers', 'pointer3', 'real']).compute())
-console.log('pointer4:', master.get(['pointers', 'pointer4']).compute())
-console.log(master)
-console.log(master.get('pointers'))
-console.log(master.get(['pointers', 'pointer2']))
-console.log(master.get(['deep', 'real']).path())
-console.log(master.get(['pointers']).serialize())
-console.log(master.get(['deep']).serialize())
-console.log(master.serialize())
+console.log('compute pointer1:', master.get(['pointers', 'pointer1', 'real']).compute())
+console.log('compute pointer2:', master.get(['pointers', 'pointer2']).compute())
+console.log('compute pointer3:', master.get(['pointers', 'pointer3', 'real']).compute())
+console.log('compute pointer4:', master.get(['pointers', 'pointer4']).compute())
+console.log('inspect master:', master)
+console.log('inspect pointers:', master.get('pointers'))
+console.log('inspect pointer2:', master.get(['pointers', 'pointer2']))
+console.log('path of deep/real:', master.get(['deep', 'real']).path())
+console.log('serialize pointers:', master.get(['pointers']).serialize())
+console.log('serialize deep:', master.get(['deep']).serialize())
+console.log('serialize master:', master.serialize())
 
 // const state = new Struct()
 //
