@@ -120,9 +120,12 @@ define(leaf, 'path', function () {
 
 define(leaf, 'isLeaf', true)
 
-const Struct = function (val, stamp) {
+const Struct = function (val, stamp, inherits) {
   this.leaves = {}
   this.branches = []
+  if (inherits) {
+    this.inherits = inherits
+  }
   // just added to leaves if you want to make a ref to the root :/
   this.leaves[root] = new Leaf(val, stamp, root, this)
   this.leaves[root].branch = this

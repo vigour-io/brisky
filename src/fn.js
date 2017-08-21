@@ -10,7 +10,11 @@ const origin = (branch, leaf) => {
 }
 
 const compute = (branch, leaf) => {
-  return origin(branch, leaf).val
+  leaf = origin(branch, leaf)
+  while (leaf.val == void 0 && branch.inherits) {
+    leaf = getFromLeaves(branch.inherits, leaf.id)
+  }
+  return leaf.val
 }
 
 const inspect = (branch, leaf) => {

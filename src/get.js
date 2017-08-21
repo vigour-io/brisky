@@ -2,11 +2,14 @@ import { root, keyToId, pathToId, pathToIds } from './id'
 import { origin } from './fn'
 
 const getFromLeaves = (branch, id) => {
-  if (branch.leaves[id]) {
-    const leaf = branch.leaves[id]
-    leaf.id = id
-    leaf.branch = branch
-    return leaf
+  while (branch) {
+    if (branch.leaves[id]) {
+      const leaf = branch.leaves[id]
+      leaf.id = id
+      leaf.branch = branch
+      return leaf
+    }
+    branch = branch.inherits
   }
 }
 
