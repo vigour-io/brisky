@@ -55,7 +55,6 @@ const getApi = (branch, path, id = root, val, stamp) => {
       const origin = leaf.rT && getFromLeaves(branch, leaf.rT)
       return origin || leaf
     } else {
-      // time to check for refs
       while (i) {
         let leaf = getFromLeaves(branch, ids[i])
         if (leaf && leaf.rT && (leaf = getFromLeaves(branch, leaf.rT))) {
