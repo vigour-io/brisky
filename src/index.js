@@ -1,4 +1,4 @@
-import { addToArrays, getArray, concatToArray, addToStrings } from './cache'
+import { addToArrays, getArray, concatToArray, addToStrings, getString } from './cache'
 
 const root = 5381
 
@@ -127,6 +127,38 @@ const set = (target, val, stamp, id, branch) => {
   }
 }
 
+const inspect = (branch, leaf) => {
+  var val = leaf.val
+  var keys = leaf.keys && getArray(leaf.keys)
+  const start = 'Struct ' + (leaf.key ? getString(leaf.key) + ' ' : '')
+  const origin = leaf.rT && getFromLeaves(branch, leaf.rT)
+  if (origin) {
+    val = origin.inspect()
+  }
+  if (keys) {
+    if (keys.length > 10) {
+      const len = keys.length
+      keys = keys.slice(0, 5).map(keyId => {
+        const leaf = getFromLeaves(branch, keyId)
+        return getString(leaf.key)
+      })
+      keys.push('... ' + (len - 5) + ' more items')
+    } else {
+      keys = keys.map(keyId => {
+        const leaf = getFromLeaves(branch, keyId)
+        return getString(leaf.key)
+      })
+    }
+    return val
+      ? `${start}{ val: ${val}, ${keys.join(', ')} }`
+      : `${start}{ ${keys.join(', ')} }`
+  } else {
+    return val
+      ? `${start}{ val: ${val} }`
+      : `${start}{ }`
+  }
+}
+
 // constructor that you can extend
 
 const Leaf = function (val, stamp, id, branch, parent, key) {
@@ -145,8 +177,12 @@ const Leaf = function (val, stamp, id, branch, parent, key) {
 
 const leaf = Leaf.prototype
 
-define(leaf, 'get', function (key) {
-  return getApi(this.branch, key, this.id)
+define(leaf, 'get', function (path) {
+  return getApi(this.branch, path, this.id)
+})
+
+define(leaf, 'inspect', function () {
+  return inspect(this.branch, this)
 })
 
 define(leaf, 'parent', function () {
@@ -172,8 +208,11 @@ define(struct, 'set', function (val, stamp) {
 })
 
 define(struct, 'get', function (path) {
-  // do array etc
   return getApi(this, path)
+})
+
+define(struct, 'inspect', function () {
+  return inspect(this, this.leaves[root])
 })
 
 export { Leaf, Struct, get, getApi }
