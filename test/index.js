@@ -33,7 +33,7 @@ const arr = {}
 const blur = {
   val: 'blurblurblur'
 }
-var i = 5
+var i = 10
 while (i--) {
   blur['x' + i] = 'blur' + i
 }
@@ -53,7 +53,7 @@ while (i--) {
 
 var d = Date.now()
 state.set(arr)
-console.log('set + create 10k * 10', Date.now() - d, 'ms')
+console.log('set + create 10k * 15', Date.now() - d, 'ms')
 
 d = Date.now()
 i = 1e4
