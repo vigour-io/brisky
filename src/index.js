@@ -79,6 +79,15 @@ const setVal = (target, val, stamp, id, branch) => {
   target.val = val
 }
 
+const setReference = (target, val, stamp, id, branch) => {
+  target.rT = val.id
+  if (val.rF) {
+    val.rF.push(id)
+  } else {
+    val.rF = [ id ]
+  }
+}
+
 const reference = (target, val, stamp, id, branch) =>
   set(target, getApi(branch, val.slice(1), id, {}, stamp), void 0, id, branch)
 
@@ -91,8 +100,11 @@ const set = (target, val, stamp, id, branch) => {
         reference(target, val, stamp, id, branch)
       }
     } else if (val.isLeaf) {
-      console.log('is ref directly')
-      // console.log('need to check if part of same struct -- but later')
+      if (target.branch === val.branch) {
+        setReference(target, val, stamp, id, branch)
+      } else {
+        throw('Reference must be in same branch')
+      }
     } else {
       let keys
       for (let key in val) {
