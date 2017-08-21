@@ -45,7 +45,7 @@ const getFromLeaves = (branch, id) => {
     const leaf = branch.leaves[id]
     leaf.id = id
     leaf.branch = branch
-    return branch
+    return leaf
   }
 }
 
@@ -90,7 +90,7 @@ const setReference = (target, val, stamp, id, branch) => {
 }
 
 const reference = (target, val, stamp, id, branch) =>
-  set(target, getApi(branch, val.slice(1), id, {}, stamp), void 0, id, branch)
+  set(target, getApi(branch, val.slice(1), root, {}, stamp), stamp, id, branch)
 
 const set = (target, val, stamp, id, branch) => {
   if (typeof val === 'object') {
@@ -101,7 +101,7 @@ const set = (target, val, stamp, id, branch) => {
         reference(target, val, stamp, id, branch)
       }
     } else if (val.isLeaf) {
-      if (target.branch === val.branch) {
+      if (branch === val.branch) {
         setReference(target, val, stamp, id, branch)
       } else {
         throw('Reference must be in same branch')
@@ -178,7 +178,7 @@ const Struct = function (val, stamp, arrays, strings) {
   this.strings = strings || {}
   this.branches = []
   // just added to leaves if you want to make a ref to the root :/
-  this.leaves[root] = new Leaf(val, stamp, root, false)
+  this.leaves[root] = new Leaf(val, stamp, root, false, this)
   this.leaves[root].branch = this
   // same here needs constructor / props
 }
