@@ -1,4 +1,4 @@
-import { addToArrays, getArray, concatToArray } from './cache'
+import { addToArrays, getArray, concatToArray, addToStrings } from './cache'
 
 const root = 5381
 
@@ -106,9 +106,11 @@ const set = (target, val, stamp, id, branch) => {
           setVal(target, val.val, stamp, id, branch)
         } else {
           const leafId = keyToId(key, id)
+          const keyId = keyToId(key)
+          addToStrings(keyId, key)
           if (!keys) keys = []
           keys.push(leafId)
-          branch.leaves[leafId] = new Leaf(val[key], stamp, leafId, id, branch)
+          branch.leaves[leafId] = new Leaf(val[key], stamp, leafId, branch, id, keyId)
         }
         // set subStamp and stuff as well
       }
@@ -127,9 +129,12 @@ const set = (target, val, stamp, id, branch) => {
 
 // constructor that you can extend
 
-const Leaf = function (val, stamp, id, parent, branch) {
+const Leaf = function (val, stamp, id, branch, parent, key) {
   if (parent) {
     this.p = parent
+  }
+  if (key) {
+    this.key = key
   }
   // this.id = id // nessecary if you want to support an api - but slow maybe set when needed
   // subscriptions can cache their id / key hashes
@@ -155,7 +160,7 @@ const Struct = function (val, stamp) {
   this.realKeys = {} // what is this?
   this.branches = []
   // just added to leaves if you want to make a ref to the root :/
-  this.leaves[root] = new Leaf(val, stamp, root, false, this)
+  this.leaves[root] = new Leaf(val, stamp, root, this)
   this.leaves[root].branch = this
   // same here needs constructor / props
 }

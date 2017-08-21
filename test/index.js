@@ -19,7 +19,6 @@ console.log('pointer2:', master.get(['pointers', 'pointer2']).val)
 console.log('pointer3:', master.get(['pointers', 'pointer3', 'real']).val)
 console.log('pointer4:', master.get(['pointers', 'pointer4']).val)
 
-//
 // const state = new Struct()
 //
 // const arr = {}
