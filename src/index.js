@@ -37,12 +37,18 @@ const pathToIds = (path, id = root) => {
   return ids
 }
 
+const getFromLeaves = (branch, id) => {
+  if (branch.leaves[id]) {
+    const leaf = branch.leaves[id]
+    leaf.id = id
+    leaf.branch = branch
+    return branch
+  }
+}
+
 const get = (branch, key, id) => {
   id = keyToId(key, id)
-  const leaf = branch.leaves[id]
-  leaf.branch = branch
-  leaf.id = id
-  return leaf
+  return getFromLeaves(branch, id)
 }
 
 const getApi = (branch, path, id = root) => {
@@ -113,7 +119,7 @@ const set = (target, val, stamp, id, branch) => {
 
 const Leaf = function (val, stamp, id, parent, branch) {
   if (parent) {
-    this._p = parent
+    this.p = parent
   }
   // this.id = id // nessecary if you want to support an api - but slow maybe set when needed
   // subscriptions can cache their id / key hashes
@@ -129,14 +135,14 @@ define(leaf, 'get', function (key) {
 })
 
 define(leaf, 'parent', function () {
-  return this.branch.leaves[this._p]
+  return getFromLeaves(this.branch, this.p)
 })
 
 define(leaf, 'isLeaf', true)
 
 const Struct = function (val, stamp, arrays, strings) {
   this.leaves = {}
-  this.realKeys = {}
+  this.realKeys = {} // what is this?
   this.arrays = arrays || {}
   this.strings = strings || {}
   this.branches = []
