@@ -53,7 +53,7 @@ const get = (branch, key, id) => {
   return getFromLeaves(branch, id)
 }
 
-const getApi = (branch, path, id = root) => {
+const getApi = (branch, path, id = root, val, stamp) => {
   if (Array.isArray(path)) {
     const ids = pathToIds(path, id)
     let i = ids.length - 1
@@ -79,14 +79,16 @@ const setVal = (target, val, stamp, id, branch) => {
   target.val = val
 }
 
+const reference = (target, val, stamp, id, branch) =>
+  set(target, getApi(branch, val.slice(1), id, {}, stamp), void 0, id, branch)
+
 const set = (target, val, stamp, id, branch) => {
   if (typeof val === 'object') {
     if (!val) {
       // is null
     } else if (Array.isArray(val)) {
       if (val[0] === '@') {
-        console.log('is reference')
-        // can totally be a leaf object
+        reference(target, val, stamp, id, branch)
       }
     } else if (val.isLeaf) {
       console.log('is ref directly')
