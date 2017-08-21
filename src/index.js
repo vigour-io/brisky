@@ -72,6 +72,9 @@ const setVal = (target, val, stamp, id, branch) => {
   target.val = val
 }
 
+const findReference = (target, val, stamp, id, branch) =>
+  set(target, getApi(branch, val.slice(1), root, {}, stamp), stamp, id, branch)
+
 const setReference = (target, val, stamp, id, branch) => {
   target.rT = val.id
   let rF = [ id ]
@@ -82,16 +85,13 @@ const setReference = (target, val, stamp, id, branch) => {
   addToArrays(val.rF, rF)
 }
 
-const reference = (target, val, stamp, id, branch) =>
-  set(target, getApi(branch, val.slice(1), root, {}, stamp), stamp, id, branch)
-
 const set = (target, val, stamp, id, branch) => {
   if (typeof val === 'object') {
     if (!val) {
       // is null
     } else if (Array.isArray(val)) {
       if (val[0] === '@') {
-        reference(target, val, stamp, id, branch)
+        findReference(target, val, stamp, id, branch)
       }
     } else if (val.isLeaf) {
       if (branch === val.branch) {
