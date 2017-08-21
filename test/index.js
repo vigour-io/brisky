@@ -6,12 +6,18 @@ master.set({
   deep: {
     real: 'thing'
   },
-  otherDeep: {
-    pointer: ['@', 'deep']
+  pointers: {
+    pointer1: ['@', 'deep'],
+    pointer2: ['@', 'deep', 'real'],
+    pointer3: ['@', 'pointers', 'pointer1'],
+    pointer4: ['@', 'pointers', 'pointer2']
   }
 })
 
-console.log('get the thing:', master.get(['otherDeep', 'pointer', 'real']).val)
+console.log('pointer1:', master.get(['pointers', 'pointer1', 'real']).val)
+console.log('pointer2:', master.get(['pointers', 'pointer2']).val)
+console.log('pointer3:', master.get(['pointers', 'pointer3', 'real']).val)
+console.log('pointer4:', master.get(['pointers', 'pointer4']).val)
 
 //
 // const state = new Struct()

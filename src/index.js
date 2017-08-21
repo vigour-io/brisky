@@ -1,4 +1,4 @@
-import { addToArrays, getArray } from './cache'
+import { addToArrays, getArray, concatToArray } from './cache'
 
 const root = 5381
 
@@ -50,9 +50,10 @@ const getApi = (branch, path, id = root, val, stamp) => {
   if (Array.isArray(path)) {
     const ids = pathToIds(path, id)
     let i = ids.length - 1
-    const leaf = getFromLeaves(branch, ids[i])
+    let leaf = getFromLeaves(branch, ids[i])
     if (leaf) {
-      return leaf
+      const origin = leaf.rT && getFromLeaves(branch, leaf.rT)
+      return origin || leaf
     } else {
       // time to check for refs
       while (i) {
@@ -74,11 +75,12 @@ const setVal = (target, val, stamp, id, branch) => {
 
 const setReference = (target, val, stamp, id, branch) => {
   target.rT = val.id
+  let rF = [ id ]
   if (val.rF) {
-    val.rF.push(id)
-  } else {
-    val.rF = [ id ]
+    rF = concatToArray(getArray(val.rF), rF)
   }
+  val.rF = arrayId(rF)
+  addToArrays(val.rF, rF)
 }
 
 const reference = (target, val, stamp, id, branch) =>
@@ -113,18 +115,7 @@ const set = (target, val, stamp, id, branch) => {
       }
       if (keys) {
         if (target.keys) {
-          const existing = getArray(target.keys)
-          const combined = new Array(existing.length + keys.length)
-          const eL = existing.length
-          let i = eL
-          while (i--) {
-            combined[i] = existing[i]
-          }
-          i = combined.length
-          while (i-- > eL) {
-            combined[i] = keys[i]
-          }
-          keys = combined
+          keys = concatToArray(getArray(target.keys), keys)
         }
         target.keys = arrayId(keys)
         addToArrays(target.keys, keys)
