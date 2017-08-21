@@ -20,14 +20,15 @@ const arrayId = (arr, id = root) => {
   return id
 }
 
-const pathToId = (path, id = root) => {
-  const pL = path.length
-  let i = -1
-  while (++i < pL) {
-    id = keyToId(path[i], id)
-  }
-  return id
-}
+// maybe nıt necessary
+// const pathToId = (path, id = root) => {
+//   const pL = path.length
+//   let i = -1
+//   while (++i < pL) {
+//     id = keyToId(path[i], id)
+//   }
+//   return id
+// }
 
 const pathToIds = (path, id = root) => {
   const pL = path.length
@@ -193,4 +194,4 @@ define(struct, 'get', function (path) {
   return getApi(this, path)
 })
 
-export { Leaf, Struct, get }
+export { Leaf, Struct, get, getApi }
