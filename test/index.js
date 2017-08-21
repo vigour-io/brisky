@@ -1,4 +1,3 @@
-console.log('bla......')
 const { Struct } = require('../')
 console.log(Struct)
 

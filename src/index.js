@@ -75,14 +75,24 @@ const set = (target, val, stamp, id, branch) => {
         // set subStamp and stuff as well
       }
       if (keys) {
-        if (!target.keys) {
-          const keysId = keysToId(keys)
-          target.keys = keysId
-          if (!branch.arrays[keysId]) {
-            branch.arrays[keysId] = keys
+        if (target.keys) {
+          const existing = branch.arrays[target.keys]
+          const combined = new Array(existing.length + keys.length)
+          const eL = existing.length
+          let i = eL
+          while (i--) {
+            combined[i] = existing[i]
           }
-        } else {
-          // insert make new
+          i = combined.length
+          while (i-- > eL) {
+            combined[i] = keys[i]
+          }
+          keys = combined
+        }
+        const keysId = keysToId(keys)
+        target.keys = keysId
+        if (!branch.arrays[keysId]) {
+          branch.arrays[keysId] = keys
         }
       }
     }
@@ -97,7 +107,6 @@ const Leaf = function (val, stamp, parent, id, branch) {
   if (parent) {
     this.p = parent
   }
-  this.id = id
   // this.id = id // nessecary if you want to support an api - but slow maybe set when needed
   // subscriptions can cache their id / key hashes
   if (val !== void 0) {
@@ -119,7 +128,7 @@ define(leaf, 'isLeaf', true)
 
 const Struct = function (val, stamp, arrays, strings) {
   this.leaves = {}
-  this.realkeys = {}
+  this.realKeys = {}
   this.arrays = arrays || {}
   this.strings = strings || {}
   this.branches = []
