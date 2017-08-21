@@ -1,6 +1,18 @@
 import { getArray, getString } from './cache'
 import { getFromLeaves } from './get'
 
+const origin = (branch, leaf) => {
+  let origin = leaf
+  while (origin.rT) {
+    origin = getFromLeaves(branch, origin.rT)
+  }
+  return origin
+}
+
+const compute = (branch, leaf) => {
+  return origin(branch, leaf).val
+}
+
 const inspect = (branch, leaf) => {
   var val = leaf.val
   var keys = leaf.keys && getArray(leaf.keys)
@@ -39,36 +51,27 @@ const serialize = (branch, leaf, fn) => {
   const keys = leaf.keys && getArray(leaf.keys)
   const origin = leaf.rT && getFromLeaves(branch, leaf.rT)
   if (origin) {
-
-  }
-  if (val && typeof val === 'object' && val.inherits) {
-    const p = path(val) // memoized paths later
-    val = [ '@', 'root' ]
-    let i = p.length
-    while (i--) { val[i + 2] = p[i] }
-    if (t.root().key) {
-      val.splice(2, 1)
+    const path = origin.path()
+    val = [ '@' ]
+    let i = path.length
+    while (i--) {
+      val[i + 1] = path[i]
     }
   }
   if (keys) {
-    let onlyNumbers = true
     for (let i = 0, len = keys.length; i < len; i++) {
-      let key = keys[i]
-      let keyResult = serialize(get(t, key), fn)
-      if (isNaN(key)) onlyNumbers = false
-      if (keyResult !== void 0) { result[key] = keyResult }
+      const keyId = keys[i]
+      const subLeaf = getFromLeaves(branch, keyId)
+      let keyResult = serialize(branch, subLeaf, fn)
+      if (keyResult !== void 0) { result[getString(subLeaf.key)] = keyResult }
     }
     if (val !== void 0) {
       result.val = val
-    } else if (onlyNumbers) {
-      const arr = []
-      for (let i in result) arr[i] = result[i]
-      result = arr
     }
   } else if (val !== void 0) {
     result = val
   }
-  return fn ? fn === true ? compute(t, result) : fn(t, result) : result
+  return fn ? fn(branch, result) : result
 }
 
-export { inspect, serialize }
+export { origin, compute, inspect, serialize }

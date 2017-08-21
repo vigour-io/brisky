@@ -1,7 +1,7 @@
 import { addToArrays, getArray, concatToArray, addToStrings, getString } from './cache'
 import { root, keyToId, arrayId } from './id'
 import { getFromLeaves, getByKey, getByPath, getApi } from './get'
-import { inspect } from './serialize'
+import { compute, inspect, serialize } from './fn'
 
 const define = (obj, key, val) => {
   Object.defineProperty(obj, key, { value: val, configurable: true })
@@ -88,8 +88,24 @@ define(leaf, 'get', function (path) {
   return getApi(this.branch, path, this.id)
 })
 
+define(leaf, 'compute', function () {
+  return compute(this.branch, this)
+})
+
+define(leaf, 'parent', function () {
+  return getFromLeaves(this.branch, this.p)
+})
+
+define(leaf, 'root', function () {
+  return this.branch.leaves[root]
+})
+
 define(leaf, 'inspect', function () {
   return inspect(this.branch, this)
+})
+
+define(leaf, 'serialize', function () {
+  return serialize(this.branch, this)
 })
 
 define(leaf, 'path', function () {
@@ -100,14 +116,6 @@ define(leaf, 'path', function () {
     parent = getFromLeaves(this.branch, parent.p)
   }
   return path
-})
-
-define(leaf, 'parent', function () {
-  return getFromLeaves(this.branch, this.p)
-})
-
-define(leaf, 'root', function () {
-  return this.branch.leaves[root]
 })
 
 define(leaf, 'isLeaf', true)
@@ -131,20 +139,24 @@ define(struct, 'get', function (path) {
   return getApi(this, path)
 })
 
-define(struct, 'inspect', function () {
-  return inspect(this, this.leaves[root])
-})
-
-define(struct, 'path', function () {
-  return []
-})
-
 define(struct, 'parent', function () {
   return void 0
 })
 
 define(struct, 'root', function () {
   return this.leaves[root]
+})
+
+define(struct, 'inspect', function () {
+  return inspect(this, this.leaves[root])
+})
+
+define(struct, 'serialize', function () {
+  return serialize(this, this.leaves[root])
+})
+
+define(struct, 'path', function () {
+  return []
 })
 
 export { Leaf, Struct, getByKey, getApi }

@@ -14,15 +14,17 @@ master.set({
   }
 })
 
-console.log('pointer1:', master.get(['pointers', 'pointer1', 'real']).val)
-console.log('pointer2:', master.get(['pointers', 'pointer2']).val)
-// the one below needs compute
-// console.log('pointer3:', master.get(['pointers', 'pointer3', 'real']).val)
-console.log('pointer4:', master.get(['pointers', 'pointer4']).val)
+console.log('pointer1:', master.get(['pointers', 'pointer1', 'real']).compute())
+console.log('pointer2:', master.get(['pointers', 'pointer2']).compute())
+console.log('pointer3:', master.get(['pointers', 'pointer3', 'real']).compute())
+console.log('pointer4:', master.get(['pointers', 'pointer4']).compute())
 console.log(master)
 console.log(master.get('pointers'))
 console.log(master.get(['pointers', 'pointer2']))
 console.log(master.get(['deep', 'real']).path())
+console.log(master.get(['pointers']).serialize())
+console.log(master.get(['deep']).serialize())
+console.log(master.serialize())
 
 // const state = new Struct()
 //

@@ -1,4 +1,5 @@
 import { root, keyToId, pathToId, pathToIds } from './id'
+import { origin } from './fn'
 
 const getFromLeaves = (branch, id) => {
   if (branch.leaves[id]) {
@@ -24,12 +25,11 @@ const getApi = (branch, path, id = root, val, stamp) => {
     let i = ids.length - 1
     let leaf = getFromLeaves(branch, ids[i])
     if (leaf) {
-      const origin = leaf.rT && getFromLeaves(branch, leaf.rT)
-      return origin || leaf
+      return origin(branch, leaf) || leaf
     } else {
       while (i) {
         let leaf = getFromLeaves(branch, ids[i])
-        if (leaf && leaf.rT && (leaf = getFromLeaves(branch, leaf.rT))) {
+        if (leaf && (leaf = origin(branch, leaf))) {
           return getApi(branch, path.slice(i + 1), leaf.id, val, stamp)
         }
         i--
