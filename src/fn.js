@@ -3,18 +3,20 @@ import { getFromLeaves } from './get'
 
 const origin = (branch, leaf) => {
   let origin = leaf
-  while (origin.rT) {
+  while (origin && origin.rT) {
     origin = getFromLeaves(branch, origin.rT)
   }
   return origin
 }
 
 const compute = (branch, leaf) => {
-  leaf = origin(branch, leaf)
-  while (leaf.val == void 0 && branch.inherits) {
-    leaf = getFromLeaves(branch.inherits, leaf.id)
+  if (leaf) {
+    leaf = origin(branch, leaf)
+    while (leaf.val === void 0 && branch.inherits) {
+      leaf = getFromLeaves(branch.inherits, leaf.id)
+    }
+    return leaf.val
   }
-  return leaf.val
 }
 
 const inspect = (branch, leaf) => {

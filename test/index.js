@@ -14,9 +14,9 @@ master.set({
   }
 })
 
-console.log('compute pointer1:', master.get(['pointers', 'pointer1', 'real']).compute())
+console.log('compute pointer1/real:', master.get(['pointers', 'pointer1', 'real']).compute())
 console.log('compute pointer2:', master.get(['pointers', 'pointer2']).compute())
-console.log('compute pointer3:', master.get(['pointers', 'pointer3', 'real']).compute())
+console.log('compute pointer3/real:', master.get(['pointers', 'pointer3', 'real']).compute())
 console.log('compute pointer4:', master.get(['pointers', 'pointer4']).compute())
 console.log('inspect master:', master)
 console.log('inspect pointers:', master.get('pointers'))
@@ -25,6 +25,10 @@ console.log('path of deep/real:', master.get(['deep', 'real']).path())
 console.log('serialize pointers:', master.get(['pointers']).serialize())
 console.log('serialize deep:', master.get(['deep']).serialize())
 console.log('serialize master:', master.serialize())
+
+console.log('compute pointer5/real:', master.get('pointers').get('pointer5', ['@', 'pointers', 'pointer1']).get('real').compute())
+master.get(['pointers', 'pointer6'], ['@', 'pointers', 'pointer5'])
+console.log('compute pointer6/real:', master.get(['pointers', 'pointer6', 'real']).compute())
 
 const state = new Struct()
 

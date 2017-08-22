@@ -22,15 +22,6 @@ const arrayId = (arr, id = root) => {
   return id
 }
 
-const pathToId = (path, id = root) => {
-  const pL = path.length
-  let i = -1
-  while (++i < pL) {
-    id = keyToId(path[i], id)
-  }
-  return id
-}
-
 const pathToIds = (path, id = root) => {
   const pL = path.length
   const ids = new Array(pL)
@@ -41,4 +32,4 @@ const pathToIds = (path, id = root) => {
   return ids
 }
 
-export { root, keyToId, arrayId, pathToId, pathToIds }
+export { root, keyToId, arrayId, pathToIds }

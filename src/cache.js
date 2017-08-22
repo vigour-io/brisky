@@ -16,13 +16,14 @@ const getArray = id => {
 const concatToArray = (existing, add) => {
   const combined = new Array(existing.length + add.length)
   const eL = existing.length
-  let i = eL
+  var i = eL
   while (i--) {
     combined[i] = existing[i]
   }
   i = combined.length
+  var j = 0
   while (i-- > eL) {
-    combined[i] = add[i]
+    combined[i] = add[j++]
   }
   return combined
 }
