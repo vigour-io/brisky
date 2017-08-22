@@ -38,7 +38,7 @@ while (i--) {
   blur['x' + i] = 'blur' + i
 }
 
-i = 1e4
+i = 1e5
 while (i--) {
   arr[i] = {
     val: 'hello' + i,
@@ -53,15 +53,15 @@ while (i--) {
 
 var d = Date.now()
 state.set(arr)
-console.log('set + create 10k * 15', Date.now() - d, 'ms')
+console.log('set + create 100k * 15', Date.now() - d, 'ms')
 
 d = Date.now()
-i = 1e4
+i = 1e5
 var r
 while (i--) {
   r = state.get(i)
 }
-console.log('get 10k', Date.now() - d, 'ms', r)
+console.log('get 100k', Date.now() - d, 'ms', r)
 
 console.log(state)
 global.state = state

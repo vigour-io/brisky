@@ -1,17 +1,23 @@
 const root = 5381
 
 const keyToId = (key, id = root) => {
-  var i = key.length
-  while (i--) {
-    id = (id * 33) ^ key.charCodeAt(i)
+  if (!key.length) {
+    key = '' + key
   }
-  return id >>> 0
+  var i = key.length
+  var hash2 = (id % root) + 52711
+  while (i--) {
+    const char = key.charCodeAt(i)
+    id = (id * 33) ^ char
+    hash2 = (hash2 * 33) ^ char
+  }
+  return (id >>> 0) * 52711 + (hash2 >>> 0)
 }
 
 const arrayId = (arr, id = root) => {
   var i = arr.length
   while (i--) {
-    id = keyToId(String(arr[i]), id)
+    id = keyToId(arr[i], id)
   }
   return id
 }
@@ -30,7 +36,7 @@ const pathToIds = (path, id = root) => {
   const ids = new Array(pL)
   let i = -1
   while (++i < pL) {
-    ids[i] = id = keyToId(path[i], id)
+    ids[i] = id = keyToId(String(path[i]), id)
   }
   return ids
 }
