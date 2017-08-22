@@ -5,13 +5,13 @@ const keyToId = (key, id = root) => {
     key = '' + key
   }
   var i = key.length
-  var hash2 = (id % root) + 52711
+  var hash2 = (id % root) + 127
   while (i--) {
     const char = key.charCodeAt(i)
     id = (id * 33) ^ char
-    hash2 = (hash2 * 33) ^ char
+    hash2 = (hash2 * 11) ^ char
   }
-  return (id >>> 0) * 52711 + (hash2 >>> 0)
+  return (id >>> 0) * 4096 + (hash2 >>> 0)
 }
 
 const arrayId = (arr, id = root) => {
