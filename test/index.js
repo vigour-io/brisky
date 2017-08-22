@@ -33,7 +33,7 @@ const arr = {}
 const blur = {
   val: 'blurblurblur'
 }
-var i = 10
+var i = 5
 while (i--) {
   blur['x' + i] = 'blur' + i
 }
@@ -49,19 +49,26 @@ while (i--) {
   }
 }
 
-// set property dont check keys totally fine
-
 var d = Date.now()
 state.set(arr)
-console.log('set + create 100k * 15', Date.now() - d, 'ms')
+console.log('set + create 100k * 10', Date.now() - d, 'ms')
 
 d = Date.now()
 i = 1e5
 var r
 while (i--) {
   r = state.get(i)
+  state.get([i, 'a'])
+  state.get([i, 'b'])
+  state.get([i, 'c'])
+  r.get('nested')
+  r.get(['nested', 'x0'])
+  r.get(['nested', 'x1'])
+  r.get(['nested', 'x2'])
+  r.get(['nested', 'x3'])
+  r.get(['nested', 'x4'])
 }
-console.log('get 100k', Date.now() - d, 'ms', r)
+console.log('get 100k * 10', Date.now() - d, 'ms', r)
 
 console.log(state)
 global.state = state
