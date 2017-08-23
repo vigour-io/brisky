@@ -14,12 +14,15 @@ const keyToId = (key, id = root) => {
   return (id >>> 0) * 4096 + (hash2 >>> 0)
 }
 
-const arrayId = (arr, id = root) => {
+const arrayId = (arr) => {
+  var hash1 = 127
+  var hash2 = 709
   var i = arr.length
   while (i--) {
-    id = keyToId(arr[i], id)
+    hash1 = (hash1 * 33) ^ (arr[i] / 11 - 1)
+    hash2 = (hash2 * 11) ^ (arr[i] / 33 - 1)
   }
-  return id
+  return (hash1 >>> 0) * 4096 + (hash2 >>> 0)
 }
 
 const pathToIds = (path, id = root) => {
