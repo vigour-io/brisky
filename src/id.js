@@ -14,7 +14,7 @@ const keyToId = (key, id = root) => {
   return (id >>> 0) * 4096 + (hash2 >>> 0)
 }
 
-const arrayId = (arr) => {
+const arrayToId = (arr) => {
   var hash1 = 127
   var hash2 = 709
   var i = arr.length
@@ -35,4 +35,4 @@ const pathToIds = (path, id = root) => {
   return ids
 }
 
-export { root, keyToId, arrayId, pathToIds }
+export { root, keyToId, arrayToId, pathToIds }

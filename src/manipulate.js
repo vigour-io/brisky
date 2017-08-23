@@ -1,6 +1,6 @@
 import { Leaf } from './'
 import { addToArrays, getArray, concatToArray, addToStrings } from './cache'
-import { root, keyToId, arrayId } from './id'
+import { root, keyToId, arrayToId } from './id'
 import { getByPath } from './get'
 
 const findReference = (target, val, stamp, id, branch) =>
@@ -12,7 +12,7 @@ const setReference = (target, val, stamp, id, branch) => {
   if (val.rF) {
     rF = concatToArray(getArray(val.rF), rF)
   }
-  val.rF = arrayId(rF)
+  val.rF = arrayToId(rF)
   addToArrays(val.rF, rF)
 }
 
@@ -49,7 +49,7 @@ const set = (target, val, stamp, id, branch) => {
         if (target.keys) {
           keys = concatToArray(getArray(target.keys), keys)
         }
-        target.keys = arrayId(keys)
+        target.keys = arrayToId(keys)
         addToArrays(target.keys, keys)
       }
     }
