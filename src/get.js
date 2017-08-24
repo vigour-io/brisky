@@ -53,7 +53,7 @@ const getApi = (branch, path, id = root, val, stamp) => {
     const leafId = ids[i]
     let leaf = getFromLeaves(branch, leafId)
     if (leaf) {
-      return origin(branch, leaf) || leaf
+      return leaf
     } else if (val === void 0) {
       while (i) {
         let leaf = getFromLeaves(branch, ids[i])
@@ -75,8 +75,7 @@ const getApi = (branch, path, id = root, val, stamp) => {
       }
     }
   } else {
-    const leaf = getByKey(branch, path, id, val, stamp)
-    return origin(branch, leaf) || leaf
+    return getByKey(branch, path, id, val, stamp)
   }
 }
 

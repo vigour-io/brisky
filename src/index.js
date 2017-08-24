@@ -2,7 +2,7 @@ import { getString } from './cache'
 import { root } from './id'
 import { getFromLeaves, getByKey, getApi } from './get'
 import { set } from './manipulate'
-import { compute, inspect, serialize } from './fn'
+import { origin, compute, inspect, serialize } from './fn'
 
 const define = (obj, key, val) => {
   Object.defineProperty(obj, key, { value: val, configurable: true })
@@ -32,6 +32,10 @@ define(leaf, 'set', function (val, stamp) {
 
 define(leaf, 'get', function (path, val, stamp) {
   return getApi(this.branch, path, this.id, val, stamp)
+})
+
+define(leaf, 'origin', function () {
+  return origin(this.branch, this)
 })
 
 define(leaf, 'compute', function () {

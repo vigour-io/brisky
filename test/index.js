@@ -26,7 +26,7 @@ console.log('serialize pointers:', master.get(['pointers']).serialize())
 console.log('serialize deep:', master.get(['deep']).serialize())
 console.log('serialize master:', master.serialize())
 
-console.log('compute pointer5/real:', master.get('pointers').get('pointer5', ['@', 'pointers', 'pointer1']).get('real').compute())
+console.log('compute pointer5/real:', master.get('pointers').get('pointer5', ['@', 'pointers', 'pointer1']).origin().get('real').compute())
 master.get(['pointers', 'pointer6'], ['@', 'pointers', 'pointer5'])
 console.log('compute pointer6/real:', master.get(['pointers', 'pointer6', 'real']).compute())
 
