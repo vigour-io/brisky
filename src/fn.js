@@ -1,4 +1,4 @@
-import { getArray, getString } from './cache'
+import { getString } from './cache'
 import { getFromLeaves } from './get'
 
 const origin = (branch, leaf) => {
@@ -21,7 +21,7 @@ const compute = (branch, leaf) => {
 
 const inspect = (branch, leaf) => {
   var val = leaf.val
-  var keys = leaf.keys && getArray(leaf.keys)
+  var keys = leaf.keys
   const start = 'Struct ' + (leaf.key ? getString(leaf.key) + ' ' : '')
   const origin = leaf.rT && getFromLeaves(branch, leaf.rT)
   if (origin) {
@@ -54,7 +54,7 @@ const inspect = (branch, leaf) => {
 const serialize = (branch, leaf, fn) => {
   var result = {}
   var val = leaf.val
-  const keys = leaf.keys && getArray(leaf.keys)
+  const keys = leaf.keys
   const origin = leaf.rT && getFromLeaves(branch, leaf.rT)
   if (origin) {
     const path = origin.path()
