@@ -1,8 +1,11 @@
 const root = 5381
 
 const keyToId = (key, id = root) => {
-  if (!key.length) {
-    key = '' + key
+  if (isFinite(key)) {
+    key = parseFloat(key)
+    const hash2 = (((id % root) + 127) * 11) ^ key
+    id = id * 33 ^ key
+    return (id >>> 0) * 4096 + (hash2 >>> 0)
   }
   var i = key.length
   var hash2 = (id % root) + 127
